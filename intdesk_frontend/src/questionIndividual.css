@@ -1,0 +1,20 @@
+#qih {
+  width: 70%;
+  margin: auto;
+  background-color: rgb(167, 211, 224);
+  padding: 7px 7px 7px 40px;
+  border-radius: 10px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+/* #qih h1 {
+  color: rgb(25, 0, 134);
+} */
+
+#qi {
+  width: 70%;
+  margin: auto;
+  background-color: rgb(208, 235, 243);
+  padding: 40px;
+  border-radius: 5px;
+}
