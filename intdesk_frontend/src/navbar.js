@@ -1,7 +1,7 @@
 import { Button, Drawer } from "antd";
 import "antd/dist/antd.min.css";
 import { Component } from "react";
-import "./app.css";
+import "./home.css";
 import LeftMenu from "./left";
 import RightMenu from "./right";
 

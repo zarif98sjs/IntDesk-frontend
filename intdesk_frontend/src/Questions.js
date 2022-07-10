@@ -88,30 +88,31 @@
 // export default Questions;
 
 import { Space, Table } from "antd";
+import Home from "./Home";
 // questions.css import
 import "./questions.css";
 
 const dataSource = [
-    { title: "How to reverse a Linked List ?", name: 'Wasif', upvotes: 21, views: 21 },
-    { title: "Tips from the author of Blind 75", name: 'Ali', upvotes: 19, views: 21 },
-    { title: "Does Data Structures matter ?", name: 'Saad', upvotes: 16, views: 21 },
-    { title: "What is Agile software development ?", name: 'Asad', upvotes: 25, views: 21 },
-    { title: "How to reverse a Linked List ?", name: 'Wasif', upvotes: 21, views: 21 },
-    { title: "Tips from the author of Blind 75", name: 'Ali', upvotes: 19, views: 21 },
-    { title: "Does Data Structures matter ?", name: 'Saad', upvotes: 16, views: 21 },
-    { title: "What is Agile software development ?", name: 'Asad', upvotes: 25, views: 21 },
-    { title: "How to reverse a Linked List ?", name: 'Wasif', upvotes: 21, views: 21 },
-    { title: "Tips from the author of Blind 75", name: 'Ali', upvotes: 19, views: 21 },
-    { title: "Does Data Structures matter ?", name: 'Saad', upvotes: 16, views: 21 },
-    { title: "What is Agile software development ?", name: 'Asad', upvotes: 25, views: 21 },
-    { title: "How to reverse a Linked List ?", name: 'Wasif', upvotes: 21, views: 21 },
-    { title: "Tips from the author of Blind 75", name: 'Ali', upvotes: 19, views: 21 },
-    { title: "Does Data Structures matter ?", name: 'Saad', upvotes: 16, views: 21 },
-    { title: "What is Agile software development ?", name: 'Asad', upvotes: 25, views: 21 },
-    { title: "How to reverse a Linked List ?", name: 'Wasif', upvotes: 21, views: 21 },
-    { title: "Tips from the author of Blind 75", name: 'Ali', upvotes: 19, views: 21 },
-    { title: "Does Data Structures matter ?", name: 'Saad', upvotes: 16, views: 21 },
-    { title: "What is Agile software development ?", name: 'Asad', upvotes: 25, views: 21 },
+    { id: 1, title: "How to reverse a Linked List ?", name: 'Wasif', upvotes: 21, views: 21 },
+    { id: 1, title: "Tips from the author of Blind 75", name: 'Ali', upvotes: 19, views: 21 },
+    { id: 1, title: "Does Data Structures matter ?", name: 'Saad', upvotes: 16, views: 21 },
+    { id: 1, title: "What is Agile software development ?", name: 'Asad', upvotes: 25, views: 21 },
+    { id: 1, title: "How to reverse a Linked List ?", name: 'Wasif', upvotes: 21, views: 21 },
+    { id: 1, title: "Tips from the author of Blind 75", name: 'Ali', upvotes: 19, views: 21 },
+    { id: 1, title: "Does Data Structures matter ?", name: 'Saad', upvotes: 16, views: 21 },
+    { id: 1, title: "What is Agile software development ?", name: 'Asad', upvotes: 25, views: 21 },
+    { id: 1, title: "How to reverse a Linked List ?", name: 'Wasif', upvotes: 21, views: 21 },
+    { id: 1, title: "Tips from the author of Blind 75", name: 'Ali', upvotes: 19, views: 21 },
+    { id: 1, title: "Does Data Structures matter ?", name: 'Saad', upvotes: 16, views: 21 },
+    { id: 1, title: "What is Agile software development ?", name: 'Asad', upvotes: 25, views: 21 },
+    { id: 1, title: "How to reverse a Linked List ?", name: 'Wasif', upvotes: 21, views: 21 },
+    { id: 1, title: "Tips from the author of Blind 75", name: 'Ali', upvotes: 19, views: 21 },
+    { id: 1, title: "Does Data Structures matter ?", name: 'Saad', upvotes: 16, views: 21 },
+    { id: 1, title: "What is Agile software development ?", name: 'Asad', upvotes: 25, views: 21 },
+    { id: 1, title: "How to reverse a Linked List ?", name: 'Wasif', upvotes: 21, views: 21 },
+    { id: 1, title: "Tips from the author of Blind 75", name: 'Ali', upvotes: 19, views: 21 },
+    { id: 1, title: "Does Data Structures matter ?", name: 'Saad', upvotes: 16, views: 21 },
+    { id: 1, title: "What is Agile software development ?", name: 'Asad', upvotes: 25, views: 21 },
   ];
   
   const columns = [
@@ -121,12 +122,13 @@ const dataSource = [
       key: 'title',
       render: (_, record) => (
         <Space size="middle">
-          <a href="www.google.com">{record.title}</a>
+          <a href="{record.id}">{record.title}</a>
+          {/* <Link to="/App">{record.title}</Link> */}
         </Space>
       ),
     },
     {
-      title: 'Name',
+      title: 'Posted By',
       dataIndex: 'name',
       key: 'name',
     },
@@ -145,6 +147,7 @@ const dataSource = [
   function Questions() {
     return (
             <div className="">
+                <Home />
                 <h1 id='title'>    All Questions </h1>
                <Table id='questions' dataSource={dataSource} columns={columns} />;
             </div>
