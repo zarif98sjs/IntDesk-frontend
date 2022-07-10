@@ -1,0 +1,13 @@
+#title {
+  text-align: center;
+}
+
+#questions {
+  /* text-align: center;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    border: 3px solid #ddd; */
+  /* make center */
+  margin: auto;
+  width: 80%;
+}
