@@ -4,6 +4,7 @@
 import { Typography } from 'antd';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import Comments from './Comments';
 import Home from "./Home";
 import "./questionIndividual.css";
 
@@ -52,6 +53,10 @@ function(x) {
                     <ReactMarkdown remarkPlugins={[remarkGfm]} >
                       {markdown}
                     </ReactMarkdown>
+                  </div>
+
+                  <div>
+                    <Comments />
                   </div>
               
             </div>
