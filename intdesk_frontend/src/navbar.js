@@ -4,7 +4,6 @@ import { Component } from "react";
 import LeftMenu from "./left";
 import "./navbar.css";
 import RightMenu from "./right";
-import "./styles.css";
 
 class Navbar extends Component {
 
