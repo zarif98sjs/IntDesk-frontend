@@ -122,7 +122,7 @@ const dataSource = [
       key: 'title',
       render: (_, record) => (
         <Space size="middle">
-          <a href="{record.id}">{record.title}</a>
+          <a href="/q">{record.title}</a>
           {/* <Link to="/App">{record.title}</Link> */}
         </Space>
       ),
