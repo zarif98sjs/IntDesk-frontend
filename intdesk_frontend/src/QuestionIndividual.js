@@ -5,7 +5,7 @@ import { Typography } from 'antd';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import Comments from './Comments';
-import Home from "./Home";
+import Navbar from './navbar';
 import "./questionIndividual.css";
 
 const { Title, Paragraph, Text, Link } = Typography;
@@ -43,7 +43,7 @@ function(x) {
   function QuestionIndividual() {
     return (
             <div className="">
-                <Home />
+                <Navbar />
                 {/* <h1 id='title'>   Single Question </h1> */}
                   <div id='qih'>
                     <h1>Tips from the author of Blind 75</h1>

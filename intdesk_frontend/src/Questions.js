@@ -88,7 +88,7 @@
 // export default Questions;
 
 import { Space, Table } from "antd";
-import Home from "./Home";
+import Navbar from "./navbar";
 // questions.css import
 import "./questions.css";
 
@@ -147,7 +147,7 @@ const dataSource = [
   function Questions() {
     return (
             <div className="">
-                <Home />
+                <Navbar />
                 <h1 id='title'>    All Questions </h1>
                <Table id='questions' dataSource={dataSource} columns={columns} />;
             </div>

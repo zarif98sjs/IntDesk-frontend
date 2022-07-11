@@ -1,9 +1,10 @@
 import { Button, Drawer } from "antd";
 import "antd/dist/antd.min.css";
 import { Component } from "react";
-import "./home.css";
 import LeftMenu from "./left";
+import "./navbar.css";
 import RightMenu from "./right";
+import "./styles.css";
 
 class Navbar extends Component {
 
@@ -26,32 +27,35 @@ class Navbar extends Component {
   
   render() {
     return (
-      <nav className="menuBar">
-        <div className="logo">
-          <a href="/">IntDesk</a>
+        <div className="Navbar">
+            <nav className="menuBar">
+                <div className="logo">
+                <a href="/">IntDesk</a>
+                </div>
+                <div className="menuCon">
+                <div className="leftMenu">
+                    <LeftMenu />
+                </div>
+                <div className="rightMenu">
+                    <RightMenu />
+                </div>
+                <Button className="barsMenu" type="primary" onClick={this.showDrawer}>
+                    <span className="barsBtn" />
+                </Button>
+                <Drawer
+                    title="Menu"
+                    placement="right"
+                    closable={false}
+                    onClose={this.onClose}
+                    visible={this.state.visible}
+                >
+                    <LeftMenu />
+                    <RightMenu />
+                </Drawer>
+                </div>
+            </nav>
+            <br />
         </div>
-        <div className="menuCon">
-          <div className="leftMenu">
-            <LeftMenu />
-          </div>
-          <div className="rightMenu">
-            <RightMenu />
-          </div>
-          <Button className="barsMenu" type="primary" onClick={this.showDrawer}>
-            <span className="barsBtn" />
-          </Button>
-          <Drawer
-            title="Menu"
-            placement="right"
-            closable={false}
-            onClose={this.onClose}
-            visible={this.state.visible}
-          >
-            <LeftMenu />
-            <RightMenu />
-          </Drawer>
-        </div>
-      </nav>
     );
   }
 }
