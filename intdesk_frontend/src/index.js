@@ -28,6 +28,8 @@ import Home from "./Home";
 import QuestionIndividual from "./QuestionIndividual";
 import Questions from "./Questions";
 import reportWebVitals from './reportWebVitals';
+import Assessments from "./Assessments";
+import Login from "./login";
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
@@ -36,6 +38,8 @@ ReactDOM.render(
       <Route exact path="/" element={<Home/>}/>
       <Route exact path="/questions" element={<Questions/>}/>
       <Route exact path="/q" element={<QuestionIndividual/>}/>
+      <Route exact path="/assessments" element={<Assessments/>}/>
+      <Route exact path="/login" element={<Login/>}/>
     </Routes>
 </Router>,
   // <Router>

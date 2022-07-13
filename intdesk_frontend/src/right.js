@@ -6,7 +6,7 @@ class RightMenu extends Component {
     return (
       <Menu mode="horizontal">
         <Menu.Item key="mail">
-          <a href="www.marca.com">Log In</a>
+          <a href="/login">Log In</a>
         </Menu.Item>
         <Menu.Item key="app">
           <a href="www.marca.com">Sign Up</a>
