@@ -88,6 +88,8 @@
 // export default Questions;
 
 import { Space, Table } from "antd";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import Navbar from "./navbar";
 // questions.css import
 import "./questions.css";
@@ -145,11 +147,34 @@ const dataSource = [
   ];
 
   function Questions() {
+
+    const [discussions, setDiscussions] = useState([]);
+
+    useEffect(
+      () => {
+        axios.get("http://localhost:8000/discussion/")
+        .then(res => {
+          console.log(res);
+          setDiscussions(res.data.results);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+      }
+    )
+    
     return (
             <div className="">
                 <Navbar />
+
+                {/* <ul>
+                  {
+                    discussions.map(discussion => <li>{discussion.title}</li>)
+                  }
+                </ul> */}
+
                 <h1 id='title'>    All Questions </h1>
-               <Table id='questions' dataSource={dataSource} columns={columns} />;
+               <Table id='questions' dataSource={discussions} columns={columns} />;
             </div>
           );
   }
