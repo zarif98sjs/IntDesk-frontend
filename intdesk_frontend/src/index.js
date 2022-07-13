@@ -28,14 +28,24 @@ import Home from "./Home";
 import QuestionIndividual from "./QuestionIndividual";
 import Questions from "./Questions";
 import reportWebVitals from './reportWebVitals';
+import ErrorPage from "./ErrorPage";
+import Navbar from "./navbar";
+
+import Problems from "./Problems";
+import ProblemIndividual from "./ProblemIndividual"
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
   <Router>
+    <Navbar />
     <Routes>
       <Route exact path="/" element={<Home/>}/>
       <Route exact path="/questions" element={<Questions/>}/>
       <Route exact path="/q" element={<QuestionIndividual/>}/>
+
+      <Route exact path="/problems" element={<Problems/>}/>
+      <Route exact path="/problem/:id" element={<ProblemIndividual />}/>
+      <Route path="*" element={<ErrorPage />}/>
     </Routes>
 </Router>,
   // <Router>
