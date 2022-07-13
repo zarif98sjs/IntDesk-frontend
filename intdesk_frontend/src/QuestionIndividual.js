@@ -43,7 +43,6 @@ function(x) {
   function QuestionIndividual() {
     return (
             <div className="">
-                <Navbar />
                 {/* <h1 id='title'>   Single Question </h1> */}
                   <div id='qih'>
                     <h1>Tips from the author of Blind 75</h1>

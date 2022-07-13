@@ -1,0 +1,163 @@
+
+.ide{
+    max-height: 100vh;
+    width: 100%;
+    overflow-y: hidden;
+    background-color: white;
+    padding-left: 50px;
+}
+
+.ide--menu{
+    display: flex;
+    /* align-items: center; */
+    padding-left: 20px;
+    /* padding-bottom: 20px; */
+    height: 80px;
+    text-align: center;
+    color: #5172b0;
+    /* background-color: white; */
+    gap: 20px;
+    font-size: 16px;
+}
+.ide--menu > Select{
+    width: 200px;
+    font-size: 16px;
+    color: grey;
+}
+
+.ide--body{
+    /* display: flex; */
+    /* height: calc(100vh - 50px); */
+    height: 100%;
+    padding-left: 20px;
+    
+}
+
+.top-container{
+    position: relative;
+    border: 1px solid grey;
+    border-bottom: 0px;
+
+    /* flex: 60%; */
+    /* height: calc(100vh - 50px); */
+}
+.bottom-container{
+    /* flex: 40%; */
+    /* height: calc(100vh - 50px); */
+    height: calc(20vh);
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    border-left : 1px solid grey;
+    border-bottom : 1px solid grey;
+    
+    padding: 20px;
+    
+    width: 100%;
+    gap: 20px
+}
+.button-container{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    height: 60px;
+    gap: 20px;
+    padding-left: 20px;
+    margin-left: auto;
+    margin-right: 10px;
+    float: right;
+    
+    background-color: white;
+    
+}
+.input-box{
+    flex: 50%;
+}
+.input-box textarea{
+    flex: 50%;
+    font-size: 16px;
+}
+
+.output-box{
+    flex: 50%;
+    /* background-color: white; */
+    overflow-y: scroll;
+    color: black;
+    position: relative;
+    height: 100px;
+}
+
+.output-box pre{
+    font-size: 15px;
+    white-space: pre-wrap;
+}
+h4{
+    color: #5172b0;
+}
+#code-inp{
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    resize: none;
+    background-color: white;
+    color: black;
+    padding: 5px;
+}
+#code-inp:focus{    
+    outline: none;
+}
+#code-out{
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    resize: none;
+    background-color: white;
+    color: black;
+    padding: 5px;
+}
+#code-out:focus{    
+    outline: none;
+}
+.run-btn{
+    
+    position: relative;
+    bottom: 10px;
+    /* right: 130px; */
+    /* align-self: flex-end; */
+    width: 100px;
+    height: 40px;
+    
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #1f65e6;
+    border: none;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.run-btn:active{
+    color: #1f65e6;
+    background-color: white;
+}
+.submit-btn{
+
+    position: relative;
+    bottom: 10px;
+    /* right: 18px; */
+    width: 100px;
+    height: 40px;
+    
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #1f65e6;
+    border: none;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.submit-btn:active{
+    color: #1f65e6;
+    background-color: white;
+}
+
+
