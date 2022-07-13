@@ -131,8 +131,13 @@ const dataSource = [
     },
     {
       title: 'Posted By',
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'user.username',
+      key: 'user.username',
+      // render: (_, record) => (
+      //   <Space size="middle">
+      //     {record.username}
+      //   </Space>
+      // ),
     },
     {
       title: 'Upvotes',
@@ -150,18 +155,21 @@ const dataSource = [
 
     const [discussions, setDiscussions] = useState([]);
 
-    useEffect(
-      () => {
-        axios.get("http://localhost:8000/discussion/")
+    // Extracting this method made it accessible for context/prop-drilling
+    const fetchDiscussions = async () => {
+      axios.get("http://localhost:8000/discussion/")
         .then(res => {
-          console.log(res);
+          console.log(res.data.results);
           setDiscussions(res.data.results);
         })
         .catch(err => {
           console.log(err);
         })
-      }
-    )
+    };
+
+    useEffect(() => {    
+      fetchDiscussions();
+    }, []);
     
     return (
             <div className="">
