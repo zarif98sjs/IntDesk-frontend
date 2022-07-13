@@ -88,6 +88,8 @@
 // export default Questions;
 
 import { Space, Table } from "antd";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import Navbar from "./navbar";
 // questions.css import
 import "./questions.css";
@@ -113,6 +115,7 @@ const dataSource = [
     { id: 1, title: "Tips from the author of Blind 75", name: 'Ali', upvotes: 19, views: 21 },
     { id: 1, title: "Does Data Structures matter ?", name: 'Saad', upvotes: 16, views: 21 },
     { id: 1, title: "What is Agile software development ?", name: 'Asad', upvotes: 25, views: 21 },
+
 ];
 
 const columns = [
@@ -153,5 +156,77 @@ function Questions() {
           </div>
         );
 }
+
+
+  
+  // const columns = [
+  //   {
+  //     title: 'Title',
+  //     dataIndex: 'title',
+  //     key: 'title',
+  //     render: (_, record) => (
+  //       <Space size="middle">
+  //         <a href="/q">{record.title}</a>
+  //         {/* <Link to="/App">{record.title}</Link> */}
+  //       </Space>
+  //     ),
+  //   },
+  //   {
+  //     title: 'Posted By',
+  //     dataIndex: 'user.username',
+  //     key: 'user.username',
+  //     // render: (_, record) => (
+  //     //   <Space size="middle">
+  //     //     {record.username}
+  //     //   </Space>
+  //     // ),
+  //   },
+  //   {
+  //     title: 'Upvotes',
+  //     dataIndex: 'upvotes',
+  //     key: 'upvotes',
+  //   },
+  //   {
+  //       title: 'Views',
+  //       dataIndex: 'views',
+  //       key: 'views',
+  //     },
+  // ];
+
+  // function Questions() {
+
+  //   const [discussions, setDiscussions] = useState([]);
+
+  //   // Extracting this method made it accessible for context/prop-drilling
+  //   const fetchDiscussions = async () => {
+  //     axios.get("http://localhost:8000/discussion/")
+  //       .then(res => {
+  //         console.log(res.data.results);
+  //         setDiscussions(res.data.results);
+  //       })
+  //       .catch(err => {
+  //         console.log(err);
+  //       })
+  //   };
+
+  //   useEffect(() => {    
+  //     fetchDiscussions();
+  //   }, []);
+    
+  //   return (
+  //           <div className="">
+  //               <Navbar />
+
+  //               {/* <ul>
+  //                 {
+  //                   discussions.map(discussion => <li>{discussion.title}</li>)
+  //                 }
+  //               </ul> */}
+
+  //               <h1 id='title'>    All Questions </h1>
+  //              <Table id='questions' dataSource={discussions} columns={columns} />;
+  //           </div>
+  //         );
+  // }
   
 export default Questions;
