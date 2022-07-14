@@ -3,17 +3,6 @@ import 'react-comments-section/dist/index.css'
 
 function Comments({comments}){
   
-  const data =[
-    {
-      userId: '02b',
-      comId: '017',
-      fullName: 'Mashiat',
-      userProfile: 'https://www.linkedin.com/in/',
-      text: 'I think you have a point🤔',
-      avatarUrl: 'https://ui-avatars.com/api/name=Lily&background=random',
-      replies: []
-    }
-  ]
   return <CommentSection
         currentUser={{
           currentUserId: '01a',
@@ -36,6 +25,7 @@ function Comments({comments}){
         }}
         
         commentData={comments}
+        
         onSubmitAction={(data: {|
           userId: string,
           comId: string,
@@ -45,12 +35,25 @@ function Comments({comments}){
           text: string,
           replies: any,
           commentId: string
-        |}) => {
-          console.log('check submit, ', data)
-          
+          |}) => {
+            console.log('parent comment, ', data)
+          }
         }
-      
+
+        onReplyAction={(data: {|
+          userId: string,
+          comId: string,
+          avatarUrl: string,
+          userProfile?: string,
+          fullName: string,
+          text: string,
+          replies: any,
+          commentId: string
+          |}) => {
+            console.log('reply comment, ', data)
+          }
         }
+
         currentData={(data: any) => {
           console.log('curent data', data)
           console.log('comments', comments)

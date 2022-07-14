@@ -37,19 +37,17 @@ function QuestionIndividual() {
       axios.get("http://localhost:8000/discussion/".concat(id).concat("/comments/"))
         .then(res => {
           const ara = res.data;
-          console.log(window.$log = ara);
+          // console.log(window.$log = ara);
 
-          // empty array
-          const tempComments = [];
           const hashmap = new Map();
 
           for (let i = 0; i < ara.length; i+=1) {
-            // if not null
-            if (ara[i].user !== null && ara[i].parent == null) {
+
+            if (ara[i].hash != null && ara[i].user !==null && ara[i].parent == null) {
 
               const obj = {
                   'userId' : ara[i].user.id,
-                  'comId' : ara[i].id,
+                  'comId' : ara[i].hash,
                   'fullName' : ara[i].user.username,
                   'text' : ara[i].comment,
                   'userProfile' : 'https://www.linkedin.com/in/',
@@ -57,22 +55,17 @@ function QuestionIndividual() {
                   'replies' : []
               }
 
-              tempComments.push(obj);
               hashmap.set(obj.comId, obj);
-              
             }
           }
 
-          console.log('hashmap before', hashmap);
-          console.log('hashmap val', hashmap.get(6));
-
           for (let i = 0; i < ara.length; i+=1) {
 
-            if (ara[i].user !== null && ara[i].parent != null){
+            if (ara[i].hash != null && ara[i].user != null && ara[i].parent != null){
               // push into replies of hashmap
               const obj = {
                 'userId' : ara[i].user.id,
-                'comId' : ara[i].id,
+                'comId' : ara[i].hash,
                 'fullName' : ara[i].user.username,
                 'text' : ara[i].comment,
                 'userProfile' : 'https://www.linkedin.com/in/',
@@ -80,8 +73,6 @@ function QuestionIndividual() {
                 'replies' : []
               }
               
-              // console.log('temmp parent', ara[i].parent);
-              // console.log('temmp parent', hashmap.get(ara[i].parent));
               hashmap.get(ara[i].parent).replies.push(obj);
             }
           }
