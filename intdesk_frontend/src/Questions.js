@@ -118,6 +118,47 @@ const dataSource = [
 
 ];
 
+// const columns = [
+//   {
+//     title: 'Title',
+//     dataIndex: 'title',
+//     key: 'title',
+//     render: (_, record) => (
+//       <Space size="middle">
+//         <a href="/q">{record.title}</a>
+//         {/* <Link to="/App">{record.title}</Link> */}
+//       </Space>
+//     ),
+//   },
+//   {
+//     title: 'Posted By',
+//     dataIndex: 'name',
+//     key: 'name',
+//   },
+//   {
+//     title: 'Upvotes',
+//     dataIndex: 'upvotes',
+//     key: 'upvotes',
+//   },
+//   {
+//       title: 'Views',
+//       dataIndex: 'views',
+//       key: 'views',
+//   },
+// ];
+
+// function Questions() {
+//   return (
+//           <div className="">
+              
+//               <h1 id='title'>    All Questions </h1>
+//               <Table id='questions' dataSource={dataSource} columns={columns} />;
+//           </div>
+//         );
+// }
+
+
+  
 const columns = [
   {
     title: 'Title',
@@ -132,8 +173,13 @@ const columns = [
   },
   {
     title: 'Posted By',
-    dataIndex: 'name',
-    key: 'name',
+    dataIndex: 'user.username',
+    key: 'user.username',
+    // render: (_, record) => (
+    //   <Space size="middle">
+    //     {record.username}
+    //   </Space>
+    // ),
   },
   {
     title: 'Upvotes',
@@ -144,89 +190,42 @@ const columns = [
       title: 'Views',
       dataIndex: 'views',
       key: 'views',
-  },
+    },
 ];
 
 function Questions() {
+
+  const [discussions, setDiscussions] = useState([]);
+
+  // Extracting this method made it accessible for context/prop-drilling
+  const fetchDiscussions = async () => {
+    axios.get("http://localhost:8000/discussion/")
+      .then(res => {
+        console.log(res.data.results);
+        setDiscussions(res.data.results);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  };
+
+  useEffect(() => {    
+    fetchDiscussions();
+  }, []);
+  
   return (
           <div className="">
-              
+
+              {/* <ul>
+                {
+                  discussions.map(discussion => <li>{discussion.title}</li>)
+                }
+              </ul> */}
+
               <h1 id='title'>    All Questions </h1>
-              <Table id='questions' dataSource={dataSource} columns={columns} />;
+              <Table id='questions' dataSource={discussions} columns={columns} />;
           </div>
         );
 }
-
-
-  
-  // const columns = [
-  //   {
-  //     title: 'Title',
-  //     dataIndex: 'title',
-  //     key: 'title',
-  //     render: (_, record) => (
-  //       <Space size="middle">
-  //         <a href="/q">{record.title}</a>
-  //         {/* <Link to="/App">{record.title}</Link> */}
-  //       </Space>
-  //     ),
-  //   },
-  //   {
-  //     title: 'Posted By',
-  //     dataIndex: 'user.username',
-  //     key: 'user.username',
-  //     // render: (_, record) => (
-  //     //   <Space size="middle">
-  //     //     {record.username}
-  //     //   </Space>
-  //     // ),
-  //   },
-  //   {
-  //     title: 'Upvotes',
-  //     dataIndex: 'upvotes',
-  //     key: 'upvotes',
-  //   },
-  //   {
-  //       title: 'Views',
-  //       dataIndex: 'views',
-  //       key: 'views',
-  //     },
-  // ];
-
-  // function Questions() {
-
-  //   const [discussions, setDiscussions] = useState([]);
-
-  //   // Extracting this method made it accessible for context/prop-drilling
-  //   const fetchDiscussions = async () => {
-  //     axios.get("http://localhost:8000/discussion/")
-  //       .then(res => {
-  //         console.log(res.data.results);
-  //         setDiscussions(res.data.results);
-  //       })
-  //       .catch(err => {
-  //         console.log(err);
-  //       })
-  //   };
-
-  //   useEffect(() => {    
-  //     fetchDiscussions();
-  //   }, []);
-    
-  //   return (
-  //           <div className="">
-  //               <Navbar />
-
-  //               {/* <ul>
-  //                 {
-  //                   discussions.map(discussion => <li>{discussion.title}</li>)
-  //                 }
-  //               </ul> */}
-
-  //               <h1 id='title'>    All Questions </h1>
-  //              <Table id='questions' dataSource={discussions} columns={columns} />;
-  //           </div>
-  //         );
-  // }
   
 export default Questions;
