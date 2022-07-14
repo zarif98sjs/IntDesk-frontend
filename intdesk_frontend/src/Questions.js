@@ -124,20 +124,21 @@ const dataSource = [
       key: 'title',
       render: (_, record) => (
         <Space size="middle">
-          <a href="/q">{record.title}</a>
+          {/* <a href="/q">{record.title}</a> */}
+          <a href={`question/${record.id}`} >{record.title}</a>
           {/* <Link to="/App">{record.title}</Link> */}
         </Space>
       ),
     },
     {
       title: 'Posted By',
-      dataIndex: 'user.username',
-      key: 'user.username',
-      // render: (_, record) => (
-      //   <Space size="middle">
-      //     {record.username}
-      //   </Space>
-      // ),
+      dataIndex: 'name',
+      key: 'name',
+      render: (_, record) => (
+        <Space size="middle">
+          {record.name}
+        </Space>
+      ),
     },
     {
       title: 'Upvotes',
@@ -159,8 +160,21 @@ const dataSource = [
     const fetchDiscussions = async () => {
       axios.get("http://localhost:8000/discussion/")
         .then(res => {
-          console.log(res.data.results);
-          setDiscussions(res.data.results);
+          // console.log(window.$log = res.data.results);
+
+          const ara = res.data.results;
+          console.log(window.$log = ara);
+          // console.log(ara[1].user.username);
+          // for loop to get the user name
+          for (let i = 0; i < ara.length; i+=1) {
+            // if not null
+            if (ara[i].user !== null) {
+              console.log(ara[i].user);
+              ara[i].name = ara[i].user.username;
+              console.log(ara[i].name);
+            }
+          }
+          setDiscussions(ara);
         })
         .catch(err => {
           console.log(err);

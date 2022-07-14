@@ -1,12 +1,13 @@
-
-
-// questions.css import
 import { Typography } from 'antd';
+import axios from "axios";
+import { useEffect, useState } from "react";
 import ReactMarkdown from 'react-markdown';
+import { useParams } from "react-router-dom";
 import remarkGfm from 'remark-gfm';
 import Comments from './Comments';
 import Navbar from './navbar';
 import "./questionIndividual.css";
+import "./questions.css";
 
 const { Title, Paragraph, Text, Link } = Typography;
 
@@ -39,19 +40,43 @@ function(x) {
 }
 ~~~
 `
+function QuestionIndividual() {
 
-  function QuestionIndividual() {
+    const params = useParams()
+    const id = params.id
+
+    const [discussion, setDiscussion] = useState([]);
+
+    // Extracting this method made it accessible for context/prop-drilling
+    const fetchDiscussion = async () => {
+      axios.get("http://localhost:8000/discussion/".concat(id))
+        .then(res => {
+          // console.log(window.$log = res.data.results);
+          const data = res.data;
+          console.log(window.$log = data);
+          setDiscussion(data);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    };
+
+    useEffect(() => {    
+      fetchDiscussion();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    
     return (
             <div className="">
                 <Navbar />
                 {/* <h1 id='title'>   Single Question </h1> */}
                   <div id='qih'>
-                    <h1>Tips from the author of Blind 75</h1>
+                    <h1>{discussion.title}</h1>
                   </div>
                   <br/>
                   <div id='qi'>
                     <ReactMarkdown remarkPlugins={[remarkGfm]} >
-                      {markdown}
+                    {discussion.description}
                     </ReactMarkdown>
                   </div>
 
