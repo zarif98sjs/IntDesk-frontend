@@ -41,10 +41,11 @@ function QuestionIndividual() {
 
           // empty array
           const tempComments = [];
+          const hashmap = new Map();
 
           for (let i = 0; i < ara.length; i+=1) {
             // if not null
-            if (ara[i].user !== null) {
+            if (ara[i].user !== null && ara[i].parent == null) {
 
               const obj = {
                   'userId' : ara[i].user.id,
@@ -57,10 +58,36 @@ function QuestionIndividual() {
               }
 
               tempComments.push(obj);
-              console.log('temmp obj', obj);
+              hashmap.set(obj.comId, obj);
+              
             }
           }
-          setComments(tempComments);
+
+          console.log('hashmap before', hashmap);
+          console.log('hashmap val', hashmap.get(6));
+
+          for (let i = 0; i < ara.length; i+=1) {
+
+            if (ara[i].user !== null && ara[i].parent != null){
+              // push into replies of hashmap
+              const obj = {
+                'userId' : ara[i].user.id,
+                'comId' : ara[i].id,
+                'fullName' : ara[i].user.username,
+                'text' : ara[i].comment,
+                'userProfile' : 'https://www.linkedin.com/in/',
+                'avatarUrl' : 'https://ui-avatars.com/api/name=Lily&background=random',
+                'replies' : []
+              }
+              
+              // console.log('temmp parent', ara[i].parent);
+              // console.log('temmp parent', hashmap.get(ara[i].parent));
+              hashmap.get(ara[i].parent).replies.push(obj);
+            }
+          }
+
+          let values = [...hashmap.values()]
+          setComments(values);
         })
         .catch(err => {
           console.log(err);
