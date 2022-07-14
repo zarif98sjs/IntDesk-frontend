@@ -23,13 +23,16 @@
 
 
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Home from "./Home";
 import QuestionIndividual from "./QuestionIndividual";
 import Questions from "./Questions";
 import reportWebVitals from './reportWebVitals';
 import ErrorPage from "./ErrorPage";
 import Navbar from "./navbar";
+import Login from "./login";
+import Register from "./register";
+import Profile from "./profile";
 
 import Problems from "./Problems";
 import ProblemIndividual from "./ProblemIndividual"
@@ -42,6 +45,10 @@ ReactDOM.render(
       <Route exact path="/" element={<Home/>}/>
       <Route exact path="/questions" element={<Questions/>}/>
       <Route exact path="/q" element={<QuestionIndividual/>}/>
+
+      <Route exact path="/login" element={<Login/>}/>
+      <Route exact path="/signup" element={<Register/>}/>
+      <Route exact path="/profile" element={<Profile/>}/>
 
       <Route exact path="/problems" element={<Problems/>}/>
       <Route exact path="/problem/:id" element={<ProblemIndividual />}/>
