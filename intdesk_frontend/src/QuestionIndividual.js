@@ -11,41 +11,13 @@ import "./questions.css";
 
 const { Title, Paragraph, Text, Link } = Typography;
 
-const markdown = `
-
-I did 500+ LeetCode questions, created Blind 75, and interviewed hundreds of FAANG candidates. Frankly speaking, I don't think LeetCode is the best way to interview candidates, but the rules aren't set by us and the best we can do is to be better at this stupid game together.
-So here are some tips for you on how to get better at LeetCode:
-
-- Revise your CS fundamentals before your start LeetCoding. You don't have to spend that much time studying, but you need to know the advantages of each data structure and when to use which for the question.
-- The average question difficulty you'll get is Medium. Start with Easy questions, do more of them, move on to Medium questions. You probably won't be asked Hard questions in real interviews but you should do some famous Hard questions like Word ladder, serialize/deserialize Binary tree and trapping rain water. You should not be practicing only Easy questions.
-
-
-A paragraph with *emphasis* and **strong importance**.
-
-> A block quote with ~strikethrough~ and a URL: https://reactjs.org.
-
-* Lists
-* [ ] todo
-* [x] done
-
-A table:
-
-| a | b |
-| - | - |
-
-Code:
-~~~js
-function(x) {
-  return x;
-}
-~~~
-`
 function QuestionIndividual() {
 
     const params = useParams()
     const id = params.id
 
     const [discussion, setDiscussion] = useState([]);
+    const [comments, setComments] = useState([]);
 
     // Extracting this method made it accessible for context/prop-drilling
     const fetchDiscussion = async () => {
@@ -53,8 +25,42 @@ function QuestionIndividual() {
         .then(res => {
           // console.log(window.$log = res.data.results);
           const data = res.data;
-          console.log(window.$log = data);
+          // console.log(window.$log = data);
           setDiscussion(data);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    };
+
+    const fetchComments = async () => {
+      axios.get("http://localhost:8000/discussion/".concat(id).concat("/comments/"))
+        .then(res => {
+          const ara = res.data;
+          console.log(window.$log = ara);
+
+          // empty array
+          const tempComments = [];
+
+          for (let i = 0; i < ara.length; i+=1) {
+            // if not null
+            if (ara[i].user !== null) {
+
+              const obj = {
+                  'userId' : ara[i].user.id,
+                  'comId' : ara[i].id,
+                  'fullName' : ara[i].user.username,
+                  'text' : ara[i].comment,
+                  'userProfile' : 'https://www.linkedin.com/in/',
+                  'avatarUrl' : 'https://ui-avatars.com/api/name=Lily&background=random',
+                  'replies' : []
+              }
+
+              tempComments.push(obj);
+              console.log('temmp obj', obj);
+            }
+          }
+          setComments(tempComments);
         })
         .catch(err => {
           console.log(err);
@@ -63,6 +69,7 @@ function QuestionIndividual() {
 
     useEffect(() => {    
       fetchDiscussion();
+      fetchComments();
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     
@@ -81,7 +88,7 @@ function QuestionIndividual() {
                   </div>
 
                   <div>
-                    <Comments />
+                    <Comments comments={comments}/>
                   </div>
               
             </div>
