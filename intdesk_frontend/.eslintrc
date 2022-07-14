@@ -17,6 +17,7 @@
     "jest": true
   },
   "rules": {
+    "camelcase": 0,
     "prefer-destructuring": 0,
     "no-unused-vars": 0,
     "prefer-const": 0,

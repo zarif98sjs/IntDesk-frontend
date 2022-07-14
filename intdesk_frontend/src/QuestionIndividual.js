@@ -127,7 +127,7 @@ function QuestionIndividual() {
                   </div>
 
                   <div>
-                    <Comments comments={comments} user={user}/>
+                    <Comments comments={comments} discussionId={id}/>
                   </div>
               
             </div>

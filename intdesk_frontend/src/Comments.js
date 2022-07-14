@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { CommentSection } from 'react-comments-section';
 import 'react-comments-section/dist/index.css';
 
-function Comments({comments}){
+function Comments({comments,discussionId}){
 
   const [user, setUser] = useState([]);
   
@@ -15,14 +15,7 @@ function Comments({comments}){
       })
       .then(res => {
         console.log(window.$log = res.data);
-        const objU = {
-          'currentUserId' : res.data.id,
-          'currentUserImg': 'https://ui-avatars.com/api/name=Riya&background=random',
-          'currentUserProfile' : 'https://www.linkedin.com/in/',
-          'currentUserFullName' : res.data.username,
-        }
-        setUser(objU);
-        localStorage.setItem("user", JSON.stringify(objU));
+        localStorage.setItem("user", JSON.stringify(res.data));
       })
       .catch(err => {
         console.log(err);
@@ -40,12 +33,12 @@ function Comments({comments}){
     
       <CommentSection
         currentUser={{
-          currentUserId: tempUser.currentUserId,
+          currentUserId: tempUser.id,
           currentUserImg:
             'https://ui-avatars.com/api/name=Riya&background=random',
           currentUserProfile:
             'https://www.linkedin.com/in/',
-          currentUserFullName: tempUser.currentUserFullName
+          currentUserFullName: tempUser.username
         }}
         // currentUser={}
         logIn={{
@@ -75,7 +68,26 @@ function Comments({comments}){
           commentId: string
           |}) => {
             console.log('parent comment, ', data)
-            // forceUpdate();
+            
+            // POST 
+            let postData = {
+              "comment": data.text,
+              "hash": data.comId
+            }
+  
+            console.log('postData here', postData)
+            axios.post('http://localhost:8000/discussion/'.concat(discussionId).concat('/comment/'), postData ,{headers: {
+              'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+              'Content-Type' : 'application/json'
+            }})
+            .then(res => {
+              console.log(window.$log = res.data);
+              localStorage.setItem("user", JSON.stringify(res.data));
+            })
+            .catch(err => {
+              console.log(err);
+            })
+            
           }
         }
 
@@ -95,7 +107,9 @@ function Comments({comments}){
 
         currentData={(data: any) => {
           console.log('curent data', data)
-          // console.log('comments here', comments)
+          console.log('discussion_id here', discussionId)
+
+
         }}
       />
     </div>
