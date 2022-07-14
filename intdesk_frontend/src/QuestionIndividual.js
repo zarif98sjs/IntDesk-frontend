@@ -18,34 +18,53 @@ function QuestionIndividual() {
 
     const [discussion, setDiscussion] = useState([]);
     const [comments, setComments] = useState([]);
+    const [user, setUser] = useState([]);
 
-    // Extracting this method made it accessible for context/prop-drilling
-    const fetchDiscussion = async () => {
-      axios.get("http://localhost:8000/discussion/".concat(id))
-        .then(res => {
-          // console.log(window.$log = res.data.results);
-          const data = res.data;
-          // console.log(window.$log = data);
-          setDiscussion(data);
-        })
-        .catch(err => {
-          console.log(err);
-        })
-    };
+    useEffect(() => {   
+      const fetchDiscussion = async () => {
+        axios.get("http://localhost:8000/discussion/".concat(id))
+          .then(res => {
+            // console.log(window.$log = res.data.results);
+            const data = res.data;
+            // console.log(window.$log = data);
+            setDiscussion(data);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+      }; 
 
-    const fetchComments = async () => {
-      axios.get("http://localhost:8000/discussion/".concat(id).concat("/comments/"))
-        .then(res => {
-          const ara = res.data;
-          // console.log(window.$log = ara);
-
-          const hashmap = new Map();
-
-          for (let i = 0; i < ara.length; i+=1) {
-
-            if (ara[i].hash != null && ara[i].user !==null && ara[i].parent == null) {
-
-              const obj = {
+      const fetchComments = async () => {
+        axios.get("http://localhost:8000/discussion/".concat(id).concat("/comments/"))
+          .then(res => {
+            const ara = res.data;
+            // console.log(window.$log = ara);
+  
+            const hashmap = new Map();
+  
+            for (let i = 0; i < ara.length; i+=1) {
+  
+              if (ara[i].hash != null && ara[i].user !==null && ara[i].parent == null) {
+  
+                const obj = {
+                    'userId' : ara[i].user.id,
+                    'comId' : ara[i].hash,
+                    'fullName' : ara[i].user.username,
+                    'text' : ara[i].comment,
+                    'userProfile' : 'https://www.linkedin.com/in/',
+                    'avatarUrl' : 'https://ui-avatars.com/api/name=Lily&background=random',
+                    'replies' : []
+                }
+  
+                hashmap.set(obj.comId, obj);
+              }
+            }
+  
+            for (let i = 0; i < ara.length; i+=1) {
+  
+              if (ara[i].hash != null && ara[i].user != null && ara[i].parent != null){
+                // push into replies of hashmap
+                const obj = {
                   'userId' : ara[i].user.id,
                   'comId' : ara[i].hash,
                   'fullName' : ara[i].user.username,
@@ -53,43 +72,45 @@ function QuestionIndividual() {
                   'userProfile' : 'https://www.linkedin.com/in/',
                   'avatarUrl' : 'https://ui-avatars.com/api/name=Lily&background=random',
                   'replies' : []
+                }
+                
+                hashmap.get(ara[i].parent).replies.push(obj);
               }
-
-              hashmap.set(obj.comId, obj);
             }
-          }
+  
+            let values = [...hashmap.values()]
+            setComments(values);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+      };
 
-          for (let i = 0; i < ara.length; i+=1) {
-
-            if (ara[i].hash != null && ara[i].user != null && ara[i].parent != null){
-              // push into replies of hashmap
-              const obj = {
-                'userId' : ara[i].user.id,
-                'comId' : ara[i].hash,
-                'fullName' : ara[i].user.username,
-                'text' : ara[i].comment,
-                'userProfile' : 'https://www.linkedin.com/in/',
-                'avatarUrl' : 'https://ui-avatars.com/api/name=Lily&background=random',
-                'replies' : []
-              }
-              
-              hashmap.get(ara[i].parent).replies.push(obj);
+      const fetchUser = async () => {
+        axios.get("http://localhost:8000/users/details/", {
+          headers: {
+              'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846'
             }
+          })
+          .then(res => {
+            console.log(window.$log = res.data);
+            let obj = {
+              'currentUserId' : res.data.id,
+              'currentUserImg': 'https://ui-avatars.com/api/name=Riya&background=random',
+              'currentUserProfile' : 'https://www.linkedin.com/in/',
+              'currentUserFullName' : res.data.username,
           }
+            setUser(res.data);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+      };
 
-          let values = [...hashmap.values()]
-          setComments(values);
-        })
-        .catch(err => {
-          console.log(err);
-        })
-    };
-
-    useEffect(() => {    
       fetchDiscussion();
       fetchComments();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+      fetchUser();
+    }, [id]);
     
     return (
             <div className="">
@@ -106,7 +127,7 @@ function QuestionIndividual() {
                   </div>
 
                   <div>
-                    <Comments comments={comments}/>
+                    <Comments comments={comments} user={user}/>
                   </div>
               
             </div>
