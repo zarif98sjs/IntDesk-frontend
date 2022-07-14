@@ -2,6 +2,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from "./Home";
 import QuestionIndividual from "./QuestionIndividual";
+import QuestionNew from "./QuestionNew";
 import Questions from "./Questions";
 import reportWebVitals from './reportWebVitals';
 
@@ -12,6 +13,7 @@ ReactDOM.render(
       <Route exact path="/" element={<Home/>}/>
       <Route exact path="/questions" element={<Questions/>}/>
       <Route exact path="/question/:id" element={<QuestionIndividual/>}/>
+      <Route exact path="/question/new" element={<QuestionNew/>}/>
     </Routes>
 </Router>,
   // <Router>

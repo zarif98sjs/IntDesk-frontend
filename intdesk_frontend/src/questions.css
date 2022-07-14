@@ -11,3 +11,10 @@
   margin: auto;
   width: 80%;
 }
+
+#button_new {
+  float: right;
+  display: flex;
+  margin: 1px 60px 1px 1px;
+  border-radius: 15px;
+}
