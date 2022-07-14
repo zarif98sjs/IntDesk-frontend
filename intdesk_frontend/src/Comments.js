@@ -41,7 +41,7 @@ function Comments({comments,discussionId}){
           currentUserFullName: tempUser.username
         }}
 
-        // advancedInput={true}
+        advancedInput={true}
         
         logIn={{
           loginLink: 'http://localhost:3001/',
@@ -135,7 +135,8 @@ function Comments({comments,discussionId}){
             .catch(err => {
               console.log(err);
             })
-            }
+
+          }
         }
 
         currentData={(data: any) => {
