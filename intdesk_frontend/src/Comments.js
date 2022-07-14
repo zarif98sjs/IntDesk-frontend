@@ -40,7 +40,9 @@ function Comments({comments,discussionId}){
             'https://www.linkedin.com/in/',
           currentUserFullName: tempUser.username
         }}
-        // currentUser={}
+
+        // advancedInput={true}
+        
         logIn={{
           loginLink: 'http://localhost:3001/',
           signupLink: 'http://localhost:3001/'
@@ -102,14 +104,44 @@ function Comments({comments,discussionId}){
           commentId: string
           |}) => {
             console.log('reply comment, ', data)
-          }
+
+            let tempPar = null;
+
+            if (data.parentOfRepliedCommentId == null){
+              tempPar = data.repliedToCommentId;
+            }
+            else{
+              tempPar = data.parentOfRepliedCommentId;
+            }
+
+            console.log(tempPar)
+
+            // POST 
+            let postData = {
+              "comment": data.text,
+              "hash": data.comId,
+              "parent" : tempPar
+            }
+
+            console.log('postData here', postData)
+            axios.post('http://localhost:8000/discussion/'.concat(discussionId).concat('/comment/'), postData ,{headers: {
+              'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+              'Content-Type' : 'application/json'
+            }})
+            .then(res => {
+              console.log(window.$log = res.data);
+              localStorage.setItem("user", JSON.stringify(res.data));
+            })
+            .catch(err => {
+              console.log(err);
+            })
+            }
         }
 
         currentData={(data: any) => {
           console.log('curent data', data)
           console.log('discussion_id here', discussionId)
-
-
+          
         }}
       />
     </div>
