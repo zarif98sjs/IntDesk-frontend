@@ -11,3 +11,36 @@
   margin: auto;
   width: 80%;
 }
+
+#button_new {
+  /* float: right; */
+  /* display: flex; */
+  /* margin: 1px 60px 1px 1px; */
+  border-radius: 15px;
+}
+
+body pre {
+  background: aliceblue;
+  padding: 0px 10px 0px 10px;
+}
+
+#space_above {
+  align-items: center;
+  float: right;
+  display: flex;
+  margin: 0px 10% 0px 0px;
+}
+
+#filter_item {
+  align-items: center;
+  float: right;
+  display: flex;
+  margin: 10%;
+}
+
+/* #search_button {
+  border-radius: 15cm;
+} */
+/* .ant-space-align-center {
+  
+} */

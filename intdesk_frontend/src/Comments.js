@@ -1,40 +1,64 @@
-import { CommentSection } from 'react-comments-section'
-import 'react-comments-section/dist/index.css'
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { CommentSection } from 'react-comments-section';
+import 'react-comments-section/dist/index.css';
 
-function Comments(){
-  const data =[
-    {
-      userId: '02b',
-      comId: '017',
-      fullName: 'Mashiat',
-      userProfile: 'https://www.linkedin.com/in/riya-negi-8879631a9/',
-      text: 'I think you have a point🤔',
-      avatarUrl: 'https://ui-avatars.com/api/name=Lily&background=random',
-      replies: []
-    }
-  ]
-  return <CommentSection
+function Comments({comments,discussionId}){
+
+  const [user, setUser] = useState([]);
+  
+  const fetchUser = async () => {
+    await axios.get("http://localhost:8000/users/details/", {
+      headers: {
+          'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846'
+        }
+      })
+      .then(res => {
+        console.log(window.$log = res.data);
+        localStorage.setItem("user", JSON.stringify(res.data));
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  };
+
+  useEffect(() => {    
+    fetchUser();
+  }, []);
+
+  const tempUser = JSON.parse(localStorage.getItem("user"));
+
+  return (
+    <div>
+    
+      <CommentSection
         currentUser={{
-          currentUserId: '01a',
+          currentUserId: tempUser.id,
           currentUserImg:
             'https://ui-avatars.com/api/name=Riya&background=random',
           currentUserProfile:
-            'https://www.linkedin.com/in/riya-negi-8879631a9/',
-          currentUserFullName: 'Ramisa'
+            'https://www.linkedin.com/in/',
+          currentUserFullName: tempUser.username
         }}
+
+        advancedInput={true}
+        
         logIn={{
           loginLink: 'http://localhost:3001/',
           signupLink: 'http://localhost:3001/'
         }}
+
         overlayStyle={{ 
             width: '70%',
             margin: 'auto'
         }}
+
         comment-titleStyle={{
             fontFamily: "Gill Sans"
         }}
         
-        commentData={data}
+        commentData={comments}
+        
         onSubmitAction={(data: {|
           userId: string,
           comId: string,
@@ -44,11 +68,86 @@ function Comments(){
           text: string,
           replies: any,
           commentId: string
-        |}) => console.log('check submit, ', data)}
+          |}) => {
+            console.log('parent comment, ', data)
+            
+            // POST 
+            let postData = {
+              "comment": data.text,
+              "hash": data.comId
+            }
+  
+            console.log('postData here', postData)
+            axios.post('http://localhost:8000/discussion/'.concat(discussionId).concat('/comment/'), postData ,{headers: {
+              'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+              'Content-Type' : 'application/json'
+            }})
+            .then(res => {
+              console.log(window.$log = res.data);
+              localStorage.setItem("user", JSON.stringify(res.data));
+            })
+            .catch(err => {
+              console.log(err);
+            })
+            
+          }
+        }
+
+        onReplyAction={(data: {|
+          userId: string,
+          comId: string,
+          avatarUrl: string,
+          userProfile?: string,
+          fullName: string,
+          text: string,
+          replies: any,
+          commentId: string
+          |}) => {
+            console.log('reply comment, ', data)
+
+            let tempPar = null;
+
+            if (data.parentOfRepliedCommentId == null){
+              tempPar = data.repliedToCommentId;
+            }
+            else{
+              tempPar = data.parentOfRepliedCommentId;
+            }
+
+            console.log(tempPar)
+
+            // POST 
+            let postData = {
+              "comment": data.text,
+              "hash": data.comId,
+              "parent" : tempPar
+            }
+
+            console.log('postData here', postData)
+            axios.post('http://localhost:8000/discussion/'.concat(discussionId).concat('/comment/'), postData ,{headers: {
+              'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+              'Content-Type' : 'application/json'
+            }})
+            .then(res => {
+              console.log(window.$log = res.data);
+              localStorage.setItem("user", JSON.stringify(res.data));
+            })
+            .catch(err => {
+              console.log(err);
+            })
+
+          }
+        }
+
         currentData={(data: any) => {
           console.log('curent data', data)
+          console.log('discussion_id here', discussionId)
+          
         }}
       />
+    </div>
+    
+  );
 }
 
 export default Comments;
