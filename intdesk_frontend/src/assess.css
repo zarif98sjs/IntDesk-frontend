@@ -1,0 +1,13 @@
+.site-card-wrapper {
+    margin: auto;
+    width:80%;
+    padding: 30px;
+    background: #ffff;
+  }
+
+.photo {
+    height: 100px;
+    width: 100px; 
+    align-items: center;
+}
+

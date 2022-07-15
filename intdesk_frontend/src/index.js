@@ -37,6 +37,9 @@ import Profile from "./profile";
 import Problems from "./Problems";
 import ProblemIndividual from "./ProblemIndividual"
 
+import Assessments from "./Assessments";
+import AssessQues from "./assess_ques";
+
 const rootElement = document.getElementById("root");
 ReactDOM.render(
   <Router>
@@ -50,9 +53,14 @@ ReactDOM.render(
       <Route exact path="/signup" element={<Register/>}/>
       <Route exact path="/profile" element={<Profile/>}/>
 
+      <Route exact path="/assessments" element={<Assessments/>}/>
+      <Route exact path="/assessments/assess_ques/:id" element={<AssessQues />}/>
+
       <Route exact path="/problems" element={<Problems/>}/>
       <Route exact path="/problem/:id" element={<ProblemIndividual />}/>
       <Route path="*" element={<ErrorPage />}/>
+
+      
     </Routes>
 </Router>,
   // <Router>
