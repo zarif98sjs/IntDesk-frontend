@@ -31,6 +31,13 @@ body pre {
   margin: 0px 10% 0px 0px;
 }
 
+#filter_item {
+  align-items: center;
+  float: right;
+  display: flex;
+  margin: 10%;
+}
+
 /* #search_button {
   border-radius: 15cm;
 } */

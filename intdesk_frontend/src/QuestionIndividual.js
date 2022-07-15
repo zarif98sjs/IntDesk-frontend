@@ -1,4 +1,4 @@
-import { Button, Space, Typography } from 'antd';
+import { Button, Space, Tag, Typography } from 'antd';
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ReactMarkdown from 'react-markdown';
@@ -311,8 +311,9 @@ function QuestionIndividual() {
                   <i>Tags</i>
                   {/* if tags not null */}
                     {discussion.tags !== null ? discussion.tags?.map(tag => (
-                      <pre>{tag}</pre>
-                    )) : null}
+                      // <pre>{tag}</pre>
+                      <Tag color="geekblue">{tag}</Tag>
+                    )) : 'N/A'}
                   </Space>
                 </div>
 
