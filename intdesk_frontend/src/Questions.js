@@ -1,10 +1,10 @@
 
-import { Button, Space, Table } from "antd";
+import { Button, Input, Space, Table } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
-// questions.css import
 import "./questions.css";
 
+const { Search } = Input;
   
   const columns = [
     {
@@ -53,6 +53,9 @@ import "./questions.css";
   function Questions() {
 
     const [discussions, setDiscussions] = useState([]);
+    const [discussionsTemp, setDiscussionsTemp] = useState([]);
+
+    const [searchValue, setSearchValue] = useState("");
 
     // Extracting this method made it accessible for context/prop-drilling
     const fetchDiscussions = async () => {
@@ -70,6 +73,7 @@ import "./questions.css";
             }
           }
           setDiscussions(ara);
+          setDiscussionsTemp(ara);
         })
         .catch(err => {
           console.log(err);
@@ -79,16 +83,68 @@ import "./questions.css";
     useEffect(() => {    
       fetchDiscussions();
     }, []);
+
+    const onSearch = (value: string) => {
+      console.log(value);
+      // let tempDiscussions = [];
+
+      // for(let i = 0; i < discussions.length; i+=1) {
+      //   // convert to lower case
+      //   if (discussions[i].title.toLowerCase().includes(value.toLowerCase())) {
+      //     console.log(discussions[i]);
+      //     tempDiscussions.push(discussions[i]);
+      //   }
+      // }
+
+      // setDiscussions(tempDiscussions);
+    } 
+
+    const onChange= (e) => {
+      console.log(e.target.value);
+      let value = e.target.value;
+      setSearchValue(value);
+      let tempDiscussions = [];
+
+      for(let i = 0; i < discussions.length; i+=1) {
+
+        // convert to lower case and check substring match
+        if (discussions[i].title.toLowerCase().includes(value.toLowerCase()) || 
+          discussions[i].description.toLowerCase().includes(value.toLowerCase())) {
+          console.log(discussions[i]);
+          tempDiscussions.push(discussions[i]);
+        }
+      }
+
+      setDiscussionsTemp(tempDiscussions);
+    } 
+
+    
     
     return (
             <div className="">
                 <h1 id='title'>Discussions</h1>
-          
-                <Button type="primary" id = 'button_new' href="/question/new">New</Button>
+                <Space id='space_above'>
+                <Search
+                  id='search_button'
+                  placeholder="search discussions"
+                  allowClear
+                  size="large"
+                  onChange={onChange}
+                  enterButton 
+                />
+                <Button type="primary" id='button_new' href="/question/new">New</Button>
+                </Space>
+                
                 <br/>
                 <br/>
                 <br/>
-               <Table id='questions' dataSource={discussions} columns={columns} />;
+                {/* check if search value is empty */}
+                {searchValue === "" ? (
+                  <Table id='questions' columns={columns} dataSource={discussions} />
+                ) : (
+                  <Table id='questions' columns={columns} dataSource={discussionsTemp} />
+                )}
+               {/* <Table id='questions' dataSource={discussions} columns={columns} />; */}
             </div>
           );
   }
