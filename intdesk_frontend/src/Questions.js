@@ -1,7 +1,6 @@
 
 import { Button, Space, Table } from "antd";
 import axios from "axios";
-import { useEffect, useState } from "react";
 import Navbar from "./navbar";
 // questions.css import
 import "./questions.css";
@@ -51,9 +50,9 @@ import "./questions.css";
       },
   ];
 
-  function Questions() {
+  // function Questions() {
 
-    const [discussions, setDiscussions] = useState([]);
+  //   const [discussions, setDiscussions] = useState([]);
 
     // Extracting this method made it accessible for context/prop-drilling
     const fetchDiscussions = async () => {
@@ -77,9 +76,9 @@ import "./questions.css";
         })
     };
 
-    useEffect(() => {    
-      fetchDiscussions();
-    }, []);
+  //   useEffect(() => {    
+  //     fetchDiscussions();
+  //   }, []);
     
     return (
             <div className="">
