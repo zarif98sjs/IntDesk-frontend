@@ -36,9 +36,18 @@ import "./questions.css";
       key: 'upvotes',
     },
     {
-        title: 'Views',
-        dataIndex: 'views',
-        key: 'views',
+        title: 'Tags',
+        dataIndex: 'tags',
+        key: 'tags',
+        render: (_, record) => (
+          <Space size="middle">
+           {/* if tags not null */}
+            {record.tags !== null ? record.tags.map(tag => (
+              <pre>{tag}</pre>
+            )) : null}
+
+          </Space>
+        ),
       },
   ];
 
@@ -50,18 +59,15 @@ import "./questions.css";
     const fetchDiscussions = async () => {
       axios.get("http://localhost:8000/discussion/")
         .then(res => {
-          // console.log(window.$log = res.data.results);
-
-          const ara = res.data.results;
+          console.log(window.$log = res.data);
+          const ara = res.data;
           console.log(window.$log = ara);
-          // console.log(ara[1].user.username);
+
           // for loop to get the user name
           for (let i = 0; i < ara.length; i+=1) {
             // if not null
             if (ara[i].user !== null) {
-              console.log(ara[i].user);
               ara[i].name = ara[i].user.username;
-              console.log(ara[i].name);
             }
           }
           setDiscussions(ara);

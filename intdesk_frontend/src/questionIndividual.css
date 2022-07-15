@@ -72,3 +72,18 @@ body {
 body pre {
   background: whitesmoke;
 }
+
+#code2 {
+  display: inline;
+  margin: 0;
+}
+
+#element_tag {
+  width: 70%;
+  margin: auto;
+  padding-top: 25px;
+}
+
+.ant-space-align-center {
+  align-items: baseline;
+}
