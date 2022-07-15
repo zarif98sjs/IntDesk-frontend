@@ -1,4 +1,4 @@
-import { Typography } from 'antd';
+import { Button, Typography } from 'antd';
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ReactMarkdown from 'react-markdown';
@@ -20,14 +20,166 @@ function QuestionIndividual() {
     const [comments, setComments] = useState([]);
     const [user, setUser] = useState([]);
 
+    const [count, setCount] = useState(0);
+
+    const [upvotes, setUpvotes] = useState(0);
+    const [downvotes, setDownvotes] = useState(0);
+
+    const [isUpvoted, setIsUpvoted] = useState(false);
+    const [isDownvoted, setIsDownvoted] = useState(false);
+
+    const [buttonTypeUp, setButtonTypeUp] = useState("default");
+    const [buttonTypeDown, setButtonTypeDown] = useState("default");
+
+    const increment = () => {
+        
+
+        // PUT request to update upvotes
+        let putData = {
+          "upvotes": discussion.upvotes,
+        }
+
+        // if not upvoted, clicking will increase the value of upvotes
+        if (!isUpvoted) {
+            console.log("not upvoted before, now increase")
+            putData.upvotes = discussion.upvotes + 1
+            discussion.upvotes += 1
+            
+            setIsUpvoted(true)
+            setButtonTypeUp("primary")
+
+            // create a POST request to mark this discussion as upvoted by this user
+            axios.post('http://localhost:8000/discussion/'.concat(discussion.id).concat('/upvoted/') ,{},{headers: {
+              'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+              'Content-Type' : 'application/json'
+            }})
+            .then(res => {
+              console.log(window.$log = res.data);
+            })
+            .catch(err => {
+              console.log(err);
+            })
+
+        }
+        else{ // toggle now, so upvotes will decrease
+            console.log("upvoted before, now decrease")
+            putData.upvotes = discussion.upvotes - 1
+            discussion.upvotes -= 1
+            setIsUpvoted(false)
+            setButtonTypeUp("default")
+
+            // create a DELETE request to mark this discussion as not upvoted by this user
+            axios.delete('http://localhost:8000/discussion/'.concat(discussion.id).concat('/delete_upvoted/') ,{headers: {
+              'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+              'Content-Type' : 'application/json'
+            }})
+            .then(res => {
+              console.log(window.$log = res.data);
+            })
+            .catch(err => {
+              console.log(err);
+            })
+        }
+
+        setDiscussion(discussion)
+        setUpvotes(discussion.upvotes)
+
+        console.log('putData here', putData)
+        axios.put('http://localhost:8000/discussion/'.concat(discussion.id).concat('/'), putData ,{headers: {
+          'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+          'Content-Type' : 'application/json'
+        }})
+        .then(res => {
+          console.log(window.$log = res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+        
+        setCount(discussion.upvotes - discussion.downvotes)
+    }
+
+    const decrement = () => {
+        setCount(count - 1)
+
+        // PUT request to update downvotes
+        let putData = {
+          "downvotes": discussion.downvotes,
+        }
+
+        // if not upvoted, clicking will increase the value of upvotes
+        if (!isDownvoted) {
+            console.log("not downvoted before, now increase downvote")
+            putData.downvotes = discussion.downvotes + 1
+            discussion.downvotes += 1
+            
+            setIsDownvoted(true)
+            setButtonTypeDown("primary")
+
+            // create a POST request to mark this discussion as upvoted by this user
+            axios.post('http://localhost:8000/discussion/'.concat(discussion.id).concat('/downvoted/') ,{},{headers: {
+              'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+              'Content-Type' : 'application/json'
+            }})
+            .then(res => {
+              console.log(window.$log = res.data);
+            })
+            .catch(err => {
+              console.log(err);
+            })
+
+        }
+        else{ // toggle now, so upvotes will decrease
+            console.log("downvoted before, now decrease downvote")
+            putData.downvotes = discussion.downvotes - 1
+            discussion.downvotes -= 1
+            setIsDownvoted(false)
+            setButtonTypeDown("default")
+
+            // create a DELETE request to mark this discussion as not upvoted by this user
+            axios.delete('http://localhost:8000/discussion/'.concat(discussion.id).concat('/delete_downvoted/') ,{headers: {
+              'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+              'Content-Type' : 'application/json'
+            }})
+            .then(res => {
+              console.log(window.$log = res.data);
+            })
+            .catch(err => {
+              console.log(err);
+            })
+        }
+
+        setDiscussion(discussion)
+        setDownvotes(discussion.downvotes)
+
+        console.log('putData here', putData)
+        axios.put('http://localhost:8000/discussion/'.concat(discussion.id).concat('/'), putData ,{headers: {
+          'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+          'Content-Type' : 'application/json'
+        }})
+        .then(res => {
+          console.log(window.$log = res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+
+        setCount(discussion.upvotes - discussion.downvotes)
+
+    }
+
     useEffect(() => {   
       const fetchDiscussion = async () => {
         axios.get("http://localhost:8000/discussion/".concat(id))
           .then(res => {
+            console.log("DISCUSSIONS FETCHED");
             // console.log(window.$log = res.data.results);
             const data = res.data;
             // console.log(window.$log = data);
             setDiscussion(data);
+            setUpvotes(data.upvotes);
+            setDownvotes(data.downvotes);
+            setCount(data.upvotes - data.downvotes)
           })
           .catch(err => {
             console.log(err);
@@ -107,28 +259,63 @@ function QuestionIndividual() {
           })
       };
 
+      const check_vote_status = async () => {
+        axios.get("http://localhost:8000/discussion/".concat(id).concat("/check_vote_status/"), {
+          headers: {
+              'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846'
+            }
+          })
+          .then(res => {
+            console.log('isupvoted', res.data);
+            console.log('isupvoted', res.data.isupvoted);
+            if (res.data.isupvoted) {
+              setButtonTypeUp("primary");
+              setIsUpvoted(true);
+            }
+            else if(res.data.isdownvoted) {
+              setButtonTypeDown("primary");
+              setIsDownvoted(true);
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          })
+      };
+          
       fetchDiscussion();
       fetchComments();
       fetchUser();
+      check_vote_status();
+      
     }, [id]);
     
     return (
             <div className="">
                 <Navbar />
-                {/* <h1 id='title'>   Single Question </h1> */}
-                  <div id='qih'>
-                    <h1>{discussion.title}</h1>
-                  </div>
-                  <br/>
-                  <div id='qi'>
-                    <ReactMarkdown remarkPlugins={[remarkGfm]} >
-                    {discussion.description}
-                    </ReactMarkdown>
-                  </div>
 
-                  <div>
-                    <Comments comments={comments} discussionId={id}/>
+                <div id="elements">
+                  <div id="element1">
+                    <Button type={buttonTypeUp} size="medium" onClick={increment}>↑</Button>
+                    <pre id="code1">{count}</pre>
+                    <Button type={buttonTypeDown} size="medium" onClick={decrement}>↓</Button>
                   </div>
+                  <div id="element2">
+                    {/* <h1 id='qih'>{discussion.title}</h1> */}
+                    
+                    <h1 >{discussion.title}</h1>
+                  </div>
+                </div>
+
+                <br/>
+                <div id='qi'>
+                  <ReactMarkdown remarkPlugins={[remarkGfm]} >
+                  {discussion.description}
+                  </ReactMarkdown>
+                </div>
+
+                <div>
+                  <Comments comments={comments} discussionId={id}/>
+                </div>
               
             </div>
           );
