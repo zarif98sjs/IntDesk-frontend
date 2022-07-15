@@ -1,6 +1,7 @@
 import { Button, Checkbox, Form, Input, Typography } from 'antd';
 import React, { useState } from "react";
 import {  Navigate } from "react-router-dom";
+import axios from "axios";
 
 const { Text, Link } = Typography;
 
@@ -12,54 +13,57 @@ function Login(){
     // const [errorMessages, setErrorMessages] = useState();
     const [isSubmitted, setIsSubmitted] = useState(false);
   
-    // User Login info
-    const database = [
-      {
-        username: "user1",
-        password: "pass1"
-      },
-      {
-        username: "user2",
-        password: "pass2"
-      }
-    ];
 
-    const errors = {
-            uname: "invalid username",
-            pass: "invalid password"
-          };
+  
 
   const onFinish = (values) => {
     console.log('Success:', values);
     // console.log(values.username);
     // console.log(values.password);
 
-    // Find user login info
-    const userData = database.find((user) => user.username === values.username);
-    // console.log(userData);
+    // // Find user login info
+    // const userData = database.find((user) => user.username === values.username);
+    // // console.log(userData);
 
-    // Compare user info
-      if (userData) {
-        if (userData.password !== values.password) {
-          // Invalid password
-          console.log("invalid password");
-          setError(errors.pass);
-          // setErrorMessages({ name: "pass", message: errors.pass});
-        } 
-        else {
-          setError(null);
-          setIsSubmitted(true);
-        }
-      } 
-      else {
-        // Username not found
-        console.log("user not found");
-        console.log(errors);
-        setError(errors.uname);
-        // setErrorMessages("user not found ");
-        // setErrorMessages({ name: "uname", message: errors.uname });
-      }
+    // // Compare user info
+    //   if (userData) {
+    //     if (userData.password !== values.password) {
+    //       // Invalid password
+    //       console.log("invalid password");
+    //       setError(errors.pass);
+    //       // setErrorMessages({ name: "pass", message: errors.pass});
+    //     } 
+    //     else {
+    //       setError(null);
+    //       setIsSubmitted(true);
+    //     }
+    //   } 
+    //   else {
+    //     // Username not found
+    //     console.log("user not found");
+    //     console.log(errors);
+    //     setError(errors.uname);
+    //     // setErrorMessages("user not found ");
+    //     // setErrorMessages({ name: "uname", message: errors.uname });
+    //   }
+
+      // POST
+    let postData = {
+      'username': values.username,
+      'password': values.password,
+    };
     
+    axios.post('http://localhost:8000/users/login/', postData ,{headers: {
+        'Content-Type' : 'application/json'
+      }})
+      .then(res => {
+        console.log(window.$log = res.data);
+        setIsSubmitted(true);
+      })
+      .catch(err => {
+        console.log(err);
+        setError("Invalid username or password. Try Again !");
+      })
 
   };
 
