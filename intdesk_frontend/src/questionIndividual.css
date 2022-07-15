@@ -14,7 +14,76 @@
 #qi {
   width: 70%;
   margin: auto;
-  background-color: rgb(208, 235, 243);
+  border: groove;
+  /* background-color: rgb(232, 242, 255); */
+  /* background-color: rgb(255, 255, 255); */
   padding: 40px;
   border-radius: 5px;
+  background: white;
+  /* background: aliceblue; */
+  /* background: ghostwhite; */
+  /* background: whitesmoke; */
+}
+
+#ud {
+  margin: auto;
+  flex: auto;
+  border-radius: 5px;
+}
+
+#element1 {
+  display: inline-block;
+  margin-right: 10px;
+}
+#element2 {
+  display: inline-block;
+  vertical-align: 160%;
+  margin-left: 10px;
+  border-radius: 10px;
+  /* background: beige; */
+  background: aliceblue;
+  padding: 1%;
+  /* border: groove; */
+}
+
+#elements {
+  width: 70%;
+  margin: auto;
+}
+
+.ant-btn-primary {
+  /* background-color: rgb(25, 0, 134); */
+  border-color: rgb(252, 252, 252);
+  /* border-width: unset; */
+}
+
+#code1 {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  background: rgb(10, 64, 180);
+  color: aliceblue;
+  text-align: center;
+}
+
+body {
+  background: white;
+}
+
+body pre {
+  background: whitesmoke;
+}
+
+#code2 {
+  display: inline;
+  margin: 0;
+}
+
+#element_tag {
+  width: 70%;
+  margin: auto;
+  padding-top: 25px;
+}
+
+.ant-space-align-center {
+  align-items: baseline;
 }

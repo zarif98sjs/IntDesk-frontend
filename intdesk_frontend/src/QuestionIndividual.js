@@ -1,62 +1,331 @@
-
-
-// questions.css import
-import { Typography } from 'antd';
+import { Button, Space, Typography } from 'antd';
+import axios from "axios";
+import { useEffect, useState } from "react";
 import ReactMarkdown from 'react-markdown';
+import { useParams } from "react-router-dom";
 import remarkGfm from 'remark-gfm';
 import Comments from './Comments';
-import Navbar from './navbar';
 import "./questionIndividual.css";
+import "./questions.css";
 
 const { Title, Paragraph, Text, Link } = Typography;
 
-const markdown = `
+function QuestionIndividual() {
 
-I did 500+ LeetCode questions, created Blind 75, and interviewed hundreds of FAANG candidates. Frankly speaking, I don't think LeetCode is the best way to interview candidates, but the rules aren't set by us and the best we can do is to be better at this stupid game together.
-So here are some tips for you on how to get better at LeetCode:
+    const params = useParams()
+    const id = params.id
 
-- Revise your CS fundamentals before your start LeetCoding. You don't have to spend that much time studying, but you need to know the advantages of each data structure and when to use which for the question.
-- The average question difficulty you'll get is Medium. Start with Easy questions, do more of them, move on to Medium questions. You probably won't be asked Hard questions in real interviews but you should do some famous Hard questions like Word ladder, serialize/deserialize Binary tree and trapping rain water. You should not be practicing only Easy questions.
+    const [discussion, setDiscussion] = useState([]);
+    const [comments, setComments] = useState([]);
+    const [user, setUser] = useState([]);
 
+    const [count, setCount] = useState(0);
 
-A paragraph with *emphasis* and **strong importance**.
+    const [upvotes, setUpvotes] = useState(0);
+    const [downvotes, setDownvotes] = useState(0);
 
-> A block quote with ~strikethrough~ and a URL: https://reactjs.org.
+    const [isUpvoted, setIsUpvoted] = useState(false);
+    const [isDownvoted, setIsDownvoted] = useState(false);
 
-* Lists
-* [ ] todo
-* [x] done
+    const [buttonTypeUp, setButtonTypeUp] = useState("default");
+    const [buttonTypeDown, setButtonTypeDown] = useState("default");
 
-A table:
+    const increment = () => {
+        
 
-| a | b |
-| - | - |
+        // PUT request to update upvotes
+        let putData = {
+          "upvotes": discussion.upvotes,
+        }
 
-Code:
-~~~js
-function(x) {
-  return x;
-}
-~~~
-`
+        // if not upvoted, clicking will increase the value of upvotes
+        if (!isUpvoted) {
+            console.log("not upvoted before, now increase")
+            putData.upvotes = discussion.upvotes + 1
+            discussion.upvotes += 1
+            
+            setIsUpvoted(true)
+            setButtonTypeUp("primary")
 
-  function QuestionIndividual() {
+            // create a POST request to mark this discussion as upvoted by this user
+            axios.post('http://localhost:8000/discussion/'.concat(discussion.id).concat('/upvoted/') ,{},{headers: {
+              'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+              'Content-Type' : 'application/json'
+            }})
+            .then(res => {
+              console.log(window.$log = res.data);
+            })
+            .catch(err => {
+              console.log(err);
+            })
+
+        }
+        else{ // toggle now, so upvotes will decrease
+            console.log("upvoted before, now decrease")
+            putData.upvotes = discussion.upvotes - 1
+            discussion.upvotes -= 1
+            setIsUpvoted(false)
+            setButtonTypeUp("default")
+
+            // create a DELETE request to mark this discussion as not upvoted by this user
+            axios.delete('http://localhost:8000/discussion/'.concat(discussion.id).concat('/delete_upvoted/') ,{headers: {
+              'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+              'Content-Type' : 'application/json'
+            }})
+            .then(res => {
+              console.log(window.$log = res.data);
+            })
+            .catch(err => {
+              console.log(err);
+            })
+        }
+
+        setDiscussion(discussion)
+        setUpvotes(discussion.upvotes)
+
+        console.log('putData here', putData)
+        axios.put('http://localhost:8000/discussion/'.concat(discussion.id).concat('/'), putData ,{headers: {
+          'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+          'Content-Type' : 'application/json'
+        }})
+        .then(res => {
+          console.log(window.$log = res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+        
+        setCount(discussion.upvotes - discussion.downvotes)
+    }
+
+    const decrement = () => {
+        setCount(count - 1)
+
+        // PUT request to update downvotes
+        let putData = {
+          "downvotes": discussion.downvotes,
+        }
+
+        // if not upvoted, clicking will increase the value of upvotes
+        if (!isDownvoted) {
+            console.log("not downvoted before, now increase downvote")
+            putData.downvotes = discussion.downvotes + 1
+            discussion.downvotes += 1
+            
+            setIsDownvoted(true)
+            setButtonTypeDown("primary")
+
+            // create a POST request to mark this discussion as upvoted by this user
+            axios.post('http://localhost:8000/discussion/'.concat(discussion.id).concat('/downvoted/') ,{},{headers: {
+              'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+              'Content-Type' : 'application/json'
+            }})
+            .then(res => {
+              console.log(window.$log = res.data);
+            })
+            .catch(err => {
+              console.log(err);
+            })
+
+        }
+        else{ // toggle now, so upvotes will decrease
+            console.log("downvoted before, now decrease downvote")
+            putData.downvotes = discussion.downvotes - 1
+            discussion.downvotes -= 1
+            setIsDownvoted(false)
+            setButtonTypeDown("default")
+
+            // create a DELETE request to mark this discussion as not upvoted by this user
+            axios.delete('http://localhost:8000/discussion/'.concat(discussion.id).concat('/delete_downvoted/') ,{headers: {
+              'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+              'Content-Type' : 'application/json'
+            }})
+            .then(res => {
+              console.log(window.$log = res.data);
+            })
+            .catch(err => {
+              console.log(err);
+            })
+        }
+
+        setDiscussion(discussion)
+        setDownvotes(discussion.downvotes)
+
+        console.log('putData here', putData)
+        axios.put('http://localhost:8000/discussion/'.concat(discussion.id).concat('/'), putData ,{headers: {
+          'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+          'Content-Type' : 'application/json'
+        }})
+        .then(res => {
+          console.log(window.$log = res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+
+        setCount(discussion.upvotes - discussion.downvotes)
+
+    }
+
+    useEffect(() => {   
+      const fetchDiscussion = async () => {
+        axios.get("http://localhost:8000/discussion/".concat(id))
+          .then(res => {
+            console.log("DISCUSSIONS FETCHED");
+            // console.log(window.$log = res.data.results);
+            const data = res.data;
+            // console.log(window.$log = data);
+            setDiscussion(data);
+            setUpvotes(data.upvotes);
+            setDownvotes(data.downvotes);
+            setCount(data.upvotes - data.downvotes)
+          })
+          .catch(err => {
+            console.log(err);
+          })
+      }; 
+
+      const fetchComments = async () => {
+        axios.get("http://localhost:8000/discussion/".concat(id).concat("/comments/"))
+          .then(res => {
+            const ara = res.data;
+            // console.log(window.$log = ara);
+  
+            const hashmap = new Map();
+  
+            for (let i = 0; i < ara.length; i+=1) {
+  
+              if (ara[i].hash != null && ara[i].user !==null && ara[i].parent == null) {
+  
+                const obj = {
+                    'userId' : ara[i].user.id,
+                    'comId' : ara[i].hash,
+                    'fullName' : ara[i].user.username,
+                    'text' : ara[i].comment,
+                    'userProfile' : 'https://www.linkedin.com/in/',
+                    'avatarUrl' : 'https://ui-avatars.com/api/name=Lily&background=random',
+                    'replies' : []
+                }
+  
+                hashmap.set(obj.comId, obj);
+              }
+            }
+  
+            for (let i = 0; i < ara.length; i+=1) {
+  
+              if (ara[i].hash != null && ara[i].user != null && ara[i].parent != null){
+                // push into replies of hashmap
+                const obj = {
+                  'userId' : ara[i].user.id,
+                  'comId' : ara[i].hash,
+                  'fullName' : ara[i].user.username,
+                  'text' : ara[i].comment,
+                  'userProfile' : 'https://www.linkedin.com/in/',
+                  'avatarUrl' : 'https://ui-avatars.com/api/name=Lily&background=random',
+                  'replies' : []
+                }
+                
+                hashmap.get(ara[i].parent).replies.push(obj);
+              }
+            }
+  
+            let values = [...hashmap.values()]
+            setComments(values);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+      };
+
+      const fetchUser = async () => {
+        axios.get("http://localhost:8000/users/details/", {
+          headers: {
+              'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846'
+            }
+          })
+          .then(res => {
+            console.log(window.$log = res.data);
+            let obj = {
+              'currentUserId' : res.data.id,
+              'currentUserImg': 'https://ui-avatars.com/api/name=Riya&background=random',
+              'currentUserProfile' : 'https://www.linkedin.com/in/',
+              'currentUserFullName' : res.data.username,
+          }
+            setUser(res.data);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+      };
+
+      const check_vote_status = async () => {
+        axios.get("http://localhost:8000/discussion/".concat(id).concat("/check_vote_status/"), {
+          headers: {
+              'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846'
+            }
+          })
+          .then(res => {
+            console.log('isupvoted', res.data);
+            console.log('isupvoted', res.data.isupvoted);
+            if (res.data.isupvoted) {
+              setButtonTypeUp("primary");
+              setIsUpvoted(true);
+            }
+            else if(res.data.isdownvoted) {
+              setButtonTypeDown("primary");
+              setIsDownvoted(true);
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          })
+      };
+          
+      fetchDiscussion();
+      fetchComments();
+      fetchUser();
+      check_vote_status();
+      
+    }, [id]);
+    
     return (
             <div className="">
-                {/* <h1 id='title'>   Single Question </h1> */}
-                  <div id='qih'>
-                    <h1>Tips from the author of Blind 75</h1>
-                  </div>
-                  <br/>
-                  <div id='qi'>
-                    <ReactMarkdown remarkPlugins={[remarkGfm]} >
-                      {markdown}
-                    </ReactMarkdown>
-                  </div>
 
-                  <div>
-                    <Comments />
+                <div id="elements">
+                  <div id="element1">
+                    <Button type={buttonTypeUp} size="medium" onClick={increment}>↑</Button>
+                    <pre id="code1">{count}</pre>
+                    <Button type={buttonTypeDown} size="medium" onClick={decrement}>↓</Button>
                   </div>
+                  <div id="element2">
+                    {/* <h1 id='qih'>{discussion.title}</h1> */}
+                    
+                    <h1 >{discussion.title}</h1>
+                  </div>
+                </div>
+
+                <div id="element_tag">
+                  {/* if tags not null */}
+                  
+                  <Space size="middle">
+                  <i>Tags</i>
+                  {/* if tags not null */}
+                    {discussion.tags !== null ? discussion.tags?.map(tag => (
+                      <pre>{tag}</pre>
+                    )) : null}
+                  </Space>
+                </div>
+
+                <br/>
+                <div id='qi'>
+                  <ReactMarkdown remarkPlugins={[remarkGfm]} >
+                  {discussion.description}
+                  </ReactMarkdown>
+                </div>
+
+                <div>
+                  <Comments comments={comments} discussionId={id}/>
+                </div>
               
             </div>
           );
