@@ -33,16 +33,6 @@ ReactDOM.render(
       <Route path="*" element={<ErrorPage />}/>
     </Routes>
 </Router>,
-  // <Router>
-  //      <Routes >
-	// 	      <Route exact path="/" component={App}/>
-	// 			  <Route exact path="/questions" component={Questions}/>
-	//     </Routes >
-  //   </Router>,
-  // <React.StrictMode>
-  //   <App />
-  //   <Questions />
-  // </React.StrictMode>,
   rootElement
 );
 
