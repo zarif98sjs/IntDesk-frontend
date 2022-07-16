@@ -49,7 +49,8 @@ function QuestionIndividual() {
 
             // create a POST request to mark this discussion as upvoted by this user
             axios.post('http://localhost:8000/discussion/'.concat(discussion.id).concat('/upvoted/') ,{},{headers: {
-              'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+              // 'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+              'Authorization': 'Token 51c60b736e81e14ba457be703ba2acf6841be4eb',
               'Content-Type' : 'application/json'
             }})
             .then(res => {
@@ -69,7 +70,8 @@ function QuestionIndividual() {
 
             // create a DELETE request to mark this discussion as not upvoted by this user
             axios.delete('http://localhost:8000/discussion/'.concat(discussion.id).concat('/delete_upvoted/') ,{headers: {
-              'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+              // 'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+              'Authorization': 'Token 51c60b736e81e14ba457be703ba2acf6841be4eb',
               'Content-Type' : 'application/json'
             }})
             .then(res => {
@@ -85,8 +87,9 @@ function QuestionIndividual() {
 
         console.log('putData here', putData)
         axios.put('http://localhost:8000/discussion/'.concat(discussion.id).concat('/'), putData ,{headers: {
-          'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
-          'Content-Type' : 'application/json'
+          // 'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+              'Authorization': 'Token 51c60b736e81e14ba457be703ba2acf6841be4eb',
+              'Content-Type' : 'application/json'
         }})
         .then(res => {
           console.log(window.$log = res.data);
@@ -117,7 +120,8 @@ function QuestionIndividual() {
 
             // create a POST request to mark this discussion as upvoted by this user
             axios.post('http://localhost:8000/discussion/'.concat(discussion.id).concat('/downvoted/') ,{},{headers: {
-              'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+              // 'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+              'Authorization': 'Token 51c60b736e81e14ba457be703ba2acf6841be4eb',
               'Content-Type' : 'application/json'
             }})
             .then(res => {
@@ -137,7 +141,8 @@ function QuestionIndividual() {
 
             // create a DELETE request to mark this discussion as not upvoted by this user
             axios.delete('http://localhost:8000/discussion/'.concat(discussion.id).concat('/delete_downvoted/') ,{headers: {
-              'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+              // 'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+              'Authorization': 'Token 51c60b736e81e14ba457be703ba2acf6841be4eb',
               'Content-Type' : 'application/json'
             }})
             .then(res => {
@@ -153,7 +158,8 @@ function QuestionIndividual() {
 
         console.log('putData here', putData)
         axios.put('http://localhost:8000/discussion/'.concat(discussion.id).concat('/'), putData ,{headers: {
-          'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+          // 'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+           'Authorization': 'Token 51c60b736e81e14ba457be703ba2acf6841be4eb',
           'Content-Type' : 'application/json'
         }})
         .then(res => {
@@ -240,7 +246,8 @@ function QuestionIndividual() {
       const fetchUser = async () => {
         axios.get("http://localhost:8000/users/details/", {
           headers: {
-              'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846'
+              // 'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+              'Authorization': 'Token 51c60b736e81e14ba457be703ba2acf6841be4eb',
             }
           })
           .then(res => {
@@ -261,7 +268,8 @@ function QuestionIndividual() {
       const check_vote_status = async () => {
         axios.get("http://localhost:8000/discussion/".concat(id).concat("/check_vote_status/"), {
           headers: {
-              'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846'
+              // 'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+              'Authorization': 'Token 51c60b736e81e14ba457be703ba2acf6841be4eb',
             }
           })
           .then(res => {

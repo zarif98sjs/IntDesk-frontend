@@ -47,7 +47,8 @@ function QuestionNew() {
     };
     
     axios.post('http://localhost:8000/discussion/', postData ,{headers: {
-        'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+        // 'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+         'Authorization': 'Token 51c60b736e81e14ba457be703ba2acf6841be4eb',
         'Content-Type' : 'application/json'
       }})
       .then(res => {

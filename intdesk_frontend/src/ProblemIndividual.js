@@ -1,6 +1,7 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { useParams, useLocation } from "react-router-dom"
-import ReactMarkdown from 'react-markdown';
+import axios from "axios"
+import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
@@ -14,18 +15,29 @@ import 'katex/dist/katex.min.css';
 
 export default function ProblemIndividual(){
     const params = useParams()
+    
     const currentPath = useLocation().pathname
+
+    const [problem, setProblem] = useState([])
+    const [id, setId] = useState(params.id)
+
     
     
-    let problem
+      useEffect(() => {
+        const fetchProblem = async () => {
+            axios.get("http://localhost:8000/problems/problem/".concat(id))
+            .then(res => {
+              console.log(window.$log = res.data)
+              setProblem(res.data)
+            })
+            .catch(err => {
+              console.log(err)
+            })
+          }
+        fetchProblem()
+      }, [id])
     
-    for(let i=0;i<problemData.length;i+=1)
-    {
-        if(problemData[i].id === params.id){
-            problem = problemData[i]
-            break
-        }
-    }
+  
     
     const subMenuOptions = [
         {
@@ -54,7 +66,7 @@ export default function ProblemIndividual(){
                         {problem.difficulty}
                     </Col>
                     <Col span={4}>
-                            Solves: {problem.solveCount} / {problem.submissionCount}
+                            Solves: {problem.solve_count} / {problem.submission_count}
                     </Col>
                     <Col span={5}>
                         <button type="button" title="Bookmark" onClick={handleBookMark}>
@@ -64,6 +76,7 @@ export default function ProblemIndividual(){
                         </Col>
                 </Row>
                 <div className="problem--description" style={{paddingLeft: "20px"}}>
+                    
                 <ReactMarkdown 
                 remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]} >
                       {problem.description}
