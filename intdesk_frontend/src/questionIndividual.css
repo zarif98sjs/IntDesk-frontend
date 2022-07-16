@@ -46,6 +46,17 @@
   border: groove;
 }
 
+#element3 {
+  display: inline-block;
+  vertical-align: 100%;
+  margin : auto;
+  border-radius: 10px;
+  /* background: beige; */
+  background: aliceblue;
+  border: groove;
+  padding: 0.2%;
+}
+
 #elements {
   width: 70%;
   margin: auto;

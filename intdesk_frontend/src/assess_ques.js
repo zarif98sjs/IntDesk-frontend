@@ -53,7 +53,7 @@ function AssessQues(props:any) {
     
     const data = [
         {
-          id: 1,
+          id: 0,
           question_title: {markdown},
           Question_answer: [
             {
@@ -75,7 +75,7 @@ function AssessQues(props:any) {
           ],
         },
         {
-          id: 0,
+          id: 1,
           question_title: {markdown},
           Question_answer: [
             {
@@ -107,6 +107,8 @@ function AssessQues(props:any) {
 
     const loadAnotherQues = (
      
+      // ( QuesId < 1 ) ? setQuesId(QuesId + 1) : console.log(QuesId)
+        
       <Navigate to ='/profile'/>
     );
   
@@ -123,9 +125,12 @@ function AssessQues(props:any) {
                   <br/>
                   <div id='qih'>
                     <h3 style={{textAlign: "center"}}>Question {data[QuesId].id}</h3>
-                    { minutes === 0 && seconds === 0
-                        ? null
-                        : <h3 style={{textAlign: "center"}}> Time Left: {minutes}:{seconds < 10 ?  `0${seconds}` : seconds}</h3> 
+                  </div>
+                  <br/>
+                  <div style={{ display: "flex" }}>
+                  { minutes === 0 && seconds === 0
+                        ? loadAnotherQues
+                        : <h3 id='element3' style={{textAlign: "center"}}> Time Left: {minutes}:{seconds < 10 ?  `0${seconds}` : seconds}</h3> 
                     }
                   </div>
                   
@@ -150,7 +155,7 @@ function AssessQues(props:any) {
                       <Button type="primary" id='next' href="/profile"  style={{ marginLeft: "auto" }}>Next</Button>
                     </div>
                   </div>
-                  
+                  <br/>
             </div>
     )
   }
