@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ErrorPage from "./ErrorPage";
 import Home from "./Home";
 import Login from "./login";
-import Navbar from "./navbar";
+import Logout from "./LogOut";
 import Profile from "./profile";
 import QuestionIndividual from "./QuestionIndividual";
 import QuestionNew from "./QuestionNew";
@@ -20,7 +20,6 @@ import AssessQues from "./assess_ques";
 const rootElement = document.getElementById("root");
 ReactDOM.render(
   <Router>
-    <Navbar />
     <Routes>
       <Route exact path="/" element={<Home/>}/>
       <Route exact path="/questions" element={<Questions/>}/>
@@ -28,6 +27,7 @@ ReactDOM.render(
       <Route exact path="/question/new" element={<QuestionNew/>}/>
 
       <Route exact path="/login" element={<Login/>}/>
+      <Route exact path="/logout" element={<Logout/>}/>
       <Route exact path="/signup" element={<Register/>}/>
       <Route exact path="/profile" element={<Profile/>}/>
 

@@ -1,7 +1,8 @@
-import { Button, Checkbox, Form, Input, Typography } from 'antd';
-import React, { useState } from "react";
-import {  Navigate } from "react-router-dom";
+import { Button, Form, Input, Typography } from 'antd';
 import axios from "axios";
+import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
+import Navbar from "./navbar";
 
 const { Text, Link } = Typography;
 
@@ -15,59 +16,55 @@ function Login(){
   
 
   
-
-  const onFinish = (values) => {
-    console.log('Success:', values);
-    // console.log(values.username);
-    // console.log(values.password);
-
-    // // Find user login info
-    // const userData = database.find((user) => user.username === values.username);
-    // // console.log(userData);
-
-    // // Compare user info
-    //   if (userData) {
-    //     if (userData.password !== values.password) {
-    //       // Invalid password
-    //       console.log("invalid password");
-    //       setError(errors.pass);
-    //       // setErrorMessages({ name: "pass", message: errors.pass});
-    //     } 
-    //     else {
-    //       setError(null);
-    //       setIsSubmitted(true);
-    //     }
-    //   } 
-    //   else {
-    //     // Username not found
-    //     console.log("user not found");
-    //     console.log(errors);
-    //     setError(errors.uname);
-    //     // setErrorMessages("user not found ");
-    //     // setErrorMessages({ name: "uname", message: errors.uname });
-    //   }
-
-      // POST
-    let postData = {
-      'username': values.username,
-      'password': values.password,
-    };
+  const onFinish = async (values) => {
     
-    axios.post('http://localhost:8000/users/login/', postData ,{headers: {
-        'Content-Type' : 'application/json'
-      }})
-      .then(res => {
-        console.log(window.$log = res.data);
-        setIsSubmitted(true);
-      })
-      .catch(err => {
-        console.log(err);
-        setError("Invalid username or password. Try Again !");
-      })
+      console.log('Values:', values);
+    
+      // POST
+      let postData = {
+        'username': values.username,
+        'password': values.password,
+      };
+    
+      // use await so that next request doesn't happen until this request is done
+      await axios.post('http://localhost:8000/users/login/', postData ,{headers: {
+          'Content-Type' : 'application/json'
+        }})
+        .then(res => {
+          
+          console.log("AUTH TOKEN GOT: ",res.data);
+          
+          // set < authToken > in local stroage
+          localStorage.setItem("authToken", JSON.stringify(res.data));
 
+          // set < loggedIn > in local stroage
+          localStorage.setItem("isLoggedIn", "true");
+
+          setIsSubmitted(true);
+        })
+        .catch(err => {
+          console.log(err);
+          setError("Invalid username or password. Try Again !");
+        })
+
+      const authToken = JSON.parse(localStorage.getItem("authToken"));
+      console.log("AUTH TOKEN in local storage: ",authToken);
+
+      await axios.get("http://localhost:8000/users/details/", {
+        headers: {
+            'Authorization': 'Token '.concat(authToken.token)
+          }
+        })
+        .then(res => {
+
+          // set < user > in local storage
+          console.log("Fetchd user in login", res.data);
+          localStorage.setItem("user", JSON.stringify(res.data));
+        })
+        .catch(err => {
+          console.log(err);
+        })
   };
-
-  
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
@@ -122,8 +119,6 @@ function Login(){
                 <Input.Password />
             </Form.Item>
 
-            
-
             <Form.Item
                 wrapperCol={{
                 offset: 8,
@@ -154,6 +149,7 @@ function Login(){
 
   return (
     <div>
+      <Navbar />
         {isSubmitted ? SuccessLogin : renderForm};
       </div>
 
