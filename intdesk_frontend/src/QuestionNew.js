@@ -8,6 +8,8 @@ const { TextArea } = Input;
 
 function QuestionNew() {
 
+  const authToken = JSON.parse(localStorage.getItem("authToken"));
+
   const [title, setTitle] = useState('');
   const [tags, setTags] = useState([]);
   const [text, setText] = useState('');
@@ -47,7 +49,7 @@ function QuestionNew() {
     };
     
     axios.post('http://localhost:8000/discussion/', postData ,{headers: {
-        'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
+        'Authorization': 'Token '.concat(authToken.token),
         'Content-Type' : 'application/json'
       }})
       .then(res => {

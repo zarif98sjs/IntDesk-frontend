@@ -66,7 +66,7 @@ const { Search } = Input;
     
     // Extracting this method made it accessible for context/prop-drilling
     const fetchDiscussions = async () => {
-      axios.get("http://localhost:8000/discussion/")
+      await axios.get("http://localhost:8000/discussion/")
         .then(res => {
           console.log(window.$log = res.data);
           const ara = res.data;
