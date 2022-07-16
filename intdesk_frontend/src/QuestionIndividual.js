@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import { useParams } from "react-router-dom";
 import remarkGfm from 'remark-gfm';
 import Comments from './Comments';
+import Navbar from "./navbar";
 import "./questionIndividual.css";
 import "./questions.css";
 
@@ -296,7 +297,7 @@ function QuestionIndividual() {
     
     return (
             <div className="">
-
+                <Navbar />
                 <div id="elements">
                   <div id="element1">
                     <Button type={buttonTypeUp} size="medium" onClick={increment}>↑</Button>

@@ -2,6 +2,7 @@ import { Button, Input } from 'antd';
 import axios from "axios";
 import { useState } from "react";
 import Markdown from "react-textarea-markdown";
+import Navbar from "./navbar";
 import "./questionNew.css";
 
 const { TextArea } = Input;
@@ -66,6 +67,7 @@ function QuestionNew() {
     
     return (
             <div className="">
+              <Navbar />
                 <h1 id='title'>New Discussion</h1>
            
                   <Input id='title' onChange={handleTitleChange} placeholder="Enter topic title..."/>

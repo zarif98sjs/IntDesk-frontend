@@ -2,6 +2,7 @@
 import { Button, Input, Select, Space, Table, Tag } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from 'react';
+import Navbar from "./navbar";
 import "./questions.css";
 
 const { Option } = Select;
@@ -105,21 +106,6 @@ const { Search } = Input;
       fetchDiscussions();
     }, []);
 
-    const onSearch = (value: string) => {
-      console.log(value);
-      // let tempDiscussions = [];
-
-      // for(let i = 0; i < discussions.length; i+=1) {
-      //   // convert to lower case
-      //   if (discussions[i].title.toLowerCase().includes(value.toLowerCase())) {
-      //     console.log(discussions[i]);
-      //     tempDiscussions.push(discussions[i]);
-      //   }
-      // }
-
-      // setDiscussions(tempDiscussions);
-    } 
-
     const onChange= (e) => {
       console.log(e.target.value);
       let value = e.target.value;
@@ -169,6 +155,7 @@ const { Search } = Input;
     
     return (
             <div className="">
+              <Navbar />
                 <h1 id='title'>Discussions</h1>
 
                 <Space direction="vertical" size="large" style={{ display: 'flex' }}>

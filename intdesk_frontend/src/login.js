@@ -2,6 +2,7 @@ import { Button, Form, Input, Typography } from 'antd';
 import axios from "axios";
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
+import Navbar from "./navbar";
 
 const { Text, Link } = Typography;
 
@@ -148,6 +149,7 @@ function Login(){
 
   return (
     <div>
+      <Navbar />
         {isSubmitted ? SuccessLogin : renderForm};
       </div>
 

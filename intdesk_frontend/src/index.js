@@ -4,7 +4,6 @@ import ErrorPage from "./ErrorPage";
 import Home from "./Home";
 import Login from "./login";
 import Logout from "./LogOut";
-import Navbar from "./navbar";
 import Profile from "./profile";
 import QuestionIndividual from "./QuestionIndividual";
 import QuestionNew from "./QuestionNew";
@@ -21,7 +20,6 @@ import AssessQues from "./assess_ques";
 const rootElement = document.getElementById("root");
 ReactDOM.render(
   <Router>
-    <Navbar />
     <Routes>
       <Route exact path="/" element={<Home/>}/>
       <Route exact path="/questions" element={<Questions/>}/>
