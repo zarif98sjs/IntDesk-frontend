@@ -33,9 +33,14 @@ const { Search } = Input;
       ),
     },
     {
-      title: 'Upvotes',
+      title: 'Votes',
       dataIndex: 'upvotes',
       key: 'upvotes',
+      render: (_, record) => (
+        <Space size="middle">
+          {record.upvotes - record.downvotes}
+        </Space>
+      ),
     },
     {
         title: 'Tags',

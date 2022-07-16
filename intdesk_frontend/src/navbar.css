@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 .menuBar {
   padding: 0 20px;
   border-bottom: solid 1px #e8e8e8;
@@ -5,7 +7,7 @@
   box-shadow: 0 0 30px #f3f1f1;
 }
 .menuBar a {
-  color: rgb(6, 49, 189);
+  color: #12229d;
 }
 .logo {
   width: 150px;
@@ -16,6 +18,7 @@
   font-size: 20px;
   padding: 10px 20px;
   text-transform: capitalize;
+  font-family: "Roboto", sans-serif;
 }
 .menuCon {
   width: calc(100% - 150px);
@@ -53,7 +56,7 @@
   display: block;
   width: 20px;
   height: 2px;
-  background: #1890ff;
+  background: #12229d;
   position: relative;
 }
 .barsBtn:after,
@@ -64,7 +67,7 @@
   top: -6px;
   left: 0;
   height: 2px;
-  background: #1890ff;
+  background: #12229d;
 }
 .barsBtn:after {
   top: auto;
