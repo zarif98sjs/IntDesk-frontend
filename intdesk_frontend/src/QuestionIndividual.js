@@ -1,16 +1,19 @@
-import { Button, Space, Typography } from 'antd';
+import { Button, Space, Tag, Typography } from 'antd';
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ReactMarkdown from 'react-markdown';
 import { useParams } from "react-router-dom";
 import remarkGfm from 'remark-gfm';
 import Comments from './Comments';
+import Navbar from "./navbar";
 import "./questionIndividual.css";
 import "./questions.css";
 
 const { Title, Paragraph, Text, Link } = Typography;
 
 function QuestionIndividual() {
+
+    const authToken = JSON.parse(localStorage.getItem("authToken"));
 
     const params = useParams()
     const id = params.id
@@ -30,7 +33,7 @@ function QuestionIndividual() {
     const [buttonTypeUp, setButtonTypeUp] = useState("default");
     const [buttonTypeDown, setButtonTypeDown] = useState("default");
 
-    const increment = () => {
+    const increment = async () => {
         
 
         // PUT request to update upvotes
@@ -48,9 +51,8 @@ function QuestionIndividual() {
             setButtonTypeUp("primary")
 
             // create a POST request to mark this discussion as upvoted by this user
-            axios.post('http://localhost:8000/discussion/'.concat(discussion.id).concat('/upvoted/') ,{},{headers: {
-              // 'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
-              'Authorization': 'Token 51c60b736e81e14ba457be703ba2acf6841be4eb',
+            await axios.post('http://localhost:8000/discussion/'.concat(discussion.id).concat('/upvoted/') ,{},{headers: {
+              'Authorization': 'Token '.concat(authToken.token),
               'Content-Type' : 'application/json'
             }})
             .then(res => {
@@ -69,9 +71,8 @@ function QuestionIndividual() {
             setButtonTypeUp("default")
 
             // create a DELETE request to mark this discussion as not upvoted by this user
-            axios.delete('http://localhost:8000/discussion/'.concat(discussion.id).concat('/delete_upvoted/') ,{headers: {
-              // 'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
-              'Authorization': 'Token 51c60b736e81e14ba457be703ba2acf6841be4eb',
+            await axios.delete('http://localhost:8000/discussion/'.concat(discussion.id).concat('/delete_upvoted/') ,{headers: {
+              'Authorization': 'Token '.concat(authToken.token),
               'Content-Type' : 'application/json'
             }})
             .then(res => {
@@ -86,10 +87,9 @@ function QuestionIndividual() {
         setUpvotes(discussion.upvotes)
 
         console.log('putData here', putData)
-        axios.put('http://localhost:8000/discussion/'.concat(discussion.id).concat('/'), putData ,{headers: {
-          // 'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
-              'Authorization': 'Token 51c60b736e81e14ba457be703ba2acf6841be4eb',
-              'Content-Type' : 'application/json'
+        await axios.put('http://localhost:8000/discussion/'.concat(discussion.id).concat('/'), putData ,{headers: {
+          'Authorization': 'Token '.concat(authToken.token),
+          'Content-Type' : 'application/json'
         }})
         .then(res => {
           console.log(window.$log = res.data);
@@ -101,7 +101,7 @@ function QuestionIndividual() {
         setCount(discussion.upvotes - discussion.downvotes)
     }
 
-    const decrement = () => {
+    const decrement = async() => {
         setCount(count - 1)
 
         // PUT request to update downvotes
@@ -119,9 +119,8 @@ function QuestionIndividual() {
             setButtonTypeDown("primary")
 
             // create a POST request to mark this discussion as upvoted by this user
-            axios.post('http://localhost:8000/discussion/'.concat(discussion.id).concat('/downvoted/') ,{},{headers: {
-              // 'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
-              'Authorization': 'Token 51c60b736e81e14ba457be703ba2acf6841be4eb',
+            await axios.post('http://localhost:8000/discussion/'.concat(discussion.id).concat('/downvoted/') ,{},{headers: {
+              'Authorization': 'Token '.concat(authToken.token),
               'Content-Type' : 'application/json'
             }})
             .then(res => {
@@ -140,9 +139,8 @@ function QuestionIndividual() {
             setButtonTypeDown("default")
 
             // create a DELETE request to mark this discussion as not upvoted by this user
-            axios.delete('http://localhost:8000/discussion/'.concat(discussion.id).concat('/delete_downvoted/') ,{headers: {
-              // 'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
-              'Authorization': 'Token 51c60b736e81e14ba457be703ba2acf6841be4eb',
+            await axios.delete('http://localhost:8000/discussion/'.concat(discussion.id).concat('/delete_downvoted/') ,{headers: {
+              'Authorization': 'Token '.concat(authToken.token),
               'Content-Type' : 'application/json'
             }})
             .then(res => {
@@ -157,9 +155,8 @@ function QuestionIndividual() {
         setDownvotes(discussion.downvotes)
 
         console.log('putData here', putData)
-        axios.put('http://localhost:8000/discussion/'.concat(discussion.id).concat('/'), putData ,{headers: {
-          // 'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
-           'Authorization': 'Token 51c60b736e81e14ba457be703ba2acf6841be4eb',
+        await axios.put('http://localhost:8000/discussion/'.concat(discussion.id).concat('/'), putData ,{headers: {
+          'Authorization': 'Token '.concat(authToken.token),
           'Content-Type' : 'application/json'
         }})
         .then(res => {
@@ -175,7 +172,7 @@ function QuestionIndividual() {
 
     useEffect(() => {   
       const fetchDiscussion = async () => {
-        axios.get("http://localhost:8000/discussion/".concat(id))
+        await axios.get("http://localhost:8000/discussion/".concat(id))
           .then(res => {
             console.log("DISCUSSIONS FETCHED");
             // console.log(window.$log = res.data.results);
@@ -192,7 +189,7 @@ function QuestionIndividual() {
       }; 
 
       const fetchComments = async () => {
-        axios.get("http://localhost:8000/discussion/".concat(id).concat("/comments/"))
+        await axios.get("http://localhost:8000/discussion/".concat(id).concat("/comments/"))
           .then(res => {
             const ara = res.data;
             // console.log(window.$log = ara);
@@ -243,33 +240,33 @@ function QuestionIndividual() {
           })
       };
 
-      const fetchUser = async () => {
-        axios.get("http://localhost:8000/users/details/", {
-          headers: {
-              // 'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
-              'Authorization': 'Token 51c60b736e81e14ba457be703ba2acf6841be4eb',
-            }
-          })
-          .then(res => {
-            console.log(window.$log = res.data);
-            let obj = {
-              'currentUserId' : res.data.id,
-              'currentUserImg': 'https://ui-avatars.com/api/name=Riya&background=random',
-              'currentUserProfile' : 'https://www.linkedin.com/in/',
-              'currentUserFullName' : res.data.username,
-          }
-            setUser(res.data);
-          })
-          .catch(err => {
-            console.log(err);
-          })
-      };
+      // const fetchUser = async () => {
+      //   axios.get("http://localhost:8000/users/details/", {
+      //     headers: {
+      //         'Authorization': 'Token '.concat(authToken.token)
+      //       }
+      //     })
+      //     .then(res => {
+      //       // console.log(window.$log = res.data);
+      //       console.log("Inside fetchUser of QuestionIndividual.js");
+      //       console.log(res.data);
+      //       let obj = {
+      //         'currentUserId' : res.data.id,
+      //         'currentUserImg': 'https://ui-avatars.com/api/name=Riya&background=random',
+      //         'currentUserProfile' : 'https://www.linkedin.com/in/',
+      //         'currentUserFullName' : res.data.username,
+      //     }
+      //       setUser(res.data);
+      //     })
+      //     .catch(err => {
+      //       console.log(err);
+      //     })
+      // };
 
       const check_vote_status = async () => {
-        axios.get("http://localhost:8000/discussion/".concat(id).concat("/check_vote_status/"), {
+        await axios.get("http://localhost:8000/discussion/".concat(id).concat("/check_vote_status/"), {
           headers: {
-              // 'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
-              'Authorization': 'Token 51c60b736e81e14ba457be703ba2acf6841be4eb',
+              'Authorization': 'Token '.concat(authToken.token)
             }
           })
           .then(res => {
@@ -289,16 +286,18 @@ function QuestionIndividual() {
           })
       };
           
-      fetchDiscussion();
-      fetchComments();
-      fetchUser();
-      check_vote_status();
       
+      fetchDiscussion();
+      check_vote_status();
+      fetchComments();
+      // fetchUser();
+      
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
     
     return (
             <div className="">
-
+                <Navbar />
                 <div id="elements">
                   <div id="element1">
                     <Button type={buttonTypeUp} size="medium" onClick={increment}>↑</Button>
@@ -319,8 +318,9 @@ function QuestionIndividual() {
                   <i>Tags</i>
                   {/* if tags not null */}
                     {discussion.tags !== null ? discussion.tags?.map(tag => (
-                      <pre>{tag}</pre>
-                    )) : null}
+                      // <pre>{tag}</pre>
+                      <Tag color="geekblue">{tag}</Tag>
+                    )) : 'N/A'}
                   </Space>
                 </div>
 

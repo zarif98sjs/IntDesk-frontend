@@ -2,11 +2,14 @@ import { Button, Input } from 'antd';
 import axios from "axios";
 import { useState } from "react";
 import Markdown from "react-textarea-markdown";
+import Navbar from "./navbar";
 import "./questionNew.css";
 
 const { TextArea } = Input;
 
 function QuestionNew() {
+
+  const authToken = JSON.parse(localStorage.getItem("authToken"));
 
   const [title, setTitle] = useState('');
   const [tags, setTags] = useState([]);
@@ -34,7 +37,7 @@ function QuestionNew() {
   };
 
   // arrow function to prevent the page from refreshing
-  const submitFunc = () => {
+  const submitFunc = async () => {
     console.log(title);
     console.log(tags);
     console.log(text);
@@ -46,9 +49,8 @@ function QuestionNew() {
       'description': text,
     };
     
-    axios.post('http://localhost:8000/discussion/', postData ,{headers: {
-        // 'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
-         'Authorization': 'Token 51c60b736e81e14ba457be703ba2acf6841be4eb',
+    await axios.post('http://localhost:8000/discussion/', postData ,{headers: {
+        'Authorization': 'Token '.concat(authToken.token),
         'Content-Type' : 'application/json'
       }})
       .then(res => {
@@ -57,11 +59,15 @@ function QuestionNew() {
       .catch(err => {
         console.log(err);
       })
+
+      // navigate to the discussion page
+      window.location.href = "/questions";
   }
 
     
     return (
             <div className="">
+              <Navbar />
                 <h1 id='title'>New Discussion</h1>
            
                   <Input id='title' onChange={handleTitleChange} placeholder="Enter topic title..."/>

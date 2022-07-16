@@ -1,31 +1,62 @@
 import { Button, Checkbox, Form, Input } from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
+import axios from "axios";
+import {  Navigate } from "react-router-dom";
 
-import Navbar from "./navbar";
 
 function Register(){
-  const onFinish = (values) => {
-    console.log('Success:', values);
-    console.log("Submitted");
-  };
+
+    const [isSubmitted, setIsSubmitted] = useState(false);
+
+    const onFinish = (values) => {
+        console.log('Success:', values);
+        console.log("Submitted");
+
+    let postData = {
+        'username': values.username,
+        'email': values.email,
+        'password': values.password,
+        'password2': values.password2,
+        'first_name': values.first_name,
+        'last_name': values.last_name,
+      };
+      
+      axios.post('http://localhost:8000/users/register/', postData ,{headers: {
+          'Content-Type' : 'application/json'
+        }})
+        .then(res => {
+          console.log(window.$log = res.data);
+          setIsSubmitted(true);
+          
+        })
+        .catch(err => {
+          console.log(err);
+        })
+  
+    };
+
+  
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
 
+  const SuccessSignUp = (
+    <div>
+      <Navigate to="/profile" />
+    </div>
+  );
 
-
-  return (
+  const renderForm = (
     <div>
         <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '20vh'}}>
             <h2>Sign Up</h2>
         </div>
         
         <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '40vh'}}>
-            
             <Form name="basic"
             labelCol={{
-                span: 8,
+                span: 10,
             }}
             wrapperCol={{
                 span: 20,
@@ -102,6 +133,19 @@ function Register(){
                 <Input.Password />
             </Form.Item>
 
+            <Form.Item
+                label="Confirm Password"
+                name="password2"
+                rules={[
+                {
+                    required: true,
+                    message: 'Retype your password!',
+                },
+                ]}
+            >
+                <Input.Password />
+            </Form.Item>
+
             
 
             <Form.Item
@@ -117,14 +161,21 @@ function Register(){
             </Form>
         </div>
 
-        <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
+        <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height:'20vh'}}>
             <p style={{alignItems:'center'}}>
-                Aleady have an account? <br />
+                Already have an account? <br />
                 <a href="/login">Log in here</a>
             </p>
         </div>
     </div>
   );
+
+  return (
+    <div>
+        {isSubmitted ? SuccessSignUp : renderForm};
+    </div>
+  );
+
 };
 
 export default Register;

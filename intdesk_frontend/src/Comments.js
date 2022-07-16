@@ -6,43 +6,42 @@ import 'react-comments-section/dist/index.css';
 function Comments({comments,discussionId}){
 
   const [user, setUser] = useState([]);
+  const authToken = JSON.parse(localStorage.getItem("authToken"));
+  let tempUser = JSON.parse(localStorage.getItem("user"));
   
-  const fetchUser = async () => {
-    await axios.get("http://localhost:8000/users/details/", {
-      headers: {
-          // 'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
-              'Authorization': 'Token 51c60b736e81e14ba457be703ba2acf6841be4eb',
-        }
-      })
-      .then(res => {
-      	console.log("fetched user:")
-      	console.log(res)
-        console.log(window.$log = res.data);
-        localStorage.setItem("user", JSON.stringify(res.data));
-      })
-      .catch(err => {
-        console.log(err);
-      })
-  };
+  useEffect(() => {  
+    // DUMMY function, otherwise axios gets removed after cntrl+s -_-
+    const fetchUser = async () => {
+      await axios.get("http://localhost:8000/users/details/", {
+        headers: {
+            'Authorization': 'Token'
+          }
+        })
+        .then(res => {
+          // console.log(window.$log = res.data);
+          console.log("Fetchd user", res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    };  
 
-  useEffect(() => {    
-    fetchUser();
   }, []);
 
-  const tempUser = JSON.parse(localStorage.getItem("user"));
-
+ 
+  
   return (
     <div>
     
       <CommentSection
-         currentUser={{
+        currentUser={{
           currentUserId: tempUser.id,
-           currentUserImg:
-             'https://ui-avatars.com/api/name=Riya&background=random',
-           currentUserProfile:
-             'https://www.linkedin.com/in/',
-           currentUserFullName: tempUser.username
-         }}
+          currentUserImg:
+            'https://ui-avatars.com/api/name=Riya&background=random',
+          currentUserProfile:
+            'https://www.linkedin.com/in/',
+          currentUserFullName: tempUser.username
+        }}
 
         advancedInput={true}
         
@@ -81,14 +80,13 @@ function Comments({comments,discussionId}){
             }
   
             console.log('postData here', postData)
-            axios.post('http://localhost:8000/discussion/'.concat(discussionId).concat('/comment/'), postData ,{headers: {
-              // 'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
-              'Authorization': 'Token 51c60b736e81e14ba457be703ba2acf6841be4eb',
+            console.log('authToken here', authToken)
+            axios.post('http://localhost:8000/discussion/'.concat(discussionId).concat('/comment/'), postData ,{headers :{
+              'Authorization': 'Token '.concat(authToken.token),
               'Content-Type' : 'application/json'
             }})
             .then(res => {
               console.log(window.$log = res.data);
-              localStorage.setItem("user", JSON.stringify(res.data));
             })
             .catch(err => {
               console.log(err);
@@ -129,13 +127,11 @@ function Comments({comments,discussionId}){
 
             console.log('postData here', postData)
             axios.post('http://localhost:8000/discussion/'.concat(discussionId).concat('/comment/'), postData ,{headers: {
-              // 'Authorization': 'Token ab77e5955ff7b7ef59a5ad0620fa9ff76f7aa846',
-              'Authorization': 'Token 51c60b736e81e14ba457be703ba2acf6841be4eb',
+              'Authorization': 'Token '.concat(authToken.token),
               'Content-Type' : 'application/json'
             }})
             .then(res => {
               console.log(window.$log = res.data);
-              localStorage.setItem("user", JSON.stringify(res.data));
             })
             .catch(err => {
               console.log(err);
