@@ -36,6 +36,9 @@ function Login(){
           // set < authToken > in local stroage
           localStorage.setItem("authToken", JSON.stringify(res.data));
 
+          // set < loggedIn > in local stroage
+          localStorage.setItem("isLoggedIn", "true");
+
           setIsSubmitted(true);
         })
         .catch(err => {

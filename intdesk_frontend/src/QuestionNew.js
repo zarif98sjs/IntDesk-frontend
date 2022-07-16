@@ -36,7 +36,7 @@ function QuestionNew() {
   };
 
   // arrow function to prevent the page from refreshing
-  const submitFunc = () => {
+  const submitFunc = async () => {
     console.log(title);
     console.log(tags);
     console.log(text);
@@ -48,7 +48,7 @@ function QuestionNew() {
       'description': text,
     };
     
-    axios.post('http://localhost:8000/discussion/', postData ,{headers: {
+    await axios.post('http://localhost:8000/discussion/', postData ,{headers: {
         'Authorization': 'Token '.concat(authToken.token),
         'Content-Type' : 'application/json'
       }})
@@ -58,6 +58,9 @@ function QuestionNew() {
       .catch(err => {
         console.log(err);
       })
+
+      // navigate to the discussion page
+      window.location.href = "/questions";
   }
 
     

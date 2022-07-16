@@ -4,13 +4,20 @@ import { Component } from "react";
 import LeftMenu from "./left";
 import "./navbar.css";
 import RightMenu from "./right";
+import RightUser from "./rightUser";
 
 class Navbar extends Component {
 
   state = {
     current: "mail",
-    visible: false
+    visible: false,
+    isLoggedIn: JSON.parse(localStorage.getItem("isLoggedIn")),
   };
+
+  componentDidMount() {
+    console.log("Navbar componentDidMount");
+  }
+
 
   showDrawer = () => {
     this.setState({
@@ -23,7 +30,10 @@ class Navbar extends Component {
       visible: false
     });
   };
+
   
+  // get value from local storage
+  // const authToken = JSON.parse(localStorage.getItem("authToken"));
   render() {
     return (
         <div className="Navbar">
@@ -35,9 +45,17 @@ class Navbar extends Component {
                 <div className="leftMenu">
                     <LeftMenu />
                 </div>
-                <div className="rightMenu">
+                {/* check if logged in is true */}
+                {this.state.isLoggedIn ? ( 
+                    <div className="rightMenu">
+                    <RightUser />
+                    </div>
+                ) : (
+                    <div className="rightMenu">
                     <RightMenu />
-                </div>
+                    </div>
+                )}
+                
                 <Button className="barsMenu" type="primary" onClick={this.showDrawer}>
                     <span className="barsBtn" />
                 </Button>
