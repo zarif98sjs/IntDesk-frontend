@@ -18,6 +18,8 @@ function QuestionIndividual() {
     const params = useParams()
     const id = params.id
 
+    const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem("isLoggedIn")));
+
     const [discussion, setDiscussion] = useState([]);
     const [comments, setComments] = useState([]);
     const [user, setUser] = useState([]);
@@ -286,6 +288,8 @@ function QuestionIndividual() {
           })
       };
           
+      // set logged in
+      setIsLoggedIn(JSON.parse(localStorage.getItem("isLoggedIn")));
       
       fetchDiscussion();
       check_vote_status();
@@ -331,9 +335,14 @@ function QuestionIndividual() {
                   </ReactMarkdown>
                 </div>
 
-                <div>
-                  <Comments comments={comments} discussionId={id}/>
-                </div>
+                {isLoggedIn ? ( 
+                  <div>
+                    <Comments comments={comments} discussionId={id}/>
+                  </div>
+                  ) : (
+                    <div />
+                  )}
+                      
               
             </div>
           );

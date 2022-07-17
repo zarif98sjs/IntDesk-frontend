@@ -1,12 +1,12 @@
 
-import { Button, Input, Select, Space, Table, Tag } from "antd";
+import { Button, Input, Select, Space, Table, Tag, Typography } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from 'react';
 import Navbar from "./navbar";
 import "./questions.css";
 
+const { Text, Link } = Typography;
 const { Option } = Select;
-
 const { Search } = Input;
   
   const columns = [
@@ -17,7 +17,9 @@ const { Search } = Input;
       render: (_, record) => (
         <Space size="middle">
           {/* <a href="/q">{record.title}</a> */}
-          <a href={`question/${record.id}`} >{record.title}</a>
+          <a href={`question/${record.id}`} >
+          <Text style = {{'font-size': '110%'}} italic keyboard >{record.title}</Text>
+            </a>
           {/* <Link to="/App">{record.title}</Link> */}
         </Space>
       ),
@@ -28,7 +30,7 @@ const { Search } = Input;
       key: 'name',
       render: (_, record) => (
         <Space size="middle">
-          {record.name}
+          <Tag color="blue">{record.name}</Tag>
         </Space>
       ),
     },
@@ -38,7 +40,9 @@ const { Search } = Input;
       key: 'upvotes',
       render: (_, record) => (
         <Space size="middle">
-          {record.upvotes - record.downvotes}
+          {/* <Tag color="blue">{record.upvotes - record.downvotes}</Tag> */}
+          <Text style = {{'font-size': '110%'}} keyboard>{record.upvotes - record.downvotes}</Text>
+          
         </Space>
       ),
     },
