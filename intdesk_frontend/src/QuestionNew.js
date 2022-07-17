@@ -1,6 +1,7 @@
 import { Button, Input } from 'antd';
-import axios from "axios";
-import { useState } from "react";
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { Navigate } from "react-router-dom";
 import Markdown from "react-textarea-markdown";
 import Navbar from "./navbar";
 import "./questionNew.css";
@@ -10,10 +11,16 @@ const { TextArea } = Input;
 function QuestionNew() {
 
   const authToken = JSON.parse(localStorage.getItem("authToken"));
+  const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem("isLoggedIn")));
 
   const [title, setTitle] = useState('');
   const [tags, setTags] = useState([]);
   const [text, setText] = useState('');
+
+  useEffect(() => {
+    console.log("inside use effect : ");
+    setIsLoggedIn(JSON.parse(localStorage.getItem("isLoggedIn")));
+  },[]);
 
   const handleTitleChange = event => {
     setTitle(event.target.value);
@@ -21,7 +28,9 @@ function QuestionNew() {
   };
 
   const handleTagsChange = event => {
-    let tagsAra = event.target.value.split(',');
+    let tagsAra = event.target.value.replace(/ /g,'');
+    tagsAra = tagsAra.split(',');
+    console.log(tagsAra);
     setTags(tagsAra); 
     // console.log(tagsAra);
   };
@@ -66,7 +75,10 @@ function QuestionNew() {
 
     
     return (
-            <div className="">
+
+          <div className="">
+            {isLoggedIn ? ( 
+              <div>
               <Navbar />
                 <h1 id='title'>New Discussion</h1>
            
@@ -76,6 +88,14 @@ function QuestionNew() {
                   <Markdown id='text_area' callback={handleTextChange} textarea={true} customWidth={[50,50]}/>
 
                   <Button type="primary" id='button_submit' onClick={submitFunc} >Create Discussion</Button>
+                </div>
+
+              ) : (
+                <div>
+                  <Navigate to="/login" />
+                </div>
+              )}
+    
             </div>
           );
   }

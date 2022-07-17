@@ -1,7 +1,9 @@
 import { Button, Drawer } from "antd";
 import "antd/dist/antd.min.css";
 import { useEffect, useState } from "react";
+import logo from './images/logoOnly.png';
 import LeftMenu from "./left";
+import "./logo.css";
 import "./navbar.css";
 import RightMenu from "./right";
 import RightUser from "./rightUser";
@@ -28,19 +30,27 @@ function Navbar() {
         <div className="Navbar">
         <nav className="menuBar">
             <div className="logo">
+              <a href="/">
+              <img src={logo} id='logoOnly' alt="IntDesk" />
+              </a>
+            
+            </div>
+
+            {/* <div className="logo">
             <a href="/">IntDesk</a>
             </div>
+             */}
             <div className="menuCon">
-            <div className="leftMenu">
+            <div className="leftMenu" style={{padding: '0.4%'}}>
                 <LeftMenu />
             </div>
             {/* check if logged in is true */}
             {isLoggedIn ? ( 
-                <div className="rightMenu">
+                <div className="rightMenu" style={{padding: '0.4%'}}>
                 <RightUser />
                 </div>
             ) : (
-                <div className="rightMenu">
+                <div className="rightMenu" style={{padding: '0.4%'}}>
                 <RightMenu />
                 </div>
             )}

@@ -29,7 +29,6 @@ function Comments({comments,discussionId}){
   }, []);
 
  
-  
   return (
     <div>
     
