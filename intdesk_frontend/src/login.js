@@ -141,7 +141,7 @@ function Login(){
 
   const SuccessLogin = (
     <div>
-      <Navigate to="/profile" />
+      <Navigate to="/" />
     </div>
   );
 
