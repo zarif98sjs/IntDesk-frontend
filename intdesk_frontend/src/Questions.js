@@ -9,70 +9,77 @@ const { Text, Link } = Typography;
 const { Option } = Select;
 const { Search } = Input;
   
-  const columns = [
-    {
-      title: 'Title',
-      dataIndex: 'title',
-      key: 'title',
-      render: (_, record) => (
-        <Space size="middle">
-          {/* <a href="/q">{record.title}</a> */}
-          <a href={`question/${record.id}`} >
-          <Text style = {{'font-size': '110%'}} italic keyboard >{record.title}</Text>
-            </a>
-          {/* <Link to="/App">{record.title}</Link> */}
-        </Space>
-      ),
-    },
-    {
-      title: 'Posted By',
-      dataIndex: 'name',
-      key: 'name',
-      render: (_, record) => (
-        <Space size="middle">
-          <Tag color="blue">{record.name}</Tag>
-        </Space>
-      ),
-    },
-    {
-      title: 'Votes',
-      dataIndex: 'upvotes',
-      key: 'upvotes',
-      render: (_, record) => (
-        <Space size="middle">
-          {/* <Tag color="blue">{record.upvotes - record.downvotes}</Tag> */}
-          <Text style = {{'font-size': '110%'}} keyboard>{record.upvotes - record.downvotes}</Text>
-          
-        </Space>
-      ),
-    },
-    {
-        title: 'Tags',
-        dataIndex: 'tags',
-        key: 'tags',
-        render: (_, record) => (
-          <Space size="middle">
-           {/* if tags not null */}
-            {record.tags !== null ? record.tags.map(tag => (
-              // <pre>{tag}</pre>
-              <Tag color="geekblue">{tag}</Tag>
-            )) : null}
 
-          </Space>
-        ),
-      },
-  ];
 
   function Questions() {
 
     const [discussions, setDiscussions] = useState([]);
     const [discussionsTemp, setDiscussionsTemp] = useState([]);
 
+    const [userNames, setUserNames] = useState([]);
+
     const [searchValue, setSearchValue] = useState("");
     const [searchTagValue, setSearchTagValue] = useState([]);
 
     const [tags, setTags] = useState([]);
     const children: React.ReactNode[] = [];
+
+    const columns = [
+      {
+        title: 'Title',
+        dataIndex: 'title',
+        key: 'title',
+        render: (_, record) => (
+          <Space size="middle">
+            {/* <a href="/q">{record.title}</a> */}
+            <a href={`question/${record.id}`} >
+            <Text style = {{'font-size': '110%'}} italic keyboard >{record.title}</Text>
+              </a>
+            {/* <Link to="/App">{record.title}</Link> */}
+          </Space>
+        ),
+      },
+      {
+        title: 'Posted By',
+        dataIndex: 'name',
+        key: 'name',
+        render: (_, record) => (
+          <Space size="middle">
+            <Tag color="blue">{record.name}</Tag>
+          </Space>
+        ),
+        filters : userNames,
+        onFilter: (value: string, record) => record.name.indexOf(value) === 0,
+      },
+      {
+        title: 'Votes',
+        dataIndex: 'upvotes',
+        key: 'upvotes',
+        render: (_, record) => (
+          <Space size="middle">
+            {/* <Tag color="blue">{record.upvotes - record.downvotes}</Tag> */}
+            <Text style = {{'font-size': '110%'}} keyboard>{record.upvotes - record.downvotes}</Text>
+            
+          </Space>
+        ),
+        sorter: (a, b) => (a.upvotes - a.downvotes) - (b.upvotes - b.downvotes),
+      },
+      {
+          title: 'Tags',
+          dataIndex: 'tags',
+          key: 'tags',
+          render: (_, record) => (
+            <Space size="middle">
+             {/* if tags not null */}
+              {record.tags !== null ? record.tags.map(tag => (
+                // <pre>{tag}</pre>
+                <Tag color="geekblue">{tag}</Tag>
+              )) : null}
+  
+            </Space>
+          ),
+        },
+    ];
     
     // Extracting this method made it accessible for context/prop-drilling
     const fetchDiscussions = async () => {
@@ -83,12 +90,20 @@ const { Search } = Input;
           console.log(window.$log = ara);
 
           let tempTags = [];
+          let tempUserNames = [];
 
           // for loop to get the user name
           for (let i = 0; i < ara.length; i+=1) {
             // if not null
             if (ara[i].user !== null) {
               ara[i].name = ara[i].user.username;
+              
+
+              // if not present
+              if (!tempUserNames.includes(ara[i].user.username)) {
+                tempUserNames.push(ara[i].user.username);
+              }
+
               // loop through tags if tags not null
               if (ara[i].tags !== null) {
                 for (let j = 0; j < ara[i].tags.length; j+=1) {
@@ -104,6 +119,13 @@ const { Search } = Input;
           setDiscussions(ara);
           setDiscussionsTemp(ara);
           setTags(tempTags);
+
+          let tempUserNameFilter = [];
+          for (let i = 0; i < tempUserNames.length; i+=1) {
+            tempUserNameFilter.push({text: tempUserNames[i], value: tempUserNames[i]});
+          }
+          
+          setUserNames(tempUserNameFilter);
           console.log("tags: ", tempTags);
         })
         .catch(err => {
@@ -161,6 +183,10 @@ const { Search } = Input;
       console.log("tempDiscussions : ",tempDiscussions);
       setDiscussionsTemp(tempDiscussions);
     };
+
+    const onChangeTable: TableProps<DataType>['onChange'] = (pagination, filters, sorter, extra) => {
+      console.log('params', pagination, filters, sorter, extra);
+    };
     
     return (
             <div className="">
@@ -201,9 +227,9 @@ const { Search } = Input;
                 <br/>
              
                 {searchValue === "" && searchTagValue.length === 0 ? (
-                  <Table id='questions' columns={columns} dataSource={discussions} />
+                  <Table id='questions' columns={columns} dataSource={discussions} onChange={onChangeTable}  />
                 ) : (
-                  <Table id='questions' columns={columns} dataSource={discussionsTemp} />
+                  <Table id='questions' columns={columns} dataSource={discussionsTemp} onChange={onChangeTable}  />
                 )}
                {/* <Table id='questions' dataSource={discussions} columns={columns} />; */}
             </div>
