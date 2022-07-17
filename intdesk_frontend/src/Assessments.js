@@ -115,6 +115,7 @@ function Assessments() {
     return (
         
         <div>
+            <Navbar/>
             <h1 id='title'> All Assessments </h1>
             <Row gutter={[16, 24]}>
               {element}

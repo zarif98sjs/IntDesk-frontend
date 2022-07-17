@@ -3,7 +3,9 @@ import ReactMarkdown from 'react-markdown';
 import React, { useState, Component, useEffect } from 'react';
 import {  Navigate } from "react-router-dom";
 
+
 import remarkGfm from 'remark-gfm';
+import Navbar from './navbar';
 import "./questionIndividual.css";
 
 const { Title, Paragraph, Text, Link } = Typography;
@@ -116,6 +118,7 @@ function AssessQues(props:any) {
     return (
         
         <div className="">
+                <Navbar/>
                 {/* <h1 id='title'>   Single Question </h1> */}
                   <div >
 
