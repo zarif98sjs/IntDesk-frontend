@@ -20,7 +20,7 @@ const columns = [
       title: 'Categories',
       dataIndex: 'subcategories',
       key: 'subcategories',
-    },
+    } ,
     {
       title: 'Difficulty',
       dataIndex: 'difficulty',
@@ -49,25 +49,42 @@ export default function Problems(){
 
   const [problems, setProblems] = useState([])
 
-  const fetchProblems = async () => {
-    axios.get("http://localhost:8000/problems/problem/")
-    .then(res => {
-      console.log(window.$log = res.data)
-      setProblems(res.data)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-  }
+  
 
   useEffect(() => {
+
+    const fixFormat = (data) => {
+      let newdata = data
+      for(let i=0;i<data.length;i+=1){
+        newdata[i].companies = data[i].companies.map(obj => obj.name)
+        newdata[i].roles = data[i].roles.map(obj => obj.name)
+        newdata[i].subcategories = data[i].subcategories.map(obj => obj.name)
+      }
+      return newdata
+    }
+    const fetchProblems = async () => {
+      axios.get("http://localhost:8000/problems/problem/")
+      .then(res => {
+        console.log(window.$log = res.data)
+        setProblems(oldValue => {
+          return fixFormat(res.data)
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+
+    
     fetchProblems()
+    
+    
   }, [])
 
     
     return (
         <div>
-            
+            <Navbar />
             <h1 id='title'>All Problems</h1>
             <Table id='problems' dataSource={problems} columns={columns}/>
         </div>

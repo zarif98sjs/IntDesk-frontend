@@ -24,6 +24,7 @@
     "prefer-const": 0,
     "arrow-body-style": 0,
     "no-shadow": 0,
+    "import/no-named-as-default": 0,
     "import/prefer-default-export": 0,
     "react/no-array-index-key": 0,
     "react/prefer-stateless-function": 0,
