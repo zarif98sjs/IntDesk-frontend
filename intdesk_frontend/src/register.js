@@ -1,8 +1,9 @@
-import { Button, Checkbox, Form, Input } from 'antd';
-import React, { useState } from 'react';
+import { Button, Form, Input } from 'antd';
 import axios from "axios";
-import {  Navigate } from "react-router-dom";
-import Navbar from "./navbar";
+import React, { useState } from 'react';
+import { Navigate } from "react-router-dom";
+import Navbar from './navbar';
+
 
 function Register(){
 
@@ -43,7 +44,7 @@ function Register(){
 
   const SuccessSignUp = (
     <div>
-      <Navigate to="/profile" />
+      <Navigate to="/" />
     </div>
   );
 
