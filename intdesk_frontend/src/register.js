@@ -2,7 +2,7 @@ import { Button, Checkbox, Form, Input } from 'antd';
 import React, { useState } from 'react';
 import axios from "axios";
 import {  Navigate } from "react-router-dom";
-
+import Navbar from "./navbar";
 
 function Register(){
 
@@ -172,6 +172,7 @@ function Register(){
 
   return (
     <div>
+        <Navbar/>
         {isSubmitted ? SuccessSignUp : renderForm};
     </div>
   );

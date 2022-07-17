@@ -67,6 +67,7 @@
 import React from 'react';
 import { Card, Col, Row , Button} from 'antd';
 import { Navigate, Link } from 'react-router-dom';
+import Navbar from "./navbar";
 import './assess.css';
 
 const { Meta } = Card;
