@@ -17,6 +17,7 @@ import Problems from "./Problems";
 
 import Assessments from "./Assessments";
 import AssessQues from "./assess_ques";
+import ProblemNew from './ProblemNew';
 import QuestionsMine from './QuestionsMine';
 
 
@@ -54,7 +55,8 @@ ReactDOM.render(
       <Route exact path="/assessments/assess_ques/:id" element={<AssessQues />}/>
 
       <Route exact path="/problems" element={<Problems/>}/>
-      <Route exact path="/problem/:id" element={<ProblemIndividual />}/>
+      <Route exact path="/problems/problem/:id" element={<ProblemIndividual />}/>
+      <Route exact path="/problems/new" element={<ProblemNew />}/>
       <Route path="*" element={<ErrorPage />}/>
 
       

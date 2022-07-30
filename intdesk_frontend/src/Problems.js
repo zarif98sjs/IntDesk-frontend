@@ -1,8 +1,7 @@
-import {useState, useEffect} from "react"
-import axios from "axios"
 import { Space, Table } from "antd"
+import axios from "axios"
+import { useEffect, useState } from "react"
 import Navbar from "./navbar"
-import problemsData from "./ProblemData"
 import "./problems.css"
 
 const columns = [
@@ -12,7 +11,7 @@ const columns = [
       key: 'name',
       render: (_, record) => (
         <Space size="middle">
-          <a href={`problem/${record.id}`} >{record.name}</a>
+          <a href={`problems/problem/${record.id}`} >{record.name}</a>
         </Space>
       ),
     },
@@ -59,6 +58,8 @@ export default function Problems(){
         newdata[i].companies = data[i].companies.map(obj => obj.name)
         newdata[i].roles = data[i].roles.map(obj => obj.name)
         newdata[i].subcategories = data[i].subcategories.map(obj => obj.name)
+        
+        
       }
       return newdata
     }

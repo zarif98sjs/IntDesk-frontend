@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from "react"
-import { useParams, useLocation } from "react-router-dom"
-import axios from "axios"
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm';
-import remarkMath from 'remark-math'
-import rehypeKatex from 'rehype-katex'
-import { Col, Row, Tag } from 'antd';
-import problemData from "./ProblemData"
-import SubMenu from "./SubMenu"
-import Navbar from "./navbar"
-import IDE from "./IDE";
-import "./problems.css"
-import bookmark from "./images/bookmark.png"
+import { Col, Row } from 'antd';
+import axios from "axios";
 import 'katex/dist/katex.min.css';
+import React, { useEffect, useState } from "react";
+import ReactMarkdown from 'react-markdown';
+import { useLocation, useParams } from "react-router-dom";
+import rehypeKatex from 'rehype-katex';
+import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import IDE from "./IDE";
+import bookmark from "./images/bookmark.png";
+import Navbar from "./navbar";
+import "./problems.css";
+import SubMenu from "./SubMenu";
 
 export default function ProblemIndividual(){
 
@@ -32,7 +31,7 @@ export default function ProblemIndividual(){
 
 - $0 <= gas[i], cost[i] <= 104$ `
 
-    const admin = true
+    const admin = false
 
     const [input, setInput] = useState({"input": "", "output": "", "points": 0})
     const [company, setCompany] = useState({"name": "", "description": ""})
@@ -242,7 +241,11 @@ export default function ProblemIndividual(){
             
             <Row>
                 <Col span={12} style={{maxHeight: "100px"}}>
-                    <h2 style={{paddingLeft: '20px'}}>{problem.name}</h2>
+                
+                    <h2 style={{paddingLeft: '20px'}}>{problem.name} <button type="button" title="Bookmark" onClick={handleBookMark}>
+                            <img src={bookmark} width="20px" alt="Bookmark" />
+                            </button></h2>
+                    
                     <Row style={{fontSize:'16px', paddingLeft:'20px', paddingBottom: '15px', color: "#5172b0"}}>
                         <Col span={2}>
                             {problem.difficulty}
@@ -250,25 +253,30 @@ export default function ProblemIndividual(){
                         <Col span={4}>
                                 Solves: {problem.solve_count} / {problem.submission_count}
                         </Col>
-                        <Col span={5}>
-                            <button type="button" title="Bookmark" onClick={handleBookMark}>
-                            <img src={bookmark} width="20px" alt="Bookmark" />
-                            </button>
-                            
-                            </Col>
+                        <Col span={6}>
+                            Time Limit: {problem.time_limit}s
+                        </Col>
+                        <Col span={6}>
+                                Memory Limit: {problem.memory_limit} MB
+                        </Col>
+                        
                     </Row>
+                    {/* <Row style={{fontSize:'16px', paddingLeft:'20px', paddingBottom: '15px', color: "#5172b0"}}>
+                        
+                        
+                    </Row> */}
                     <div className="problem--description" style={{paddingLeft: "20px"}}>
                         
                     <ReactMarkdown 
                     remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]} >
                         {problem.description}
                     </ReactMarkdown>
-                    <div className="problem--constraints">
-                        <h4><b>Constraints</b></h4>
-                    <ReactMarkdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]} >
-                            {constraints}
-                        </ReactMarkdown>
-                    </div>
+                        {/* <div className="problem--constraints">
+                            <h4><b>Constraints</b></h4>
+                        <ReactMarkdown remarkPlugins={[remarkGfm, remarkMath]} rehypePlugins={[rehypeKatex]} >
+                                {constraints}
+                            </ReactMarkdown>
+                        </div> */}
                     { admin && 
                     <div>
                         <form onSubmit={preventDefault}>
