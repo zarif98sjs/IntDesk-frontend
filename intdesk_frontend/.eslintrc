@@ -17,6 +17,7 @@
     "jest": true
   },
   "rules": {
+    "jsx-a11y/label-has-associated-control": 0,
     "react/jsx-boolean-value": 0,
     "camelcase": 0,
     "prefer-destructuring": 0,
