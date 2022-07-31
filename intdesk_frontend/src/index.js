@@ -17,6 +17,10 @@ import Problems from "./Problems";
 
 import Assessments from "./Assessments";
 import AssessQues from "./assess_ques";
+import AssessForm from './assess_form';
+import AssessQuesForm from './AssessQuesForm';
+import AssessDetails from './assess_details';
+
 import QuestionsMine from './QuestionsMine';
 
 
@@ -51,7 +55,10 @@ ReactDOM.render(
       <Route exact path="/profile" element={<Profile/>}/>
 
       <Route exact path="/assessments" element={<Assessments/>}/>
-      <Route exact path="/assessments/assess_ques/:id" element={<AssessQues />}/>
+      <Route exact path="/assessments/:id" element={<AssessDetails/>}/>
+      <Route exact path="/assessments/:id/assess_ques" element={<AssessQues />}/>
+      <Route exact path="/assessments/new_assess" element = {<AssessForm/>}/>
+      <Route exact path="/assessments/:id/assess_newques" element = {<AssessQuesForm />}/>
 
       <Route exact path="/problems" element={<Problems/>}/>
       <Route exact path="/problem/:id" element={<ProblemIndividual />}/>

@@ -13,23 +13,7 @@ const { Meta } = Card;
 
 function Assessments() {
 
-    const flashcards = [
-        { id: 1, image: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg", name: 'Python', takenBy: 21 },
-        { id: 2, image: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg", name: 'Python', takenBy: 21 },
-        { id: 3, image: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg", name: 'Python', takenBy: 21 },
-        { id: 4, image: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg", name: 'Python', takenBy: 21 },
-        { id: 5, image: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg", name: 'Python', takenBy: 21 },
-        { id: 6, image: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg", name: 'Python', takenBy: 21 },
-        { id: 7, image: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg", name: 'Python', takenBy: 21 },
-        { id: 8, image: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg", name: 'Python', takenBy: 21 },
-        { id: 9, image: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg", name: 'Python', takenBy: 21 },
-        { id: 10, image: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg", name: 'Python', takenBy: 21 },
-        { id: 11, image: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg", name: 'Python', takenBy: 21 },
-        { id: 12, image: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg", name: 'Python', takenBy: 21 },
-        { id: 13, image: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg", name: 'Python', takenBy: 21 },
-        { id: 14, image: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg", name: 'Python', takenBy: 21 },
-    ];
-
+   
     const [assessments, setAssessments] = useState([]);
 
     // Extracting this method made it accessible for context/prop-drilling
@@ -46,18 +30,34 @@ function Assessments() {
           })
       };
 
+      function commaSeperate(obj, separator) {
+          let arr = [];
+          // var i; // HERE is where you move the 'var' to the top of the function
+          for (let i = 0; i < obj.length; i+=1) {
+             // console.log(obj[i].name);
+             arr.push(obj[i].name);
+          }
+          let string = "Roles :".concat( arr.join(separator || ", ") );
+          if (obj.length === 0){
+            string = "";
+          }
+          return string;
+      }
+
       useEffect(() => {    
         fetchAssessments();
       }, []);
 
+
     const element = assessments.map(assess_ind => (
         <Col span={6}>
         <div key={assess_ind.id}>
-            <Link to={`assess_ques/${assess_ind.id}`}>
+            <Link to={`${assess_ind.id}`}>
             <Card className='site-card-wrapper' hoverable style={{ width: 240, height: 300}} cover={<img alt="example" className = 'photo' src={assess_ind.image_link} />} >
                 <h2 style={{textAlign: "center"}}>{assess_ind.skill_name}</h2>
-                <h4>Taken By : {assess_ind.taken_by}</h4>
-                <h4>Passed By : {assess_ind.passed_by}</h4>
+                
+                <h4>{commaSeperate(assess_ind.roles, ", ")}</h4>
+                <h4>{assess_ind.taken_by} took this</h4>
                 <Button  type="link" htmlType="submit">Take Assessment Quiz </Button>
             </Card>
             </Link>

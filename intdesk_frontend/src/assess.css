@@ -11,3 +11,7 @@
     align-items: center;
 }
 
+.h4{
+  text-overflow: ellipsis;
+}
+

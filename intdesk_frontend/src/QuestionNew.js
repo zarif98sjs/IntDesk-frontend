@@ -36,8 +36,8 @@ function QuestionNew() {
   };
 
   const handleTextChange = event => {
+    console.log(event);
     setText(event);
-    // console.log(event);
   };
 
   const submit = event => {

@@ -1,7 +1,8 @@
 import { Typography , Button, Radio} from 'antd';
 import ReactMarkdown from 'react-markdown';
 import React, { useState, Component, useEffect } from 'react';
-import {  Navigate } from "react-router-dom";
+import {  Navigate, useParams } from "react-router-dom";
+import axios from 'axios';
 
 
 import remarkGfm from 'remark-gfm';
@@ -28,6 +29,9 @@ except "someError":
 
 
 function AssessQues(props:any) {
+
+  const params = useParams();
+  const assessmentID = params.id;
 
   const [QuesId, setQuesId ] = useState(0);
 
@@ -99,6 +103,72 @@ function AssessQues(props:any) {
           ],
         }
     ];
+
+    useEffect(() => {   
+      
+
+      const fetchComments = async () => {
+        await axios.get("http://localhost:8000/assessments/assessment/".concat(assessmentID).concat("/question/"))
+          .then(res => {
+            const ara = res.data;
+            console.log(window.$log = ara);
+  
+            // const hashmap = new Map();
+  
+            // for (let i = 0; i < ara.length; i+=1) {
+  
+            //   if (ara[i].hash != null && ara[i].user !==null && ara[i].parent == null) {
+  
+            //     const obj = {
+            //         'userId' : ara[i].user.id,
+            //         'comId' : ara[i].hash,
+            //         'fullName' : ara[i].user.username,
+            //         'text' : ara[i].comment,
+            //         'userProfile' : 'https://www.linkedin.com/in/',
+            //         'avatarUrl' : 'https://ui-avatars.com/api/name=Lily&background=random',
+            //         'replies' : []
+            //     }
+  
+            //     hashmap.set(obj.comId, obj);
+            //   }
+            // }
+  
+            // for (let i = 0; i < ara.length; i+=1) {
+  
+            //   if (ara[i].hash != null && ara[i].user != null && ara[i].parent != null){
+            //     // push into replies of hashmap
+            //     const obj = {
+            //       'userId' : ara[i].user.id,
+            //       'comId' : ara[i].hash,
+            //       'fullName' : ara[i].user.username,
+            //       'text' : ara[i].comment,
+            //       'userProfile' : 'https://www.linkedin.com/in/',
+            //       'avatarUrl' : 'https://ui-avatars.com/api/name=Lily&background=random',
+            //       'replies' : []
+            //     }
+                
+            //     hashmap.get(ara[i].parent).replies.push(obj);
+            //   }
+            // }
+  
+            // let values = [...hashmap.values()]
+            // setComments(values);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+      };
+
+ 
+          
+      // // set logged in
+      // setIsLoggedIn(JSON.parse(localStorage.getItem("isLoggedIn")));
+      
+      fetchComments();
+      // fetchUser();
+      
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [assessmentID]);
 
     const [value, setValue] = useState(1);
 
