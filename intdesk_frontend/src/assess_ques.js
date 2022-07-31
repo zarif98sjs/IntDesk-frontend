@@ -1,8 +1,8 @@
-import { Typography , Button, Radio} from 'antd';
-import ReactMarkdown from 'react-markdown';
-import React, { useState, Component, useEffect } from 'react';
-import {  Navigate, useParams } from "react-router-dom";
+import { Button, Radio, Typography } from 'antd';
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+import { useParams } from "react-router-dom";
 
 
 import remarkGfm from 'remark-gfm';
@@ -181,7 +181,8 @@ function AssessQues(props:any) {
      
       // ( QuesId < 1 ) ? setQuesId(QuesId + 1) : console.log(QuesId)
         
-      <Navigate to ='/profile'/>
+      // <Navigate to ='/profile'/>
+      console.log("next question")
     );
   
 
