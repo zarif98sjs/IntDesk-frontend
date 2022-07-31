@@ -1,7 +1,7 @@
 import { Space, Table } from "antd"
-
+import axios from "axios"
+import { useEffect, useState } from "react"
 import Navbar from "./navbar"
-import problemsData from "./ProblemData"
 import "./problems.css"
 
 const columns = [
@@ -11,15 +11,15 @@ const columns = [
       key: 'name',
       render: (_, record) => (
         <Space size="middle">
-          <a href={`problem/${record.id}`} >{record.name}</a>
+          <a href={`problems/problem/${record.id}`} >{record.name}</a>
         </Space>
       ),
     },
     {
       title: 'Categories',
-      dataIndex: 'subCategories',
-      key: 'subCategories',
-    },
+      dataIndex: 'subcategories',
+      key: 'subcategories',
+    } ,
     {
       title: 'Difficulty',
       dataIndex: 'difficulty',
@@ -27,13 +27,13 @@ const columns = [
     },
     {
         title: 'Submissions',
-        dataIndex: 'submissionCount',
-        key: 'submissionCount',
+        dataIndex: 'submission_count',
+        key: 'submission_count',
     },
     {
         title: 'Solutions',
-        dataIndex: 'solveCount',
-        key: 'solveCount',
+        dataIndex: 'solve_count',
+        key: 'solve_count',
     },
     {
         title: 'Asked In',
@@ -45,12 +45,49 @@ const columns = [
 
 
 export default function Problems(){
+
+  const [problems, setProblems] = useState([])
+
+  
+
+  useEffect(() => {
+
+    const fixFormat = (data) => {
+      let newdata = data
+      for(let i=0;i<data.length;i+=1){
+        newdata[i].companies = data[i].companies.map(obj => obj.name)
+        newdata[i].roles = data[i].roles.map(obj => obj.name)
+        newdata[i].subcategories = data[i].subcategories.map(obj => obj.name)
+        
+        
+      }
+      return newdata
+    }
+    const fetchProblems = async () => {
+      axios.get("http://localhost:8000/problems/problem/")
+      .then(res => {
+        console.log(window.$log = res.data)
+        setProblems(oldValue => {
+          return fixFormat(res.data)
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+
+    
+    fetchProblems()
+    
+    
+  }, [])
+
     
     return (
         <div>
-            
+            <Navbar />
             <h1 id='title'>All Problems</h1>
-            <Table id='problems' dataSource={problemsData} columns={columns}/>
+            <Table id='problems' dataSource={problems} columns={columns}/>
         </div>
     )
 }
