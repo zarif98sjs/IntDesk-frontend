@@ -10,6 +10,8 @@
     "@testing-library/user-event": "^13.5.0",
     "antd": "^4.21.6",
     "axios": "^0.24.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
     "katex": "^0.16.0",
     "package.json": "^2.0.1",
     "react": "^16.0.0",

@@ -1,0 +1,54 @@
+.body{
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  }
+  
+  #button_submit {
+    margin: 10px auto;
+    display: flex;
+    border-radius: 15px;
+    width: 200px;
+    height: 50px;
+    font-weight: 600;
+    line-height: 40px;
+    text-align: center;
+    padding-left: 50px;
+  }
+  
+  .markdown-textarea {
+    height: 500px;
+    /* margin: 20px auto;
+    display: flex;
+    justify-content: center;
+    text-align: center; */
+  }
+  
+  .markdown-show {
+    height: 500px;
+  }
+  
+  .input-row{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding-left: 20px;
+
+  }
+
+  .input-row > label {
+
+
+    max-width: 15%;
+    padding-top: 30px;
+
+  }
+  .input-row > Input, select {
+    max-width: 40%;
+    width: 40%;
+    height: 50px;   
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    border-radius: 10px;
+    background-color: white;
+  }

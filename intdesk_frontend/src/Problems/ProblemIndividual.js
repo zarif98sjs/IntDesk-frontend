@@ -8,10 +8,10 @@ import rehypeKatex from 'rehype-katex';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import IDE from "./IDE";
-import bookmark from "./images/bookmark.png";
-import Navbar from "./navbar";
+import bookmark from "../images/bookmark.png";
+import Navbar from "../navbar";
 import "./problems.css";
-import SubMenu from "./SubMenu";
+import SubMenu from "../SubMenu";
 
 export default function ProblemIndividual(){
 
@@ -31,7 +31,7 @@ export default function ProblemIndividual(){
 
 - $0 <= gas[i], cost[i] <= 104$ `
 
-    const admin = false
+    const admin = true
 
     const [input, setInput] = useState({"input": "", "output": "", "points": 0})
     const [company, setCompany] = useState({"name": "", "description": ""})
@@ -204,7 +204,7 @@ export default function ProblemIndividual(){
     
       useEffect(() => {
         const fetchProblem = async () => {
-            axios.get("http://localhost:8000/problems/problem/".concat(id))
+            await axios.get("http://localhost:8000/problems/problem/".concat(id))
             .then(res => {
               console.log(window.$log = res.data)
               setProblem(res.data)

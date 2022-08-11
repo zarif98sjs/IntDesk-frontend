@@ -1,9 +1,13 @@
+import { convertLegacyProps } from "antd/lib/button/button";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { CommentSection } from 'react-comments-section';
 import 'react-comments-section/dist/index.css';
 
 function Comments({comments,discussionId}){
+
+  console.log("comments are")
+  console.log(comments)
 
   const [user, setUser] = useState([]);
   const authToken = JSON.parse(localStorage.getItem("authToken"));
@@ -60,6 +64,7 @@ function Comments({comments,discussionId}){
         
         commentData={comments}
         
+        
         onSubmitAction={(data: {|
           userId: string,
           comId: string,
@@ -77,7 +82,7 @@ function Comments({comments,discussionId}){
               "comment": data.text,
               "hash": data.comId
             }
-  
+            console.log("inside submit")
             console.log('postData here', postData)
             console.log('authToken here', authToken)
             axios.post('http://localhost:8000/discussion/'.concat(discussionId).concat('/comment/'), postData ,{headers :{
