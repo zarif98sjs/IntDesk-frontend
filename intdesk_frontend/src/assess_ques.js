@@ -1,6 +1,6 @@
 import { Button, Radio, Typography } from 'antd';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState , useRef} from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useParams } from "react-router-dom";
 
@@ -28,34 +28,43 @@ except "someError":
 
 
 
-function AssessQues(props:any) {
+function AssessQues(props) {
 
   const params = useParams();
   const assessmentID = params.id;
+  
+  // const { current: assessmentID } = useRef(params.id);
+
 
   const [QuesId, setQuesId ] = useState(0);
+  const [questions, setQuestions] = useState([]);
+  const [quesLength, setQuesLength] = useState(0);
 
-  const {initialMinute = 0,initialSeconds = 5} = props;
+  const {initialMinute = 0,initialSeconds = 50} = props;
   const [ minutes, setMinutes ] = useState(initialMinute);
   const [seconds, setSeconds ] =  useState(initialSeconds);
-  useEffect(()=>{
-  let myInterval = setInterval(() => {
-          if (seconds > 0) {
-              setSeconds(seconds - 1);
-          }
-          if (seconds === 0) {
-              if (minutes === 0) {
-                  clearInterval(myInterval)
-              } else {
-                  setMinutes(minutes - 1);
-                  setSeconds(59);
-              }
-          } 
-      }, 1000)
-      return ()=> {
-          clearInterval(myInterval);
-        };
-  });
+
+  const [value, setValue] = useState();
+  const [points, setpoints] = useState(0);
+
+  // useEffect(()=>{
+  // let myInterval = setInterval(() => {
+  //         if (seconds > 0) {
+  //             setSeconds(seconds - 1);
+  //         }
+  //         if (seconds === 0) {
+  //             if (minutes === 0) {
+  //                 clearInterval(myInterval)
+  //             } else {
+  //                 setMinutes(minutes - 1);
+  //                 setSeconds(59);
+  //             }
+  //         } 
+  //     }, 1000)
+  //     return ()=> {
+  //         clearInterval(myInterval);
+  //       };
+  // });
     
     const data = [
         {
@@ -104,86 +113,58 @@ function AssessQues(props:any) {
         }
     ];
 
+    const fetchQuestions = async () => {
+      await axios.get("http://localhost:8000/assessments/assessment/".concat(assessmentID).concat("/questions/"))
+        .then(res => {
+          const ara = res.data;
+          // console.log(window.$log = ara);
+          // setQuestions((questions) => ara);
+          setQuestions(ara);
+          // setQuesId(ara[0].id);
+          
+          // console.log(questions[0].description);
+          
+          
+          // console.log(ara);
+          
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    };
+
     useEffect(() => {   
       
-
-      const fetchComments = async () => {
-        await axios.get("http://localhost:8000/assessments/assessment/".concat(assessmentID).concat("/question/"))
-          .then(res => {
-            const ara = res.data;
-            console.log(window.$log = ara);
-  
-            // const hashmap = new Map();
-  
-            // for (let i = 0; i < ara.length; i+=1) {
-  
-            //   if (ara[i].hash != null && ara[i].user !==null && ara[i].parent == null) {
-  
-            //     const obj = {
-            //         'userId' : ara[i].user.id,
-            //         'comId' : ara[i].hash,
-            //         'fullName' : ara[i].user.username,
-            //         'text' : ara[i].comment,
-            //         'userProfile' : 'https://www.linkedin.com/in/',
-            //         'avatarUrl' : 'https://ui-avatars.com/api/name=Lily&background=random',
-            //         'replies' : []
-            //     }
-  
-            //     hashmap.set(obj.comId, obj);
-            //   }
-            // }
-  
-            // for (let i = 0; i < ara.length; i+=1) {
-  
-            //   if (ara[i].hash != null && ara[i].user != null && ara[i].parent != null){
-            //     // push into replies of hashmap
-            //     const obj = {
-            //       'userId' : ara[i].user.id,
-            //       'comId' : ara[i].hash,
-            //       'fullName' : ara[i].user.username,
-            //       'text' : ara[i].comment,
-            //       'userProfile' : 'https://www.linkedin.com/in/',
-            //       'avatarUrl' : 'https://ui-avatars.com/api/name=Lily&background=random',
-            //       'replies' : []
-            //     }
-                
-            //     hashmap.get(ara[i].parent).replies.push(obj);
-            //   }
-            // }
-  
-            // let values = [...hashmap.values()]
-            // setComments(values);
-          })
-          .catch(err => {
-            console.log(err);
-          })
-      };
-
- 
-          
-      // // set logged in
-      // setIsLoggedIn(JSON.parse(localStorage.getItem("isLoggedIn")));
-      
-      fetchComments();
-      // fetchUser();
+      fetchQuestions();  
+      setQuesLength(questions.length);
+      // console.log("Questions");
+      console.log(questions);   
+      // console.log("Questions 2");
       
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [assessmentID]);
+    }, []);
 
-    const [value, setValue] = useState(1);
+    
 
     const onChange = (e) => {
         console.log('radio checked', e.target.value);
         setValue(e.target.value);
     };
 
-    const loadAnotherQues = (
-     
-      // ( QuesId < 1 ) ? setQuesId(QuesId + 1) : console.log(QuesId)
+   
+
+    const submittedQuestion =  async () => {
+      if (value === "option1"){
+        // const total_point = {points} + 10;
         
-      // <Navigate to ='/profile'/>
-      console.log("next question")
-    );
+        setpoints(points + 1);
+        console.log(points);
+
+        // setQuesId(QuesId + 1);
+      }
+      // setQuesId(QuesId + 1);
+      // console.log(QuesId);
+    };
   
 
     return (
@@ -198,16 +179,11 @@ function AssessQues(props:any) {
                   </div>
                   <br/>
                   <div id='qih'>
-                    <h3 style={{textAlign: "center"}}>Question {data[QuesId].id}</h3>
+                    <h3 style={{textAlign: "center"}}>Question </h3>
                   </div>
                   <br/>
-                  <div style={{ display: "flex" }}>
-                  { minutes === 0 && seconds === 0
-                        ? loadAnotherQues
-                        : <h3 id='element3' style={{textAlign: "center"}}> Time Left: {minutes}:{seconds < 10 ?  `0${seconds}` : seconds}</h3> 
-                    }
-                  </div>
-                  
+                  {questions[0].description}
+                 
                   <br/>
                   <div id='qi'>
                     <ReactMarkdown remarkPlugins={[remarkGfm]} >
@@ -226,7 +202,7 @@ function AssessQues(props:any) {
                     </Radio.Group>
                     <div style={{ display: "flex" }}>
                         
-                      <Button type="primary" id='next' href="/profile"  style={{ marginLeft: "auto" }}>Next</Button>
+                      <Button type="primary" id='next' onClick={submittedQuestion}  style={{ marginLeft: "auto" }}>Next</Button>
                     </div>
                   </div>
                   <br/>
@@ -238,3 +214,9 @@ function AssessQues(props:any) {
 
 export default AssessQues;
 
+/* <div style={{ display: "flex" }}>
+{ minutes === 0 && seconds === 0
+      ? loadAnotherQues
+      : <h3 id='element3' style={{textAlign: "center"}}> Time Left: {minutes}:{seconds < 10 ?  `0${seconds}` : seconds}</h3> 
+  }
+</div> */

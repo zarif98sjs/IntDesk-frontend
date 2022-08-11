@@ -24,6 +24,7 @@ function Assessments() {
             const ara = res.data;
             console.log(window.$log = ara);
             setAssessments(ara);
+            
             })
           .catch(err => {
             console.log(err);

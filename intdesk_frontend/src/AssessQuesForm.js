@@ -67,7 +67,7 @@ function AssessQuesForm(){
 
   const handleDifficultyChange = event => {
     setDifficulty(event);
-    // console.log(event);
+    console.log(event);
   };
 
   
@@ -142,7 +142,7 @@ function AssessQuesForm(){
       })
 
       // navigate to create questions page
-      window.location.href = "/assessments/new_assess";
+      window.location.href = "/assessments/";
 
   }
 
