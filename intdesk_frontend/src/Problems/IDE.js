@@ -2,24 +2,22 @@ import Editor from "@monaco-editor/react"
 import axios from "axios"
 import React, { useState } from "react"
 import Select from "react-select"
+import LanguageData from "./LanguageData"
 import spinner from "../images/spinner.gif"
 import "./ide.css"
 
 export default function IDE(){
     
-    console.log(atob("bWFpbi5jcHA6IEluIGZ1bmN0aW9uIOKAmGludCBtYWluKCnigJk6Cm1haW4u\nY3BwOjQ6NTogZXJyb3I6IOKAmGNvdXTigJkgd2FzIG5vdCBkZWNsYXJlZCBp\nbiB0aGlzIHNjb3BlCiAgICAgY291dCA8PCAiSEVMTE8iIDw8IGVuZGw7CiAg\nICAgXn5+fgptYWluLmNwcDo0OjI0OiBlcnJvcjog4oCYZW5kbOKAmSB3YXMg\nbm90IGRlY2xhcmVkIGluIHRoaXMgc2NvcGUKICAgICBjb3V0IDw8ICJIRUxM\nTyIgPDwgZW5kbDsKICAgICAgICAgICAgICAgICAgICAgICAgXn5+fgptYWlu\nLmNwcDo0OjI0OiBub3RlOiBzdWdnZXN0ZWQgYWx0ZXJuYXRpdmU6IOKAmGVu\ndW3igJkKICAgICBjb3V0IDw8ICJIRUxMTyIgPDwgZW5kbDsKICAgICAgICAg\nICAgICAgICAgICAgICAgXn5+fgogICAgICAgICAgICAgICAgICAgICAgICBl\nbnVtCg==\n"))
-
+    
     const authToken = JSON.parse(localStorage.getItem("authToken"));
 
     const [code, setCode] = useState("")
-    const [language, setLanguage] = useState("cpp")
+    const [language, setLanguage] = useState(LanguageData[0])
     const [fontSize, setFontSize] = useState(16)
     const [input, setInput] = useState("")
     const [output, setOutput] = useState("")
     const [loading, setLoading] = useState(false)
 
-    const allLanguages = [{value: "c", label: "c"},{value: "cpp", label: "cpp"}, {value: "python", 
-    label: "python"}, { value: "java", label: "java"}]
     
     const allFontSizes = [16, 18, 20, 22, 24, 26, 28, 30, 32].map(font => (
          {value: font, label: font}
@@ -82,7 +80,7 @@ export default function IDE(){
 
         setLoading(true);
         const formData = {
-            language_id: "53",
+            language_id: language.id,
             // encode source code in base64
             source_code: btoa(code),
             stdin: btoa(input),
@@ -137,9 +135,9 @@ export default function IDE(){
                 <div style={{width: "200px"}}>
                     Language
                 <Select
-                    options={allLanguages} 
+                    options={LanguageData} 
                     value={language}
-                    onChange={(event) => setLanguage(event.value)}
+                    onChange={(sl) => setLanguage(sl)}
                     placeholder={language}
                 />  
                 
@@ -169,8 +167,8 @@ export default function IDE(){
                 height="calc(50vh)"
                 width="100%"
                 theme="light"
-                language={language}
-                defaultLanguage="c"
+                language={language.value}
+                defaultLanguage={LanguageData[0].value}
                 defaultValue="// Enter your code here"
                 onChange={(value) => { setCode(value) }}
                 style = {{border: "black"}}

@@ -20,7 +20,7 @@ export default function ProblemIndividual(){
     const params = useParams()
     
     const currentPath = useLocation().pathname
-
+    
     const [problem, setProblem] = useState([])
     const [id, setId] = useState(params.id)
 
@@ -216,7 +216,7 @@ export default function ProblemIndividual(){
         fetchProblem()
       }, [id])
     
-  
+      
     
     const subMenuOptions = [
         {
@@ -229,6 +229,7 @@ export default function ProblemIndividual(){
         }
     ]
     function handleBookMark(){
+        
         console.log("bookmark")
     }
     return (
@@ -367,9 +368,9 @@ export default function ProblemIndividual(){
 
                     
                 </Col>
-                <Col span={12}>
+                {/* <Col span={12}>
                     <IDE />
-                </Col>
+                </Col> */}
             </Row>
             
             </div>
