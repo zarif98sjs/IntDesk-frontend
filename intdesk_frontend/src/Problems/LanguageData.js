@@ -1,18 +1,8 @@
 export default [
     {
-        id: 75,
-        label: "C (Clang 7.0.1)",
-        value: "c",
-    },
-    {
         id: 49,
         label: "C (GCC 8.3.0)",
         value: "c",
-    },
-    {
-        id: 76,
-        label: "C++ (Clang 7.0.1)",
-        value: "cpp",
     },
     {
         id: 53,
