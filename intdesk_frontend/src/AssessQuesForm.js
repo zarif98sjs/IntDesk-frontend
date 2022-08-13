@@ -16,9 +16,9 @@ function AssessQuesForm(){
   const assessmentID = params.id;
   
   const [Description, setDescription] = useState('');
-  const [Difficulty, setDifficulty] = useState('');
+  const [Difficulty, setDifficulty] = useState('E');
   const [time, setTime] = useState(0);
-  const [Points, setPoints] = useState(0);
+  // const [Points, setPoints] = useState(0);
   const [Option1, setOption1] = useState('');
   const [Option2, setOption2] = useState('');
   const [Option3, setOption3] = useState('');
@@ -36,9 +36,9 @@ function AssessQuesForm(){
     setTime(event);
   };
 
-  const pointChange = event => {
-    setPoints(event);
-  };
+  // const pointChange = event => {
+  //   setPoints(event);
+  // };
 
   const handleTextChange = event => {
     // console.log(event);
@@ -85,12 +85,16 @@ function AssessQuesForm(){
       'time': time,
       'description' : Description,
       'difficulty' : Difficulty,
-      'points' : Points,
+      // 'points' : Points,
     };
 
     console.log(postData);
     
-    await axios.post('http://localhost:8000/assessments/assessment/'.concat(assessmentID).concat('/question/'), postData ,{headers: {
+   
+      // navigate to create questions page
+      // window.location.href = "/assessments/".concat(assessmentID).concat("/assess_newques");
+
+      await axios.post('http://localhost:8000/assessments/assessment/'.concat(assessmentID).concat('/question/'), postData ,{headers: {
         // 'Authorization': 'Token '.concat(authToken.token),
         'Content-Type' : 'application/json'
       }})
@@ -102,17 +106,39 @@ function AssessQuesForm(){
         console.log(quesID);
 
         let Options = [Option1, Option2, Option3, Option4];
-        for(let i = 0 ; i < 4 ; i+= 1){
-          console.log(Options[i]);
+        for(let i = 1 ; i <= 4 ; i+= 1){
+          // console.log(Options[i-1]);
+          // console.log(RightOption);
+          let correct = false;
+          if( i === parseInt(RightOption, 10) ){
+            // console.log(i);
+            correct = true;
+          }
+          // if( i === int( RightOption ) ){
+          //   console.log("yes");
+          // }
+          // console.log(type(RightOption));
+          let postOptionData = {
+            'ques' : quesID, 
+            'option_description' : Options[i-1],
+            'correct' : correct,
+          };
+
+          axios.post('http://localhost:8000/assessments/assessment/'.concat(assessmentID).concat('/options/'), postOptionData ,{headers: {
+            // 'Authorization': 'Token '.concat(authToken.token),
+            'Content-Type' : 'application/json'
+          }})
+          .then(res => {
+            console.log(window.$log = res.data);
+          })
+
+
         }
 
       })
       .catch(err => {
         console.log(err);
       })
-
-      // navigate to create questions page
-      // window.location.href = "/assessments/".concat(assessmentID).concat("/assess_newques");
 
   }
 
@@ -125,7 +151,7 @@ function AssessQuesForm(){
       'time': time,
       'description' : Description,
       'difficulty' : Difficulty,
-      'points' : Points,
+      // 'points' : Points,
     };
 
     console.log(postData);
@@ -163,7 +189,7 @@ function AssessQuesForm(){
                 </Select>
                 <br/>
                 Time : <InputNumber  defaultValue={0} onChange={timeChange}  /><br/>
-                Points : <InputNumber  defaultValue={0} onChange={pointChange}  /><br/>
+               
                 <h4 id='title'> Question Description : </h4>
                 <Markdown id='text_area' callback={handleTextChange}  textarea={true} customWidth={[50,50]}/>
                 <h4 id='title'> Option1 : </h4>

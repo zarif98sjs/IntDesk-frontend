@@ -1,16 +1,20 @@
 import { Typography , Button, Radio} from 'antd';
 import ReactMarkdown from 'react-markdown';
 import React, { useState, Component, useEffect } from 'react';
-import {  Navigate, useParams } from "react-router-dom";
+import {  Link, useParams } from "react-router-dom";
+import { StarOutlined, StarFilled, StarTwoTone } from '@ant-design/icons';
 import axios from 'axios';
 
 import Navbar from './navbar';
-import "./questionIndividual.css";
+import "./assessDetails.css";
 
 
 
 
 function AssessDetails() {
+
+  const authToken = JSON.parse(localStorage.getItem("authToken"));
+  const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem("isLoggedIn")));
 
   const params = useParams();
   const assessmentID = params.id;
@@ -62,7 +66,8 @@ function AssessDetails() {
       };
 
       
-
+      // set logged in
+      setIsLoggedIn(JSON.parse(localStorage.getItem("isLoggedIn")));
       
       fetchDetails();
       
@@ -80,12 +85,21 @@ function AssessDetails() {
         <div className="">
                 <Navbar/>
                 {/* <h1 id='title'>   Single Question </h1> */}
-                  <div >
-                    <h1 id='title'>{assessment.skill_name} assessment test</h1> 
+                  <div id = 'questions'>
+                    <h1 id='title'><img src = {assessment.image_link} alt="logo" /> {assessment.skill_name} assessment test</h1> 
+                    <h4>{roles}</h4>
                     <h4> {assessment.taken_by} took this</h4>
                     <h4> {assessment.passed_by} passed this</h4>
-                    <h4>{roles}</h4>
-                    <Button  type="link" htmlType="submit" href={`${assessmentID}/assess_ques`}>Take Assessment Quiz </Button>
+
+                    <h4>Total 15 questions</h4>
+                    <h4>Individual time for each question</h4>
+                    
+                    {isLoggedIn ? ( 
+                      <Button  type="link" htmlType="submit" href={`${assessmentID}/assess_ques`}>Take Assessment Quiz </Button>
+                    ) : (
+                      <Link to="/login">Log In to take the assessment quiz </Link>
+                    )}
+                    
                   </div>
                   <br/>
                   
