@@ -1,6 +1,7 @@
 import NewEditorial from "./NewEditorial";
 import NewStatement from "./NewStatement";
 import NewTags from "./NewTags";
+import NewIO from "./NewIO";
 
 
 function NewProblemBody({problem, setProblem, page}) {
@@ -13,6 +14,9 @@ function NewProblemBody({problem, setProblem, page}) {
                 [name]: value
             }
         ))
+        console.log(name)
+        console.log(value)
+        console.log(problem)
     }
 
     const handleMarkDownChange = event => {
@@ -25,13 +29,13 @@ function NewProblemBody({problem, setProblem, page}) {
     }
 
     const components = {
-        statement: <NewStatement handleTextChange={handleTextChange} handleMarkDownChange={handleMarkDownChange} />,
-        editorial: <NewEditorial handleMarkDownChange={handleMarkDownChange} />,
-        tags: <NewTags problem={problem} setProblem={setProblem}/>
+        statement: <NewStatement problem={problem} setProblem={setProblem} handleTextChange={handleTextChange} handleMarkDownChange={handleMarkDownChange} />,
+        // editorial: <NewEditorial handleMarkDownChange={handleMarkDownChange} />,
+        tags: <NewTags problem={problem} setProblem={setProblem} />,
+        input_output: <NewIO problem={problem} setProblem={setProblem} />
     }
     return (
         components[page]
-        // <NewStatement handleTextChange={handleTextChange} handleMarkDownChange={handleMarkDownChange} />
     )
 
 }

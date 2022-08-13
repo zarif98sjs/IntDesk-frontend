@@ -11,7 +11,7 @@ const columns = [
       key: 'name',
       render: (_, record) => (
         <Space size="middle">
-          <a href={`problems/problem/${record.id}`} >{record.name}</a>
+          <a href={`/problems/problem/${record.id}`} >{record.name}</a>
         </Space>
       ),
     },
