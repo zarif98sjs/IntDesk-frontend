@@ -1,7 +1,7 @@
 
 // import { WithContext as ReactTags } from 'react-tag-input';
 import { useState } from 'react';
-import TagEditor from 'react-tageditor';
+// import TagEditor from 'react-tageditor';
 
 function NewTags({problem, setProblem}){
 
