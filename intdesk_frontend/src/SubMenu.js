@@ -1,6 +1,6 @@
+import { Menu } from "antd"
 import React from "react"
-import {Link} from "react-router-dom"
-import {Menu} from "antd"
+import { Link } from "react-router-dom"
 
 /*
 pass in as props: options = [
@@ -17,6 +17,8 @@ pass in as props: options = [
 export default function SubMenu(props){
     
     const options = props.options
+
+    
 
     const elements = options.map(option => (
         <Menu.Item key={option.name} padding-left="100px">

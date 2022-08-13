@@ -203,6 +203,7 @@ function QuestionIndividual() {
               if (ara[i].hash != null && ara[i].user !==null && ara[i].parent == null) {
   
                 const obj = {
+                    'id': ara[i].id,
                     'userId' : ara[i].user.id,
                     'comId' : ara[i].hash,
                     'fullName' : ara[i].user.username,
@@ -221,6 +222,7 @@ function QuestionIndividual() {
               if (ara[i].hash != null && ara[i].user != null && ara[i].parent != null){
                 // push into replies of hashmap
                 const obj = {
+                  'id': ara[i].id,
                   'userId' : ara[i].user.id,
                   'comId' : ara[i].hash,
                   'fullName' : ara[i].user.username,
@@ -242,29 +244,7 @@ function QuestionIndividual() {
           })
       };
 
-      // const fetchUser = async () => {
-      //   axios.get("http://localhost:8000/users/details/", {
-      //     headers: {
-      //         'Authorization': 'Token '.concat(authToken.token)
-      //       }
-      //     })
-      //     .then(res => {
-      //       // console.log(window.$log = res.data);
-      //       console.log("Inside fetchUser of QuestionIndividual.js");
-      //       console.log(res.data);
-      //       let obj = {
-      //         'currentUserId' : res.data.id,
-      //         'currentUserImg': 'https://ui-avatars.com/api/name=Riya&background=random',
-      //         'currentUserProfile' : 'https://www.linkedin.com/in/',
-      //         'currentUserFullName' : res.data.username,
-      //     }
-      //       setUser(res.data);
-      //     })
-      //     .catch(err => {
-      //       console.log(err);
-      //     })
-      // };
-
+      
       const check_vote_status = async () => {
         await axios.get("http://localhost:8000/discussion/".concat(id).concat("/check_vote_status/"), {
           headers: {

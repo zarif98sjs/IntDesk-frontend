@@ -1,7 +1,7 @@
 import { Space, Table } from "antd"
 import axios from "axios"
 import { useEffect, useState } from "react"
-import Navbar from "./navbar"
+import Navbar from "../navbar"
 import "./problems.css"
 
 const columns = [
