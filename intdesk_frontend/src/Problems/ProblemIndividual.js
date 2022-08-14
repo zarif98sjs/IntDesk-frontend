@@ -24,12 +24,6 @@ export default function ProblemIndividual(){
     const [problem, setProblem] = useState([])
     const [id, setId] = useState(params.id)
 
-    const constraints = 
-`- $n == gas.length == cost.length$ \
-
-- $1 <= n <= 105$ \
-
-- $0 <= gas[i], cost[i] <= 104$ `
 
     
     useEffect(() => {

@@ -184,7 +184,12 @@ function ProblemNew() {
       }})
       .then(res => {
         console.log(window.$log = res.data);
-        // navigate to the problems page
+        
+        // submitIO(id);
+        // submitRoles(id);
+        // submitCompanies(id);
+        // submitSubcategories(id);
+        // // navigate to the problems page
         window.location.href = `/problems/problem/${id}`;
 
         
@@ -245,6 +250,46 @@ function ProblemNew() {
                   subcategories: prevSubcategories
                 }
               ))
+
+              if(res.data.input_outputs.length === 0){
+                setProblem(oldProblem => (
+                  {
+                    ...oldProblem,
+                    inputOutputs: [{"input": "", "output": "", "points": 1}],
+                    
+                  }
+                ))
+              }
+              if(res.data.roles.length === 0){
+                setProblem(oldProblem => (
+                  {
+                    ...oldProblem,
+                    roles: [{"role": ""}],
+                    
+                  }
+                ))
+              }
+              if(res.data.companies.length === 0){
+                setProblem(oldProblem => (
+                  {
+                    ...oldProblem,
+                    companies: [{"company": ""}],
+                    
+                  }
+                ))
+              }
+
+              if(res.data.subcategories.length === 0){
+                setProblem(oldProblem => (
+                  {
+                    ...oldProblem,
+                    subcategories: [{"subcategory": "", "category": ""}],
+                    
+                  }
+                ))
+              }
+
+              
 
              
             })
