@@ -1,5 +1,7 @@
+
+
 import React, { useEffect, useState } from 'react';
-import { Card, Col, Row , Button} from 'antd';
+import { Card, Col, Row , Avatar, List} from 'antd';
 import { Navigate, Link } from 'react-router-dom';
 import axios from "axios";
 import Navbar from "./navbar";
@@ -44,27 +46,29 @@ function Assessments() {
           }
           return string;
       }
+      
 
       useEffect(() => {    
         fetchAssessments();
       }, []);
 
 
-    const element = assessments.map(assess_ind => (
-        <Col span={6}>
-        <div key={assess_ind.id}>
-            <Link to={`${assess_ind.id}`}>
-            <Card className='site-card-wrapper' hoverable style={{ width: 240, height: 300}} cover={<img alt="example" className = 'photo' src={assess_ind.image_link} />} >
-                <h2 style={{textAlign: "center"}}>{assess_ind.skill_name}</h2>
-                
-                <h4>{commaSeperate(assess_ind.roles, ", ")}</h4>
-                <h4>{assess_ind.taken_by} took this</h4>
-                <Button  type="link" htmlType="submit">Take Assessment Quiz </Button>
-            </Card>
-            </Link>
-        </div>
-        </Col>
-    ))
+     
+    const element =  (
+        <List
+          itemLayout="horizontal"
+          dataSource={assessments}
+          renderItem={(item) => (
+            <List.Item>
+              <List.Item.Meta
+                avatar={<Avatar src={item.image_link} />}
+                title={<a href={"/assessments/".concat( item.id )}>{item.skill_name}</a>}
+                description= {commaSeperate(item.roles, ", ")} 
+              />
+            </List.Item>
+          )}
+        />
+    )
 
 
 
@@ -73,10 +77,7 @@ function Assessments() {
         <div>
             <Navbar/>
             <h1 id='title'> All Assessments </h1>
-            <Row gutter={[16, 24]}>
-              {element}
-              
-            </Row>             
+              {element}          
         </div>
     )
   }
@@ -86,4 +87,14 @@ function Assessments() {
 export default Assessments;
 
 /* cover={<img alt="example" className = 'photo' src={flashcard.image} />} */
+/*
+<Link to={`${assess_ind.id}`}>
+            <Card className='site-card-wrapper' hoverable style={{ width: 240, height: 300}} cover={<img alt="example" className = 'photo' src={assess_ind.image_link} />} >
+                <h2 style={{textAlign: "center"}}>{assess_ind.skill_name}</h2>
+                
+                <h4>{commaSeperate(assess_ind.roles, ", ")}</h4>
+                <h4>{assess_ind.taken_by} took this</h4>
+                <Button  type="link" htmlType="submit">Take Assessment Quiz </Button>
+            </Card>
+            */
                        

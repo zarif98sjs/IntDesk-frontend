@@ -15,3 +15,8 @@
   text-overflow: ellipsis;
 }
 
+
+.ant-list-item{
+  margin: auto;
+  padding: 24px;
+}

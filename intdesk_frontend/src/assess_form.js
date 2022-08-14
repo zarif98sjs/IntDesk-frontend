@@ -16,6 +16,7 @@ function AssessForm(){
   const [taken_by, setTakenBy] = useState(0);
   const [passed_by, setPassedBy] = useState(0);
   const [roles, setRoles] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
   const [image, setImage] = useState('');
 
@@ -54,6 +55,14 @@ function AssessForm(){
     // console.log(tagsAra);
   };
 
+
+  const handleCategoriesChange = event => {
+    let tagsAra = event.target.value.replace(/ /g,' ');
+    tagsAra = tagsAra.split(',');
+    // console.log(tagsAra);
+    setCategories(tagsAra); 
+  };
+
   const handleSubcategoriesChange = event => {
     let tagsAra = event.target.value.replace(/ /g,' ');
     tagsAra = tagsAra.split(',');
@@ -73,6 +82,10 @@ function AssessForm(){
     // console.log(title);
     // console.log(tags);
     // console.log(text);
+    if( skill_name === '' ){
+      console.log("no skill name");
+      return;
+    }
 
     // POST
     let postData = {
@@ -81,10 +94,11 @@ function AssessForm(){
       'passed_by' : passed_by,
       'image_link' : image,
       'roles': roles,
-      'subcategories' : subcategories,
+      'categories' : categories,
       // 'description': text,
     };
-    // console.log(postData);
+    console.log(postData);
+      
     
     await axios.post('http://localhost:8000/assessments/assessment/', postData ,{headers: {
         // 'Authorization': 'Token '.concat(authToken.token),
@@ -92,9 +106,8 @@ function AssessForm(){
       }})
       .then(res => {
         console.log(window.$log = res.data);
-  
-        window.location.href = "/assessments/".concat( res.data.id ).concat( "/assess_newques" );
-
+ 
+        window.location.href = "/assessments/".concat( res.data.id ).concat( "/assess_ques_new" );
       })
       .catch(err => {
         console.log(err);
@@ -112,11 +125,13 @@ function AssessForm(){
                 <h1 id='title'>New Assessment</h1>
            
                   <Input id='title' onChange={handleSkillNameChange} placeholder="Enter skill name"/>
-                  Taken By : <InputNumber defaultValue={0} onChange={takenByChange}  /><br/>
-                  Passed By : <InputNumber  defaultValue={0} onChange={passedByChange}  /><br/>
+
+                  <div id='input_num'>Taken By : <InputNumber defaultValue={0} onChange={takenByChange}  /></div><br/>
+                  <div id='input_num'>Passed By : <InputNumber  defaultValue={0} onChange={passedByChange}  /></div><br/>
                   <Input id='title' onChange={handleImageChange} placeholder="Enter image link"/>
                   <Input id='tag_ara' onChange={handleRolesChange} placeholder="Roles (use comma separated values)" />
-                  <Input id='tag_ara' onChange={handleSubcategoriesChange} placeholder="Subcategories (use comma separated values)" />
+                  <Input id='tag_ara' onChange={handleCategoriesChange} placeholder="Categories (use comma separated values)" />
+
                 
 
                   <Button type="primary" id='button_submit' onClick={submitFunc} >Create Assessment</Button>

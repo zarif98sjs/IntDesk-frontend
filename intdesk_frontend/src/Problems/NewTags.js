@@ -1,8 +1,8 @@
 
 // import { WithContext as ReactTags } from 'react-tag-input';
+// import TagEditor from 'react-tageditor';
 import { Input } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
-
 
 
 function NewTags({problem, setProblem}){
