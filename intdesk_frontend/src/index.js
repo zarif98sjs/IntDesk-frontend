@@ -62,6 +62,7 @@ ReactDOM.render(
       <Route exact path="/problems" element={<Problems/>}/>
       <Route exact path="/problems/problem/:id" element={<ProblemIndividual />}/>
       <Route exact path="/problems/new" element={<ProblemNew />}/>
+      <Route exact path="/problems/problem/:id/edit" element={<ProblemNew />} />
       <Route path="*" element={<ErrorPage />}/>
 
     </Routes>

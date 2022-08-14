@@ -43,6 +43,10 @@ const columns = [
 
   ];
 
+  const gotoNew = () => {
+    window.location.href = '/problems/new'
+  }
+
 
 export default function Problems(){
 
@@ -86,6 +90,11 @@ export default function Problems(){
     return (
         <div>
             <Navbar />
+            <div className="button-row--right">
+              <button className="submit-btn" type="button"  onClick={gotoNew} style={{width: "150px"}}>
+                Create New
+              </button>
+            </div>
             <h1 id='title'>All Problems</h1>
             <Table id='problems' dataSource={problems} columns={columns}/>
         </div>

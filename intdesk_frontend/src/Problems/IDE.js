@@ -6,7 +6,7 @@ import LanguageData from "./LanguageData"
 import spinner from "../images/spinner.gif"
 import "./ide.css"
 
-export default function IDE(){
+export default function IDE({problem}){
     
     
     const authToken = JSON.parse(localStorage.getItem("authToken"));
@@ -41,14 +41,17 @@ export default function IDE(){
         }
 
         console.log("checking url...", options.url)
+        let status;
 
         try{
             let response = await axios.request(options);
-            let statusId = response.data.status?.id;
+            status = response.data.status;
+            let statusId = status.id;
+            console.log('status', status.description);
 
             if(statusId === 1 || statusId === 2){
                 setTimeout(() => {
-                    checkStatus(token);
+                    status = checkStatus(token);
                 }, 2000);
             }
             else 
@@ -73,6 +76,7 @@ export default function IDE(){
             setLoading(false);
 
         }
+        return status;
 
     }
 
@@ -103,7 +107,8 @@ export default function IDE(){
             console.log("res.data", response.data);
             const token = response.data.token;
             console.log("token", token);
-            checkStatus(token);
+            let status = checkStatus(token);
+            
         })
         .catch((err) => {
             let error = err.response ? err.response.data : err;
@@ -125,6 +130,60 @@ export default function IDE(){
         
     function submitCode(){
         console.log("Submitting code...")
+
+        
+        const inputOutputs = problem.input_outputs;
+        console.log(inputOutputs);
+        for(let i=0;i<inputOutputs.length; i+=1){
+
+            setLoading(true);
+            const formData = {
+                language_id: language.id,
+                // encode source code in base64
+                source_code: btoa(code),
+                stdin: btoa(inputOutputs[i].input),
+                expected_output: btoa(inputOutputs[i].output)
+            };
+            const options = {
+                method: "POST",
+                url: process.env.REACT_APP_RAPID_API_URL,
+                params: { base64_encoded: "true", fields: "*" },
+                headers: {
+                  "content-type": "application/json",
+                  "Content-Type": "application/json",
+                  "X-RapidAPI-Host": process.env.REACT_APP_RAPID_API_HOST,
+                  "X-RapidAPI-Key": process.env.REACT_APP_RAPID_API_KEY,
+                },
+                data: formData,
+              };
+    
+            axios.request(options).
+            then((response) => {
+                console.log("res.data", response.data);
+                const token = response.data.token;
+                console.log("token", token);
+                let status = checkStatus(token);
+                if(status.id !== 3)
+                {
+                    console.log('Status: ',status.description)
+                    console.log('Aborting...');
+                    return;
+                }
+            })
+            .catch((err) => {
+                let error = err.response ? err.response.data : err;
+                let status = error.reponse.status;
+                console.log("status", status);
+                if (status === 429){
+                    console.log("too many requests", status);
+                }
+                console.log("error", err)
+                setLoading(false);
+    
+            })
+    
+        }
+        
         
         
     }

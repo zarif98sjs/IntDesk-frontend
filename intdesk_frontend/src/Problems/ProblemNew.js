@@ -1,10 +1,10 @@
+import { Alert, Menu } from 'antd';
 import axios from 'axios';
-import {Menu} from 'antd';
-import React, {useEffect, useState} from 'react';
-import { Navigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Navigate, useParams } from 'react-router-dom';
 import Navbar from '../navbar';
-import NewProblemBody from "./NewProblemBody"
-import "./problemNew.css"
+import NewProblemBody from "./NewProblemBody";
+import "./problemNew.css";
 
 
 function ProblemNew() {
@@ -12,6 +12,10 @@ function ProblemNew() {
   const authToken = JSON.parse(localStorage.getItem("authToken"));
   const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem("isLoggedIn")));
   const [page, setPage] = useState("statement");
+  const [mode, setMode] = useState("POST");
+  const params = useParams();
+
+  const [id, setId] = useState(params.id);
 
   const [problem, setProblem] = useState({
     title: "",
@@ -28,6 +32,8 @@ function ProblemNew() {
     editorial: "",
     authorSolution: ""
   });
+
+  const [error, setError] = useState({isError: false, errorText: []})
 
   const changePage = (event) => {
     setPage(event.key);
@@ -124,8 +130,15 @@ function ProblemNew() {
   const handleSubmit = async () => {
     console.log(problem);
 
-    if(problem.title === '' || problem.description === ''){
-      console.log('title and description are required')
+    if(problem.title === ''){
+      console.log('title is required')
+      setError({isError: true, errorText: "Problem title is required"})
+      return 
+    }
+    if(problem.description === ''){
+
+      console.log('description is required')
+      setError({isError: true, errorText: "Problem description is required"})
       return 
     }
 
@@ -140,6 +153,9 @@ function ProblemNew() {
       'solve_count': problem.solveCount
     };
     
+    if (mode === 'POST'){
+      console.log(id)
+      console.log(mode)
     await axios.post('http://localhost:8000/problems/problem/', postData ,{headers: {
         'Authorization': 'Token '.concat(authToken.token),
         'Content-Type' : 'application/json'
@@ -151,22 +167,99 @@ function ProblemNew() {
         submitRoles(id);
         submitCompanies(id);
         submitSubcategories(id);
+             // navigate to the problems page
+       window.location.href = "/problems";
+  
       })
       .catch(err => {
+        console.log(err);
+        
+      })
+    }
+    else 
+    {
+      await axios.put('http://localhost:8000/problems/problem/'.concat(id).concat('/'), postData ,{headers: {
+        'Authorization': 'Token '.concat(authToken.token),
+        'Content-Type' : 'application/json'
+      }})
+      .then(res => {
+        console.log(window.$log = res.data);
+        // navigate to the problems page
+        window.location.href = `/problems/problem/${id}`;
+
+        
+      })
+      .catch(err => {
+        console.log('problem in updating');
         console.log(err);
         
       })
 
       
 
+    }
+
       
-      // navigate to the problems page
-      // window.location.href = "/problems";
+
+      
+     
   }
 
   useEffect(() => {
       setIsLoggedIn(JSON.parse(localStorage.getItem("isLoggedIn")));
-  }, []);
+      if(id) {
+          const fetchProblem = async () => {
+            await axios.get("http://localhost:8000/problems/problem/".concat(id))
+            .then(res => {
+
+              console.log(res.data);
+
+              let prevRoles = [];
+              for(let i=0;i<res.data.roles.length;i+=1){
+                prevRoles.push({'role': res.data.roles[i].name});
+              }
+
+              let prevCompanies = [];
+              for(let i=0;i<res.data.companies.length;i+=1){
+                prevCompanies.push({'company': res.data.companies[i].company});
+              }
+
+              let prevSubcategories = [];
+              for(let i=0;i<res.data.subcategories.length;i+=1){
+                prevSubcategories.push({'category': res.data.subcategories[i].category, 'subcategory': res.data.subcategories[i].name});
+              }
+              
+              setProblem(oldProblem => (
+                {
+                  ...oldProblem,
+                  title: res.data.name,
+                  description: res.data.description,
+                  difficulty: res.data.difficulty,
+                  timeLimit: res.data.time_limit,
+                  memoryLimit: res.data.memory_limit,
+                  submissionCount: res.data.submission_count,
+                  solveCount: res.data.solve_count,
+                  inputOutputs: res.data.input_outputs,
+                  roles: prevRoles,
+                  companies: prevCompanies,
+                  subcategories: prevSubcategories
+                }
+              ))
+
+             
+            })
+            .catch(err => {
+              console.log(err)
+            })
+          }
+        fetchProblem();
+        setMode("PUT");
+        
+      }
+      else {
+        setMode("POST");
+      }
+  }, [id]);
 
   return (
     <div className="">
@@ -202,12 +295,20 @@ function ProblemNew() {
         </div>
         <div className='problem--forms'>
         <div className="button-row--right">
-            <button className="submit-btn" type="button" onClick={() => handleSubmit()} style={{width: "200px"}}>
-              Create Problem
+            <button className="submit-btn" type="button" onClick={() => handleSubmit()} style={{width: "200px", marginRight: "40px"}}>
+              {mode === 'POST' ? "Create Problem" : "Save Problem"}
             </button>
               
         </div>
-        
+        {error.isError && 
+        <Alert
+            message={`Missing required fields: ${error.errorText}`}
+            showIcon
+            type="error"
+            closable
+            style={{marginTop: "20px"}}
+          />
+        }
         <NewProblemBody problem={problem} setProblem={setProblem} page={page}/>
         </div>
       </div>
