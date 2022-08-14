@@ -19,7 +19,7 @@ import Problems from "./Problems/Problems";
 import Assessments from "./Assessments";
 import AssessDetails from './assess_details';
 import AssessQuesForm from './AssessQuesForm';
-import AssessmentsQues from './Assessments questions';
+import AssessmentsQues from './AssessQues';
 import AssessForm from './assess_form';
 
 import Populate from './data_populate';

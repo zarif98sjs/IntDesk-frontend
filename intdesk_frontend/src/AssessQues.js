@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Button, Radio, Typography, List} from 'antd';
 import ReactMarkdown from 'react-markdown';
+import { SnippetsFilled } from '@ant-design/icons';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import axios from "axios";
 import remarkGfm from 'remark-gfm';
@@ -37,7 +38,7 @@ function AssessmentsQues(props) {
   const [countHard, setCountHard] = useState(0); 
 
   const [endAssess, setEndAssess] = useState(false);
-  const [pass, setPass] = useState("passed");
+  const [pass, setPass] = useState("Passed");
   // const [currQues, setCurrQues] = useState();
     // Extracting this method made it accessible for context/prop-drilling
     
@@ -71,9 +72,10 @@ function AssessmentsQues(props) {
       }
 
       const fetchQuestions = async () => {
-
-        if(QuesId.length === 15){
+        console.log("Complete ", complete)
+        if(QuesId.length === 6){
           setIsLoaded(false);
+          console.log("QuesId Length : ", QuesId.length);
           setComplete(true);
           return;
         }
@@ -128,24 +130,7 @@ function AssessmentsQues(props) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [assessmentID]);
 
-      useEffect(()=>{
-        let myInterval = setInterval(() => {
-                if (seconds > 0) {
-                    setSeconds(seconds - 1);
-                }
-                if (seconds === 0) {
-                    if (minutes === 0) {
-                        // clearInterval(myInterval)
-                        // setMinutes(minutes - 1);
-                        fetchQuestions();
-                        setSeconds(question.time);
-                    } 
-                } 
-            }, 1000)
-            return ()=> {
-                clearInterval(myInterval);
-              };
-       });
+     
 
 
       const submittedQuestion =  async () => {
@@ -198,6 +183,25 @@ function AssessmentsQues(props) {
         setValue();
       };
 
+      useEffect(()=>{
+        let myInterval = setInterval(() => {
+                if (seconds > 0) {
+                    setSeconds(seconds - 1);
+                }
+                if (seconds === 0) {
+                    if (minutes === 0) {
+                        // clearInterval(myInterval)
+                        // setMinutes(minutes - 1);
+                        submittedQuestion();
+                        setSeconds(question.time);
+                    } 
+                } 
+            }, 1000)
+            return ()=> {
+                clearInterval(myInterval);
+              };
+       });
+
       
 
       function getQuestion(){
@@ -214,26 +218,31 @@ function AssessmentsQues(props) {
       }
 
       function getPassed(){
-
+        if( complete === false ){
+          return pass;
+        }
+        // console.log("inside getPassed");
         if( endAssess === true ){
           return pass; 
         }
-
+        console.log("Assessment not already checked");
         let postData = {
           'points' : points,
           'total_points' : totalPoints,
         };
     
-        // console.log(postData);
+        console.log(postData);
         
         axios.post('http://localhost:8000/assessments/assessment/'.concat(assessmentID).concat('/assessment_result/'), postData ,{headers: {
           'Authorization': 'Token '.concat(authToken.token),
           'Content-Type' : 'application/json'
         }})
         .then(res => {
+          console.log("Assessment result shown")
           console.log(window.$log = res.data);
+          setPass(res.data);
           setEndAssess(true);
-          
+        
           
         })
         .catch(err => {
@@ -264,7 +273,7 @@ function AssessmentsQues(props) {
             </div>
           )
         }
-        return <div>NONE</div>;
+        return <div>--</div>;
         
        
         
@@ -299,23 +308,27 @@ function AssessmentsQues(props) {
 
     const endAssessment = (
       <div>
-        <h1 id= 'title'>{getPassed()} </h1>
+        
+        <p align='center'>
+        <h1 id= 'title'><SnippetsFilled />  {getPassed()} </h1>
         <h2>Total points : {points} / {totalPoints} </h2>
         <Link to = "/assessments" > Go back to Assessments </Link>
+        </p>
+        
         
       </div>
     )
      
-    const element =  (
-      // console.log(points);
+    // const element =  (
+    //   // console.log(points);
       
-      complete ? endAssessment : <div> None </div>  
+    //   complete ? endAssessment : <div> None </div>  
      
       
-    )
+    // )
 
     const loadPage = (
-      isLoaded ? loadQuestion : element 
+      isLoaded ? loadQuestion : endAssessment 
     )
 
 
