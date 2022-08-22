@@ -1,5 +1,5 @@
 import { BankOutlined, CodeOutlined, CodepenOutlined, GithubOutlined, GlobalOutlined, LaptopOutlined, NotificationOutlined, RocketOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar, Card, Descriptions, Layout, Tag, Tooltip } from 'antd';
+import { Avatar, Button, Card, Descriptions, Layout, Tag, Tooltip } from 'antd';
 
 import React from 'react';
 import Navbar from "./navbar";
@@ -61,6 +61,9 @@ function Profile() {
             <Descriptions.Item label=<Tooltip title='Language'><CodeOutlined style={{ fontSize: '18px', color: '#08c' }} /></Tooltip>  span={3}><Tag>C++</Tag> <Tag>Python</Tag> <Tag>Java</Tag> <Tag>Go</Tag></Descriptions.Item>
             <Descriptions.Item label=<Tooltip title='Skills'><RocketOutlined style={{ fontSize: '18px', color: '#08c' }} /></Tooltip>  span={3}><Tag>DP</Tag> <Tag>Array</Tag> <Tag>Sorting</Tag> <Tag>Greedy</Tag></Descriptions.Item>
         </Descriptions>
+        <p align="center">
+        <Button type="primary" shape="round" icon={<UserOutlined />} size="large" style={{marginTop:'10px 10px 10px 10px'}}> Edit Profile</Button>
+        </p>
       </Sider>
       </Layout>
       
