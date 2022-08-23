@@ -10,8 +10,7 @@ import {
   UserOutlined
 } from "@ant-design/icons";
 import {
-  Avatar,
-  Button,
+  Avatar, Badge, Button,
   Card,
   Descriptions,
   Layout,
@@ -69,24 +68,37 @@ function Profile() {
                   display: "block",
                 }}
               />
-            </Card>
-
-            {/* <p> <CodepenOutlined style={{ fontSize: '18px', color: '#08c' }} />  Bangladesh</p>
-          <p> <BankOutlined style={{ fontSize: '18px', color: '#08c' }} /> BUET</p>
-          <p> <GlobalOutlined style={{ fontSize: '18px', color: '#08c' }} /> https://zarif98sjs.github.io/</p>
-          <p> <GithubOutlined style={{ fontSize: '18px', color: '#08c' }} /> zarif98sjs</p> */}
+            </Card>  
           </p>
 
-          {/* <p> <CodepenOutlined style={{ fontSize: '18px', color: '#08c' }} />  Bangladesh</p>
-        <p> <BankOutlined style={{ fontSize: '18px', color: '#08c' }} /> BUET</p>
-        <p> <GlobalOutlined style={{ fontSize: '18px', color: '#08c' }} /> https://zarif98sjs.github.io/</p>
-        <p> <GithubOutlined style={{ fontSize: '18px', color: '#08c' }} /> zarif98sjs</p> */}
-          {/* <RocketOutlined /> */}
+          <div style={{ textAlign:"right" }}>
+          <Badge.Ribbon text="C++ Intermediate">
+              <Card title=" " size="small">
+              <i>Solved 50 problems in C++</i>
+                </Card>
+            </Badge.Ribbon>
+
+            <Badge.Ribbon text="Algorithm Master" color="red">
+              <Card title=" " size="small">
+              <i>Solved 100 Algorithm Problems</i>
+              </Card>
+            </Badge.Ribbon>
+
+            {/* get a random color */}
+            <Badge.Ribbon text="Data Structure Master" color="pink">
+              <Card title=" " size="small">
+                <i>Solved 100 Data Structure Problmes</i>
+              </Card>
+            </Badge.Ribbon>
+          </div>
+
+          
           <Descriptions
-            title="About Me"
+            title=""
             bordered
-            style={{ width: 300, textAlign: "center" }}
+            style={{ width: 300, paddingTop:"5%", textAlign:'right'}}
           >
+            
             <Descriptions.Item
               label=<Tooltip title="Location">
                 <CodepenOutlined style={{ fontSize: "18px", color: "#08c" }} />
@@ -169,7 +181,7 @@ function Profile() {
                 style={{ gap: "5%" }}
               >
                 <Card
-                  style={{ width: 300, border: "groove" }}
+                  style={{ width: 250, border: "groove" }}
                   cover={
                     <a href="/myq">
                       <img
@@ -195,7 +207,7 @@ function Profile() {
                 </Card>
 
                 <Card
-                  style={{ width: 300, border: "groove" }}
+                  style={{ width: 250, border: "groove" }}
                   cover={
                     <a href="/myq">
                       <img
@@ -221,7 +233,7 @@ function Profile() {
                 </Card>
 
                 <Card
-                  style={{ width: 300, border: "groove" }}
+                  style={{ width: 250, border: "groove" }}
                   cover={
                     <a href="/">
                       <img
@@ -254,7 +266,7 @@ function Profile() {
             </p>
           </div>
 
-          <div style={{ margin: "auto", paddingTop: "5%" }}>
+          <div style={{ paddingTop: "5%", paddingLeft: "3.5%" }}>
             <ActivityCalendar
               data={activityData}
               labels={{
@@ -279,14 +291,36 @@ function Profile() {
                 tooltip: "<strong>{{count}} contributions</strong> on {{date}}",
                 totalCount: "{{count}} contributions in {{year}}",
                 weekdays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-                
               }}
               color="#061e84"
               blockRadius="10"
             />
           </div>
 
-          <div style={{ width: 500, margin: "auto", paddingTop: "5%", paddingBottom:"5%" }}>
+          <div
+            style={{
+              width: 500,
+              margin: "auto",
+              paddingTop: "5%",
+              paddingBottom: "5%",
+            }}
+          >
+            {/* need to add badges */}
+            <Badge.Ribbon text="C++ Master" />
+            <Badge.Ribbon text="Algorithm Master" color="red" />
+            <Badge.Ribbon text="Data Structure Guru" />
+              
+            {/* </Badge.Ribbon> */}
+          </div>
+
+          <div
+            style={{
+              width: 500,
+              margin: "auto",
+              paddingTop: "5%",
+              paddingBottom: "5%",
+            }}
+          >
             <Tooltip title="240/340 Easy Problems Solved">
               <Progress
                 type="line"
