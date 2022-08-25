@@ -223,7 +223,7 @@ function Profile() {
                 <Card
                   style={{ width: 250, border: "groove" }}
                   cover={
-                    <a href="/myq">
+                    <a href="/mydiscussions">
                       <img
                         alt="example"
                         src={problem_img}
@@ -249,7 +249,7 @@ function Profile() {
                 <Card
                   style={{ width: 250, border: "groove" }}
                   cover={
-                    <a href="/myq">
+                    <a href="/mydiscussions">
                       <img
                         alt="example"
                         src={discussion}

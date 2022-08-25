@@ -12,8 +12,8 @@ class LeftMenu extends Component {
         <Menu.Item key="problems">
           <Link to="/problems">Problems</Link>
         </Menu.Item>
-        <Menu.Item key="questions">
-          <a href="/questions">Discussions</a>
+        <Menu.Item key="discussions">
+          <a href="/discussions">Discussions</a>
         </Menu.Item>
         <Menu.Item key="assessments">
           <a href="/assessments">Assesments</a>

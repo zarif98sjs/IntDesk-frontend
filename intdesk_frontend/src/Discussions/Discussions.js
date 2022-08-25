@@ -3,8 +3,8 @@ import { PlusOutlined } from "@ant-design/icons";
 import { Button, Input, Select, Space, Table, Tag, Typography } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from 'react';
-import Navbar from "./navbar";
-import "./questions.css";
+import Navbar from '../navbar';
+import "./discussions.css";
 
 const { Text, Link } = Typography;
 const { Option } = Select;
@@ -12,7 +12,7 @@ const { Search } = Input;
   
 
 
-  function Questions() {
+  function Discussions() {
 
     const [discussions, setDiscussions] = useState([]);
     const [discussionsTemp, setDiscussionsTemp] = useState([]);
@@ -33,7 +33,7 @@ const { Search } = Input;
         render: (_, record) => (
           <Space size="middle">
             {/* <a href="/q">{record.title}</a> */}
-            <a href={`question/${record.id}`} >
+            <a href={`discussion/${record.id}`} >
             <Text style = {{'font-size': '110%'}} italic keyboard >{record.title}</Text>
               </a>
             {/* <Link to="/App">{record.title}</Link> */}
@@ -225,7 +225,7 @@ const { Search } = Input;
                 
                 </Space>
 
-                <Button type="primary" href="/question/new" shape="round" icon={<PlusOutlined />} size="large" style={{float:'left', margin:'0px 10%'}}>New</Button>
+                <Button type="primary" href="/discussion/new" shape="round" icon={<PlusOutlined />} size="large" style={{float:'left', margin:'0px 10%'}}>New</Button>
 
                 
                 
@@ -243,4 +243,4 @@ const { Search } = Input;
           );
   }
   
-export default Questions;
+export default Discussions;

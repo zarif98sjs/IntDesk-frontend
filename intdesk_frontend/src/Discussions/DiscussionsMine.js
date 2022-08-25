@@ -2,8 +2,8 @@
 import { Button, Input, Select, Space, Table, Tag, Typography } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from 'react';
-import Navbar from "./navbar";
-import "./questions.css";
+import Navbar from '../navbar';
+import "./discussions.css";
 
 const { Text, Link } = Typography;
 const { Option } = Select;
@@ -17,7 +17,7 @@ const { Search } = Input;
       render: (_, record) => (
         <Space size="middle">
           {/* <a href="/q">{record.title}</a> */}
-          <a href={`question/${record.id}`} >
+          <a href={`discussion/${record.id}`} >
           <Text style = {{'font-size': '110%'}} italic keyboard >{record.title}</Text>
             </a>
           {/* <Link to="/App">{record.title}</Link> */}
@@ -29,9 +29,11 @@ const { Search } = Input;
       dataIndex: 'name',
       key: 'name',
       render: (_, record) => (
-        <Space size="middle">
-          <Tag color="blue">{record.name}</Tag>
-        </Space>
+        <a href={`profile/${record.name}`} >
+             <Space size="middle">
+            <Tag color="blue">{record.name}</Tag>
+          </Space>
+          </a>
       ),
     },
     {
@@ -63,7 +65,7 @@ const { Search } = Input;
       },
   ];
 
-  function QuestionsMine() {
+  function DiscussionsMine() {
     
     const authToken = JSON.parse(localStorage.getItem("authToken"));
 
@@ -198,7 +200,7 @@ const { Search } = Input;
                   onChange={onChange}
                   enterButton 
                 />
-                <Button type="primary" id='button_new' href="/question/new">New</Button>
+                <Button type="primary" id='button_new' href="/discussion/new">New</Button>
                 </Space>
 
                 
@@ -217,4 +219,4 @@ const { Search } = Input;
           );
   }
   
-export default QuestionsMine;
+export default DiscussionsMine;

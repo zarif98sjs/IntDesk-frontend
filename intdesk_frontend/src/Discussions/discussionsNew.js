@@ -3,12 +3,12 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Navigate } from "react-router-dom";
 import Markdown from "react-textarea-markdown";
-import Navbar from "./navbar";
-import "./questionNew.css";
+import Navbar from '../navbar';
+import "./discussionsNew.css";
 
 const { TextArea } = Input;
 
-function QuestionNew() {
+function DiscussionsNew() {
 
   const authToken = JSON.parse(localStorage.getItem("authToken"));
   const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem("isLoggedIn")));
@@ -70,7 +70,7 @@ function QuestionNew() {
       })
 
       // navigate to the discussion page
-      window.location.href = "/questions";
+      window.location.href = "/discussions";
   }
 
     
@@ -100,4 +100,4 @@ function QuestionNew() {
           );
   }
   
-export default QuestionNew;
+export default DiscussionsNew;

@@ -6,9 +6,6 @@ import Home from "./Home";
 import Login from "./login";
 import Logout from "./LogOut";
 import Profile from "./profile";
-import QuestionIndividual from "./QuestionIndividual";
-import QuestionNew from "./QuestionNew";
-import Questions from "./Questions";
 import Register from "./register";
 import reportWebVitals from './reportWebVitals';
 
@@ -25,9 +22,12 @@ import AssessForm from './assess_form';
 
 import Populate from './data_populate';
 
+import DiscussionIndividual from './Discussions/DiscussionIndividual';
+import Discussions from './Discussions/Discussions';
+import DiscussionsMine from './Discussions/DiscussionsMine';
+import DiscussionsNew from './Discussions/discussionsNew';
 import ProfileEdit from './ProfileEdit';
 import ProfileGeneral from './ProfileGeneral';
-import QuestionsMine from './QuestionsMine';
 
 
 
@@ -50,10 +50,10 @@ ReactDOM.render(
     <Doc />
     <Routes>
       <Route exact path="/" element={<Home/>}/>
-      <Route exact path="/questions" element={<Questions/>}/>
-      <Route exact path="/question/:id" element={<QuestionIndividual/>}/>
-      <Route exact path="/question/new" element={<QuestionNew/>}/>
-      <Route exact path="/myq" element={<QuestionsMine/>}/>
+      <Route exact path="/discussions" element={<Discussions/>}/>
+      <Route exact path="/discussion/:id" element={<DiscussionIndividual/>}/>
+      <Route exact path="/discussion/new" element={<DiscussionsNew/>}/>
+      <Route exact path="/mydiscussions" element={<DiscussionsMine/>}/>
 
       <Route exact path="/login" element={<Login/>}/>
       <Route exact path="/logout" element={<Logout/>}/>
