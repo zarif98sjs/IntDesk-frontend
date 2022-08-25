@@ -18,13 +18,14 @@ import Problems from "./Problems/Problems";
 // import ProblemResult from './Problems/ProblemResult';
 
 import Assessments from "./Assessments";
-import AssessDetails from './assess_details';
-import AssessQuesForm from './AssessQuesForm';
 import AssessmentsQues from './AssessQues';
+import AssessQuesForm from './AssessQuesForm';
+import AssessDetails from './assess_details';
 import AssessForm from './assess_form';
 
 import Populate from './data_populate';
 
+import ProfileEdit from './ProfileEdit';
 import QuestionsMine from './QuestionsMine';
 
 
@@ -57,6 +58,7 @@ ReactDOM.render(
       <Route exact path="/logout" element={<Logout/>}/>
       <Route exact path="/signup" element={<Register/>}/>
       <Route exact path="/profile" element={<Profile/>}/>
+      <Route exact path="/profile_edit" element={<ProfileEdit/>}/>
 
       <Route exact path="/assessments" element={<Assessments/>}/>
       <Route exact path="/assessments/:id" element={<AssessDetails/>}/>

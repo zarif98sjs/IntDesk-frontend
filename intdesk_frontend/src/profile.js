@@ -1,10 +1,5 @@
 import {
-  BankOutlined,
-  CodeOutlined,
-  CodepenOutlined,
-  GithubOutlined,
-  GlobalOutlined,
-  LaptopOutlined,
+  CodeOutlined, GithubOutlined, LaptopOutlined,
   NotificationOutlined,
   RocketOutlined,
   UserOutlined
@@ -15,14 +10,12 @@ import {
   Descriptions,
   Layout,
   Progress,
-  Space,
-  Tag,
-  Tooltip
+  Space, Tag, Tooltip
 } from "antd";
-
 import axios from "axios";
 import React, { useEffect, useState } from 'react';
 import ActivityCalendar from "react-activity-calendar";
+import { BiBriefcase, BiBuildings, BiCurrentLocation, BiLinkAlt } from "react-icons/bi";
 import activityData from "./activityData";
 import assesment from "./images/assesment.png";
 import discussion from "./images/discussion2.png";
@@ -136,23 +129,33 @@ function Profile() {
             
             <Descriptions.Item
               label=<Tooltip title="Location">
-                <CodepenOutlined style={{ fontSize: "18px", color: "#08c" }} />
+                <BiCurrentLocation style={{ fontSize: "18px", color: "#08c" }} />
               </Tooltip>
               span={3}
             >
               <Tooltip title="Location">{userInfo.city}, {userInfo.country}</Tooltip>
             </Descriptions.Item>
+            
             <Descriptions.Item
-              label=<Tooltip title="Institution">
-                <BankOutlined style={{ fontSize: "18px", color: "#08c" }} />
+              label=<Tooltip title="Occupation">
+                <BiBriefcase style={{ fontSize: "18px", color: "#08c" }} />
               </Tooltip>
               span={3}
             >
-              <Tooltip title="Institution">{userInfo.current_workplace}</Tooltip>
+              <Tooltip title="Occupation">{userInfo.occupation}</Tooltip>
+            </Descriptions.Item>
+
+            <Descriptions.Item
+              label=<Tooltip title="Workplace/Institution">
+                <BiBuildings style={{ fontSize: "18px", color: "#08c" }} />
+              </Tooltip>
+              span={3}
+            >
+              <Tooltip title="Workplace/Institution">{userInfo.current_workplace}</Tooltip>
             </Descriptions.Item>
             <Descriptions.Item
               label=<Tooltip title="Language">
-                <GlobalOutlined style={{ fontSize: "18px", color: "#08c" }} />
+                <BiLinkAlt style={{ fontSize: "18px", color: "#08c" }} />
               </Tooltip>
               span={3}
             >
@@ -173,10 +176,9 @@ function Profile() {
               span={3}
             >
               <Tooltip title="Language">
-                {userInfo.languages !== null ? userInfo.languages.map(tag => (
-                // <pre>{tag}</pre>
+                {userInfo.languages?.map(tag => (
                 <Tag color="geekblue">{tag}</Tag>
-                )) : 'N/A'}
+                ))}
               </Tooltip>
             </Descriptions.Item>
             <Descriptions.Item
@@ -186,10 +188,9 @@ function Profile() {
               span={3}
             >
               <Tooltip title="Skills">
-                {userInfo.skills !== null ? userInfo.skills.map(tag => (
-                // <pre>{tag}</pre>
+                {userInfo.skills?.map(tag => (
                 <Tag color="purple">{tag}</Tag>
-                )) : 'N/A'}
+                ))}
               </Tooltip>
             </Descriptions.Item>
           </Descriptions>
@@ -201,8 +202,8 @@ function Profile() {
               icon={<UserOutlined />}
               size="large"
               style={{ margin: "10px 10px 10px 10px" }}
+              href="http://localhost:3000/profile_edit/"
             >
-              {" "}
               Edit Profile
             </Button>
           </p>
@@ -336,21 +337,7 @@ function Profile() {
             />
           </div>
 
-          <div
-            style={{
-              width: 500,
-              margin: "auto",
-              paddingTop: "5%",
-              paddingBottom: "5%",
-            }}
-          >
-            {/* need to add badges */}
-            <Badge.Ribbon text="C++ Master" />
-            <Badge.Ribbon text="Algorithm Master" color="red" />
-            <Badge.Ribbon text="Data Structure Guru" />
-              
-            {/* </Badge.Ribbon> */}
-          </div>
+
 
           <div
             style={{
