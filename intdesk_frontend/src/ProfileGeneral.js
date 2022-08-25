@@ -201,7 +201,7 @@ function ProfileGeneral() {
 
         <div style={{ margin: "auto" }}>
           <div className="">
-            <h1 id="title"> Welcome to your profile </h1>
+            <h1 id="title"> Welcome to {userInfo.username}&apos;s profile </h1>
           </div>
           <div>
             <p align="center">
@@ -221,17 +221,10 @@ function ProfileGeneral() {
                       />
                     </a>
                   }
-                  actions={
-                    [
-                      // <SettingOutlined key="setting" />,
-                      // <EditOutlined key="edit" />,
-                      // <EllipsisOutlined key="ellipsis" />,
-                    ]
-                  }
                 >
                   <Meta
                     title="Problems"
-                    description="Find your solved problems here"
+                    description={`${userInfo.username}'s solved problems`}
                     style={{ display: "block" }}
                   />
                 </Card>
@@ -247,17 +240,10 @@ function ProfileGeneral() {
                       />
                     </a>
                   }
-                  actions={
-                    [
-                      // <SettingOutlined key="setting" />,
-                      // <EditOutlined key="edit" />,
-                      // <EllipsisOutlined key="ellipsis" />,
-                    ]
-                  }
                 >
                   <Meta
                     title="Discussions"
-                    description="Find your discussions here"
+                    description={`${userInfo.username}'s discussions`}
                     style={{ display: "block" }}
                   />
                 </Card>
@@ -276,17 +262,10 @@ function ProfileGeneral() {
                       />
                     </a>
                   }
-                  actions={
-                    [
-                      // <SettingOutlined key="setting" />,
-                      // <EditOutlined key="edit" />,
-                      // <EllipsisOutlined key="ellipsis" />,
-                    ]
-                  }
                 >
                   <Meta
                     title="Assesments"
-                    description="Find your assesments here"
+                    description={`${userInfo.username}'s assesments`}
                     style={{
                       display: "block",
                     }}
