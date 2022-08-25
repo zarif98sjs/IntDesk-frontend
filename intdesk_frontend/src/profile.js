@@ -235,7 +235,7 @@ function Profile() {
                 <Card
                   style={{ width: 250, border: "groove" }}
                   cover={
-                    <a href="/">
+                    <a href="/myassessments">
                       <img
                         alt="example"
                         src={assesment}

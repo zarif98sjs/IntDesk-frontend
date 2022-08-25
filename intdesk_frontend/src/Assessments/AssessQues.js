@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Button, Radio, Typography, List} from 'antd';
+import { Card, Button, Radio, Typography, List, Result} from 'antd';
 import ReactMarkdown from 'react-markdown';
 import { SnippetsFilled } from '@ant-design/icons';
 import { useParams, Navigate, Link } from 'react-router-dom';
@@ -42,7 +42,7 @@ function AssessmentsQues(props) {
   const [countHard, setCountHard] = useState(0); 
 
   const [endAssess, setEndAssess] = useState(false);
-  const [pass, setPass] = useState("Passed");
+  const [pass, setPass] = useState('success');
   // const [currQues, setCurrQues] = useState();
     // Extracting this method made it accessible for context/prop-drilling
     
@@ -266,7 +266,8 @@ function AssessmentsQues(props) {
         return ques_description;
       }
 
-      function getPassed(){
+      async function getPassed(){
+        console.log(pass === 'success');
         if( complete === false ){
           return pass;
         }
@@ -275,6 +276,7 @@ function AssessmentsQues(props) {
           return pass; 
         }
         console.log("Assessment not already checked");
+        setEndAssess(true);
         let postData = {
           'points' : points,
           'total_points' : totalPoints,
@@ -283,23 +285,29 @@ function AssessmentsQues(props) {
     
         console.log(postData);
         
-        axios.post('http://localhost:8000/assessments/assessment/'.concat(assessmentID).concat('/assessment_result/'), postData ,{headers: {
+        await axios.post('http://localhost:8000/assessments/assessment/'.concat(assessmentID).concat('/assessment_result/'), postData ,{headers: {
           'Authorization': 'Token '.concat(authToken.token),
           'Content-Type' : 'application/json'
         }})
         .then(res => {
           console.log("Assessment result shown")
           console.log(window.$log = res.data);
-          setPass(res.data);
-          setEndAssess(true);
-        
+          if(res.data === 'Passed'){
+            setPass('success');
+            return 'success';
+          }
+          
+          setPass('error');
+          return 'error';
+          
+      
+          // setEndAssess(true);   
           
         })
         .catch(err => {
           console.log(err);
         })
-
-        return pass;
+        return 'error';
       }
 
      
@@ -354,42 +362,47 @@ function AssessmentsQues(props) {
       </div>
     )
 
-
-
-    const endAssessment = (
+    const showResult = (
       <div>
         
-        <p align='center'>
-        <h1 id= 'title'><SnippetsFilled />  {getPassed()} </h1>
-        <h2>Total points : {points} / {totalPoints} </h2>
-        <Link to = "/assessments" > Go back to Assessments </Link>
-        <br/><br/><br/>
-
-        <h1> Wrong Answers </h1>
+        <Result
+          status= {   getPassed() === 'success'  ? "success" : "error" }
+          title = { "Total points : ".concat( points ).concat( " / ").concat( totalPoints ) }
+          extra={[
+            <Link to = "/assessments" > Go back to Assessments </Link>
+          ]}
+        />
+         
+        <h1 align = 'center'>  Wrong Answers </h1>
 
         {wrongQues.map((item, index) => {
           return (
             <div>
-              <ReactMarkdown remarkPlugins={[remarkGfm]} >
-                    {item.description}
-              </ReactMarkdown>
+              <div id = 'qi'>
+                <ReactMarkdown remarkPlugins={[remarkGfm]} >
+                      {item.description}
+                </ReactMarkdown>
 
-              <Radio.Group defaultValue={wrongVal[index]} style={{ width: 'auto' }}>
-              {wrongOptions[index].map((answer, key) => (
-                <div className='col md-4'>
-                  <Radio value={answer.description} size='large' disabled> {answer.description}</Radio>
-                </div>
-                ))}
-              </Radio.Group>
-              
+                <Radio.Group defaultValue={wrongVal[index]} style={{ width: 'auto' }}>
+                {wrongOptions[index].map((answer, key) => (
+                  <div className='col md-4'>
+                    <Radio value={answer.description} size='large' disabled> {answer.description}</Radio>
+                  </div>
+                  ))}
+                </Radio.Group>
+              </div>
+              <br/> <br/>
             </div> 
           );
-        })}
-
-        </p>
-        
+        })}   
         
       </div>
+
+    )
+
+    const endAssessment = (
+      endAssess ?  showResult : <br/>
+      
     )
      
     // const element =  (

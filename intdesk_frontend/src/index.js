@@ -22,6 +22,7 @@ import AssessDetails from './Assessments/assess_details';
 import AssessQuesForm from './Assessments/AssessQuesForm';
 import AssessmentsQues from './Assessments/AssessQues';
 import AssessForm from './Assessments/assess_form';
+import AssessmentsMine from './Assessments/AssessmentsMine';
 
 import Populate from './Assessments/data_populate';
 
@@ -61,6 +62,7 @@ ReactDOM.render(
       <Route exact path="/assessments" element={<Assessments/>}/>
       <Route exact path="/assessments/:id" element={<AssessDetails/>}/>
       <Route exact path="/assessments/:id/assess_ques" element={<AssessmentsQues />}/>
+      <Route exact path="/myassessments" element={<AssessmentsMine/>}/>
       <Route exact path="/assessments/:id/assess_ques_new" element={<AssessQuesForm />}/>
       <Route exact path="/assessments/assess_new" element={<AssessForm />}/>
 
