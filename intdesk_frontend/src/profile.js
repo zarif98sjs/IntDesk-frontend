@@ -20,7 +20,8 @@ import {
   Tooltip
 } from "antd";
 
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from 'react';
 import ActivityCalendar from "react-activity-calendar";
 import activityData from "./activityData";
 import assesment from "./images/assesment.png";
@@ -49,6 +50,40 @@ const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
   }
 );
 function Profile() {
+
+  const [userInfo, setUserInfo] = useState([]);
+
+  useEffect(() => {
+
+    const fetchUserInfo = async () => {
+      
+      const authToken = JSON.parse(localStorage.getItem("authToken"));
+      console.log("AUTH TOKEN in local storage: ",authToken);
+
+      await axios.get("http://localhost:8000/users/details/", {
+        headers: {
+            'Authorization': 'Token '.concat(authToken.token)
+          }
+        })
+        .then(res => {
+          console.log("User Info FETCHED");
+          // console.log(window.$log = res.data.results);
+          const data = res.data;
+          console.log(window.$log = data);
+          setUserInfo(data);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }; 
+
+    fetchUserInfo();
+      
+
+  }, []);
+
+
+
   return (
     <Layout style={{ background: "white" }}>
       <Navbar />
@@ -58,18 +93,18 @@ function Profile() {
           className="site-layout-background"
           style={{ background: "white" }}
         >
-          <p align="center">
-            <Card style={{ width: 300, background: "white" }}>
+          {/* <p align="center"> */}
+            <Card style={{ width: 300, background: "white",textAlign:'center' }}>
               <Meta
-                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                title="Md. Zarif Ul Alam"
-                description="zarif98sjs"
+                avatar={<Avatar style={{paddingLeft:'6%'}} src="https://joeschmoe.io/api/v1/random" />}
+                title={`${userInfo.first_name} ${userInfo.last_name}`}
+                description={`${userInfo.username}`}
                 style={{
                   display: "block",
                 }}
               />
             </Card>  
-          </p>
+          {/* </p> */}
 
           <div style={{ textAlign:"right" }}>
           <Badge.Ribbon text="C++ Intermediate">
@@ -105,7 +140,7 @@ function Profile() {
               </Tooltip>
               span={3}
             >
-              <Tooltip title="Location">Bangladesh</Tooltip>
+              <Tooltip title="Location">{userInfo.city}, {userInfo.country}</Tooltip>
             </Descriptions.Item>
             <Descriptions.Item
               label=<Tooltip title="Institution">
@@ -113,7 +148,7 @@ function Profile() {
               </Tooltip>
               span={3}
             >
-              <Tooltip title="Institution">BUET</Tooltip>
+              <Tooltip title="Institution">{userInfo.current_workplace}</Tooltip>
             </Descriptions.Item>
             <Descriptions.Item
               label=<Tooltip title="Language">
@@ -121,7 +156,7 @@ function Profile() {
               </Tooltip>
               span={3}
             >
-              <Tooltip title="Website">https://zarif98sjs.github.io/</Tooltip>
+              <Tooltip title="Website">{userInfo.website_link}</Tooltip>
             </Descriptions.Item>
             <Descriptions.Item
               label=<Tooltip title="Website">
@@ -129,7 +164,7 @@ function Profile() {
               </Tooltip>
               span={3}
             >
-              <Tooltip title="GitHub">zarif98sjs</Tooltip>
+              <Tooltip title="GitHub">{userInfo.github_link}</Tooltip>
             </Descriptions.Item>
             <Descriptions.Item
               label=<Tooltip title="Language">
@@ -138,8 +173,10 @@ function Profile() {
               span={3}
             >
               <Tooltip title="Language">
-                {" "}
-                <Tag>C++</Tag> <Tag>Python</Tag> <Tag>Java</Tag> <Tag>Go</Tag>{" "}
+                {userInfo.languages !== null ? userInfo.languages.map(tag => (
+                // <pre>{tag}</pre>
+                <Tag color="geekblue">{tag}</Tag>
+                )) : 'N/A'}
               </Tooltip>
             </Descriptions.Item>
             <Descriptions.Item
@@ -149,8 +186,10 @@ function Profile() {
               span={3}
             >
               <Tooltip title="Skills">
-                <Tag>DP</Tag> <Tag>Array</Tag> <Tag>Sorting</Tag>{" "}
-                <Tag>Greedy</Tag>{" "}
+                {userInfo.skills !== null ? userInfo.skills.map(tag => (
+                // <pre>{tag}</pre>
+                <Tag color="purple">{tag}</Tag>
+                )) : 'N/A'}
               </Tooltip>
             </Descriptions.Item>
           </Descriptions>
