@@ -1,4 +1,5 @@
 
+import { PlusOutlined } from "@ant-design/icons";
 import { Button, Input, Select, Space, Table, Tag, Typography } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from 'react';
@@ -98,7 +99,6 @@ const { Search } = Input;
             if (ara[i].user !== null) {
               ara[i].name = ara[i].user.username;
               
-
               // if not present
               if (!tempUserNames.includes(ara[i].user.username)) {
                 tempUserNames.push(ara[i].user.username);
@@ -116,6 +116,7 @@ const { Search } = Input;
               }
             }
           }
+
           setDiscussions(ara);
           setDiscussionsTemp(ara);
           setTags(tempTags);
@@ -137,6 +138,7 @@ const { Search } = Input;
       fetchDiscussions();
     }, []);
 
+    // SEARCH by title and tags
     const onChange= (e) => {
       console.log(e.target.value);
       let value = e.target.value;
@@ -217,8 +219,10 @@ const { Search } = Input;
                   onChange={onChange}
                   enterButton 
                 />
-                <Button type="primary" id='button_new' href="/question/new">New</Button>
+                
                 </Space>
+
+                <Button type="primary" href="/question/new" shape="round" icon={<PlusOutlined />} size="large" style={{float:'left', margin:'0px 10%'}}>New</Button>
 
                 
                 
