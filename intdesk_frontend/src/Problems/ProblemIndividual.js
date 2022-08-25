@@ -3,7 +3,7 @@ import axios from "axios";
 import 'katex/dist/katex.min.css';
 import React, { useEffect, useState } from "react";
 import ReactMarkdown from 'react-markdown';
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, Link } from "react-router-dom";
 import rehypeKatex from 'rehype-katex';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
@@ -23,6 +23,8 @@ export default function ProblemIndividual(){
     
     const [problem, setProblem] = useState([])
     const [id, setId] = useState(params.id)
+
+    const [solution, setSolution] = useState([])
 
 
     
@@ -112,7 +114,7 @@ export default function ProblemIndividual(){
                     
                 </Col>
                 <Col span={12}>
-                    <IDE problem={problem}/>
+                    <IDE problem={problem} solution={solution}/>
                 </Col>
             </Row>
             

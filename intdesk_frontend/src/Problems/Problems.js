@@ -1,8 +1,11 @@
 import { Space, Table, Tag } from "antd"
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import Navbar from "../navbar"
+
 import "./problems.css"
+
 
 const columns = [
     {
@@ -106,7 +109,7 @@ export default function Problems(){
         newdata[i].companies = data[i].companies.map(obj => obj.name)
         newdata[i].roles = data[i].roles.map(obj => obj.name)
         newdata[i].subcategories = data[i].subcategories.map(obj => obj.name)
-        
+        newdata[i].key = data[i].id
         
       }
       return newdata
@@ -135,9 +138,14 @@ export default function Problems(){
         <div>
             <Navbar />
             <div className="button-row--right">
-              <button className="submit-btn" type="button"  onClick={gotoNew} style={{width: "150px"}}>
+              {/* <button className="submit-btn" type="button"  onClick={gotoNew} style={{width: "150px"}}>
+                Create New
+              </button> */}
+              <Link to='/problems/new'>
+              <button className="submit-btn" type="button" style={{width: "150px"}}>
                 Create New
               </button>
+              </Link>
             </div>
             <h1 id='title'>All Problems</h1>
             <Table id='problems' dataSource={problems} columns={columns}/>

@@ -15,6 +15,7 @@ import reportWebVitals from './reportWebVitals';
 import ProblemIndividual from "./Problems/ProblemIndividual";
 import ProblemNew from "./Problems/ProblemNew";
 import Problems from "./Problems/Problems";
+import ProblemResult from "./Problems/ProblemResult";
 // import ProblemResult from './Problems/ProblemResult';
 
 import Assessments from "./Assessments";
@@ -70,7 +71,7 @@ ReactDOM.render(
       <Route exact path="/problems/problem/:id" element={<ProblemIndividual />}/>
       <Route exact path="/problems/new" element={<ProblemNew />}/>
       <Route exact path="/problems/problem/:id/edit" element={<ProblemNew />} />
-      {/* <Route exact path="/problems/problem/:id/result" element={<ProblemResult />} /> */}
+      <Route exact path="/problems/problem/:id/result" element={<ProblemResult />} />
       <Route path="*" element={<ErrorPage />}/>
 
     </Routes>

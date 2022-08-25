@@ -1,17 +1,18 @@
 import Editor from "@monaco-editor/react"
 import axios from "axios"
 import React, { useState } from "react"
+import {Link} from "react-router-dom"
 import Select from "react-select"
 import spinner from "../images/spinner.gif"
 import "./ide.css"
 import LanguageData from "./LanguageData"
 
-export default function IDE({problem}){
+export default function IDE({problem, solution}){
     
     
     const authToken = JSON.parse(localStorage.getItem("authToken"));
 
-    const [code, setCode] = useState("")
+    const [code, setCode] = useState("// Enter your code here")
     const [language, setLanguage] = useState(LanguageData[0])
     const [fontSize, setFontSize] = useState(16)
     const [input, setInput] = useState("")
@@ -20,7 +21,6 @@ export default function IDE({problem}){
 
     const [results, setResults] = useState([])
     const [done, setDone] = useState(0);
-    
     
     const allFontSizes = [16, 18, 20, 22, 24, 26, 28, 30, 32].map(font => (
          {value: font, label: font}
@@ -281,9 +281,14 @@ export default function IDE({problem}){
                     </button>
                 </div>
                 <div>
-                    <button type="button" className="submit-btn" onClick={() => submitCode()}>
+                    {/* <button type="button" className="submit-btn" onClick={() => submitCode()}>
                        Submit
-                    </button>
+                    </button> */}
+                    <Link to={`/problems/problem/${problem.id}/result`} state={{problem, code, language}}>
+                        <button type="button" className="submit-btn">
+                        Submit
+                        </button>
+                    </Link>
                 </div>
             </div>
         </div>

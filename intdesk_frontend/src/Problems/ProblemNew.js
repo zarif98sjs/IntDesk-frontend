@@ -1,7 +1,7 @@
 import { Alert, Menu } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
+import { Navigate, useParams, useLocation } from 'react-router-dom';
 import Navbar from '../navbar';
 import NewProblemBody from "./NewProblemBody";
 import "./problemNew.css";
@@ -9,14 +9,18 @@ import "./problemNew.css";
 
 function ProblemNew() {
 
+  
+
   const authToken = JSON.parse(localStorage.getItem("authToken"));
   const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem("isLoggedIn")));
   const [page, setPage] = useState("statement");
   const [mode, setMode] = useState("POST");
   const params = useParams();
 
+
   const [id, setId] = useState(params.id);
 
+  
   const [problem, setProblem] = useState({
     title: "",
     timeLimit: 1,
@@ -50,11 +54,11 @@ function ProblemNew() {
       await axios.post(address ,postData,{headers: {
         'Authorization': 'Token '.concat(authToken.token),
         'Content-Type' : 'application/json'
-    }})
-    .then(res => {
-        console.log("success adding roles")
-        console.log(window.$log = res.data);
-    })
+      }})
+      .then(res => {
+          console.log("success adding roles")
+          console.log(window.$log = res.data);
+      })
     .catch(err => {
         console.log("error adding roles")
         console.log(err);
