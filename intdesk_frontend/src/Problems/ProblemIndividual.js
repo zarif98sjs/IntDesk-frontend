@@ -24,12 +24,6 @@ export default function ProblemIndividual(){
     const [problem, setProblem] = useState([])
     const [id, setId] = useState(params.id)
 
-    const constraints = 
-`- $n == gas.length == cost.length$ \
-
-- $1 <= n <= 105$ \
-
-- $0 <= gas[i], cost[i] <= 104$ `
 
     
     useEffect(() => {
@@ -66,6 +60,10 @@ export default function ProblemIndividual(){
         
         console.log("bookmark")
     }
+
+    const gotoEdit = () => {
+        window.location.href = '/problems/problem/'.concat(id).concat('/edit')
+    }
     return (
     <div>
         <Navbar />
@@ -76,11 +74,14 @@ export default function ProblemIndividual(){
             
             <Row>
                 <Col span={12} style={{maxHeight: "100px"}}>
-                
+                <button className="submit-btn" type="button" onClick={gotoEdit}  style={{width: "150px", height: "40px", marginLeft: "20px", marginBottom: "10px"}}>
+                                    Edit Problem
+                            </button>
                     <h2 style={{paddingLeft: '20px'}}>{problem.name} <button type="button" title="Bookmark" onClick={handleBookMark}>
                             <img src={bookmark} width="20px" alt="Bookmark" />
-                            </button></h2>
-                    
+                            </button>
+                            
+                            </h2>
                     <Row style={{fontSize:'16px', paddingLeft:'20px', paddingBottom: '15px', color: "#5172b0"}}>
                         <Col span={2}>
                             {problem.difficulty}
@@ -111,7 +112,7 @@ export default function ProblemIndividual(){
                     
                 </Col>
                 <Col span={12}>
-                    <IDE />
+                    <IDE problem={problem}/>
                 </Col>
             </Row>
             

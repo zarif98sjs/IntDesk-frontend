@@ -1,5 +1,7 @@
+import MDEditor from '@uiw/react-md-editor';
 import { Input } from 'antd';
-import Markdown from "react-textarea-markdown";
+
+
 
 function NewStatement({problem, setProblem, handleTextChange, handleMarkDownChange}) {
 
@@ -31,7 +33,18 @@ function NewStatement({problem, setProblem, handleTextChange, handleMarkDownChan
                 <label htmlFor='description'>Statement</label>
             </div>
             <br/>
-            <Markdown id='description' name='description' value={problem.description} callback={handleMarkDownChange} textarea={true} customWidth={[50,50]} style={{paddingLeft: "100px"}}/>
+            {/* <Markdown id='description' name='description'  defaultValue={problem.description} value={problem.description} callback={handleMarkDownChange} textarea={true} customWidth={[50,50]} style={{paddingLeft: "100px"}}>
+            {problem.description}
+            </Markdown> */}
+            <div className="input-row" >
+            <MDEditor
+                value={problem.description}
+                onChange={handleMarkDownChange}
+                style={{width: "100%", height: "500px", maxHeight: "1000px", marginLeft: "20px", marginRight: "40px", marginBottom: "40px", paddingLeft: "20px", paddingRight: "20px"}}
+            />
+            
+            {/* <MDEditor.Markdown source={problem.description} style={{ whiteSpace: 'pre-wrap' }} /> */}
+            </div>
             <div className="input-row">
                 <label htmlFor='submissionCount'>Submissions</label>
                 <Input id='submissionCount' name='submissionCount' value={problem.submissionCount} onChange={handleTextChange} type="number" min="0" placeholder="Enter submission count..."/>

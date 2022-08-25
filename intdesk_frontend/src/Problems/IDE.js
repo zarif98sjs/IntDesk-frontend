@@ -2,11 +2,11 @@ import Editor from "@monaco-editor/react"
 import axios from "axios"
 import React, { useState } from "react"
 import Select from "react-select"
-import LanguageData from "./LanguageData"
 import spinner from "../images/spinner.gif"
 import "./ide.css"
+import LanguageData from "./LanguageData"
 
-export default function IDE(){
+export default function IDE({problem}){
     
     
     const authToken = JSON.parse(localStorage.getItem("authToken"));
@@ -18,6 +18,9 @@ export default function IDE(){
     const [output, setOutput] = useState("")
     const [loading, setLoading] = useState(false)
 
+    const [results, setResults] = useState([])
+    const [done, setDone] = useState(0);
+    
     
     const allFontSizes = [16, 18, 20, 22, 24, 26, 28, 30, 32].map(font => (
          {value: font, label: font}
@@ -41,14 +44,26 @@ export default function IDE(){
         }
 
         console.log("checking url...", options.url)
+        let status;
+        let memoryUsed;
+        let timeUsed;
 
-        try{
-            let response = await axios.request(options);
-            let statusId = response.data.status?.id;
+        
+        await axios.request(options)
+        .then((response) => {
+            status = response.data.status;
+            memoryUsed = response.data.memory;
+            timeUsed = response.data.time;
+            let statusId = status.id;
+            console.log('status', status.description);
 
+            console.log('memory', memoryUsed);
+            console.log('time', timeUsed);
+
+            
             if(statusId === 1 || statusId === 2){
                 setTimeout(() => {
-                    checkStatus(token);
+                    status = checkStatus(token);
                 }, 2000);
             }
             else 
@@ -59,24 +74,26 @@ export default function IDE(){
                 }
                 else {
                     setOutput(response.data.status?.description);
-                    // setOutput(atob(response.data.compile_output));
                 }
-                // setOutput(response.data.stdout);
                 console.log("done successfully");   
                 console.log(response.data);
 
                 
             }
-        }
-        catch(err){
+
+            
+            }
+        )
+        .catch(err => {
             console.log("err", err);
             setLoading(false);
 
-        }
+        })
+        return {status, memoryUsed, timeUsed};
 
     }
 
-    const compileCode = () => {
+    const compileCode = async () => {
 
         setLoading(true);
         const formData = {
@@ -84,7 +101,13 @@ export default function IDE(){
             // encode source code in base64
             source_code: btoa(code),
             stdin: btoa(input),
+            cpu_time_limit: problem.time_limit,
+            cpu_extra_time: 0.1,
+            memory_limit: problem.memory_limit * 1000
         };
+        console.log('formData');
+        console.log(formData);
+        
         const options = {
             method: "POST",
             url: process.env.REACT_APP_RAPID_API_URL,
@@ -98,12 +121,13 @@ export default function IDE(){
             data: formData,
           };
 
-        axios.request(options).
+        await axios.request(options).
         then((response) => {
             console.log("res.data", response.data);
             const token = response.data.token;
             console.log("token", token);
-            checkStatus(token);
+            let {status, memoryUsed, timeUsed} = checkStatus(token);
+            
         })
         .catch((err) => {
             let error = err.response ? err.response.data : err;
@@ -123,8 +147,62 @@ export default function IDE(){
 
         
         
-    function submitCode(){
+    const submitCode = async () =>  {
         console.log("Submitting code...")
+
+        
+        const inputOutputs = problem.input_outputs;
+        console.log(inputOutputs);
+        setResults(Array(problem.input_outputs.length).fill({'status': "", 'memory': "", 'time': ""}));
+        for(let i=0;i<inputOutputs.length; i+=1){
+
+            setLoading(true);
+            const formData = {
+                language_id: language.id,
+                // encode source code in base64
+                source_code: btoa(code),
+                stdin: btoa(inputOutputs[i].input),
+                expected_output: btoa(inputOutputs[i].output),
+                cpu_time_limit: problem.time_limit,
+                cpu_extra_time: 0.1,
+                memory_limit: problem.memory_limit * 1000
+            };
+            const options = {
+                method: "POST",
+                url: process.env.REACT_APP_RAPID_API_URL,
+                params: { base64_encoded: "true", fields: "*" },
+                headers: {
+                  "content-type": "application/json",
+                  "Content-Type": "application/json",
+                  "X-RapidAPI-Host": process.env.REACT_APP_RAPID_API_HOST,
+                  "X-RapidAPI-Key": process.env.REACT_APP_RAPID_API_KEY,
+                },
+                data: formData,
+              };
+    
+            await axios.request(options).
+            then((response) => {
+                console.log("res.data", response.data);
+                const token = response.data.token;
+                console.log("token", token);
+                let result = checkStatus(token);
+
+                
+            })
+            .catch((err) => {
+                let error = err.response ? err.response.data : err;
+                let status = error.reponse.status;
+                console.log("status", status);
+                if (status === 429){
+                    console.log("too many requests", status);
+                }
+                console.log("error", err)
+                setLoading(false);
+    
+            })
+    
+        }
+        
         
         
     }

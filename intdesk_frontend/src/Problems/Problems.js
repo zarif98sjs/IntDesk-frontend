@@ -1,4 +1,4 @@
-import { Space, Table } from "antd"
+import { Space, Table, Tag } from "antd"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import Navbar from "../navbar"
@@ -19,11 +19,30 @@ const columns = [
       title: 'Categories',
       dataIndex: 'subcategories',
       key: 'subcategories',
-    } ,
+      render: (_, record) => (
+        <Space size="middle">
+         {/* if tags not null */}
+          {record.subcategories !== null ? record.subcategories.map(subcategory => (
+            // <pre>{tag}</pre>
+            <Tag color="geekblue">{subcategory}</Tag>
+          )) : null}
+
+        </Space>
+      ),
+    },
+
     {
       title: 'Difficulty',
       dataIndex: 'difficulty',
       key: 'difficulty',
+      render: (_, record) => (
+        <Space size="middle">
+          
+            <Tag color="geekblue">{record.difficulty}</Tag>
+          
+
+        </Space>
+      ),
     },
     {
         title: 'Submissions',
@@ -36,12 +55,41 @@ const columns = [
         key: 'solve_count',
     },
     {
-        title: 'Asked In',
-        dataIndex: 'companies',
-        key: 'companies',
-    }
+      title: 'Asked In',
+      dataIndex: 'companies',
+      key: 'companies',
+      render: (_, record) => (
+        <Space size="middle">
+         {/* if tags not null */}
+          {record.companies !== null ? record.companies.map(company => (
+            // <pre>{tag}</pre>
+            <Tag color="geekblue">{company}</Tag>
+          )) : null}
+
+        </Space>
+      ),
+    },
+    {
+      title: 'Roles',
+      dataIndex: 'roles',
+      key: 'roles',
+      render: (_, record) => (
+        <Space size="middle">
+         {/* if tags not null */}
+          {record.roles !== null ? record.roles.map(role => (
+            // <pre>{tag}</pre>
+            <Tag color="geekblue">{role}</Tag>
+          )) : null}
+
+        </Space>
+      ),
+    },
 
   ];
+
+  const gotoNew = () => {
+    window.location.href = '/problems/new'
+  }
 
 
 export default function Problems(){
@@ -86,6 +134,11 @@ export default function Problems(){
     return (
         <div>
             <Navbar />
+            <div className="button-row--right">
+              <button className="submit-btn" type="button"  onClick={gotoNew} style={{width: "150px"}}>
+                Create New
+              </button>
+            </div>
             <h1 id='title'>All Problems</h1>
             <Table id='problems' dataSource={problems} columns={columns}/>
         </div>

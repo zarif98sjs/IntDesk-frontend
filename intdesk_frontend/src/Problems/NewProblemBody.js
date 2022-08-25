@@ -20,6 +20,7 @@ function NewProblemBody({problem, setProblem, page}) {
     }
 
     const handleMarkDownChange = event => {
+        console.log(problem.description)
         setProblem(oldProblem => (
             {
                 ...oldProblem,
