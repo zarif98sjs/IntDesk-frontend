@@ -30,13 +30,11 @@ function Discussions() {
       key: "title",
       render: (_, record) => (
         <Space size="middle">
-          {/* <a href="/q">{record.title}</a> */}
           <a href={`discussion/${record.id}`}>
             <Text style={{ "font-size": "110%" }} italic keyboard>
               {record.title}
             </Text>
           </a>
-          {/* <Link to="/App">{record.title}</Link> */}
         </Space>
       ),
     },
@@ -46,14 +44,14 @@ function Discussions() {
       key: "name",
       render: (_, record) => (
         <Space size="middle">
-          {record.name === userLocal.username ? (
-            <a href="profile">
+          {userLocal === null || record.name !== userLocal.username ? (
+            <a href={`profile/${record.name}`}>
               <Space size="middle">
                 <Tag color="blue">{record.name}</Tag>
               </Space>
             </a>
           ) : (
-            <a href={`profile/${record.name}`}>
+            <a href="profile">
               <Space size="middle">
                 <Tag color="blue">{record.name}</Tag>
               </Space>
@@ -153,6 +151,7 @@ function Discussions() {
   };
 
   useEffect(() => {
+    console.log("user Local: ", userLocal);
     fetchDiscussions();
   }, []);
 

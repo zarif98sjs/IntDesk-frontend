@@ -8,8 +8,6 @@ const { Text, Link } = Typography;
 const { Option } = Select;
 const { Search } = Input;
 
-const userLocal = JSON.parse(localStorage.getItem("user"));
-
 const columns = [
   {
     title: "Title",
@@ -17,13 +15,11 @@ const columns = [
     key: "title",
     render: (_, record) => (
       <Space size="middle">
-        {/* <a href="/q">{record.title}</a> */}
         <a href={`discussion/${record.id}`}>
           <Text style={{ "font-size": "110%" }} italic keyboard>
             {record.title}
           </Text>
         </a>
-        {/* <Link to="/App">{record.title}</Link> */}
       </Space>
     ),
   },
@@ -33,19 +29,11 @@ const columns = [
     key: "name",
     render: (_, record) => (
       <Space size="middle">
-        {record.name === userLocal.username ? (
-          <a href='profile'>
-            <Space size="middle">
-              <Tag color="blue">{record.name}</Tag>
-            </Space>
-          </a>
-        ) : (
-          <a href={`profile/${record.name}`}>
-            <Space size="middle">
-              <Tag color="blue">{record.name}</Tag>
-            </Space>
-          </a>
-        )}
+        <a href="profile">
+          <Space size="middle">
+            <Tag color="blue">{record.name}</Tag>
+          </Space>
+        </a>
       </Space>
     ),
   },
