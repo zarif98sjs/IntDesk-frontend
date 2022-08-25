@@ -5,8 +5,7 @@ import {
   UserOutlined
 } from "@ant-design/icons";
 import {
-  Avatar, Badge, Button,
-  Card,
+  Avatar, Badge, Card,
   Descriptions,
   Layout,
   Progress,
@@ -16,6 +15,7 @@ import axios from "axios";
 import React, { useEffect, useState } from 'react';
 import ActivityCalendar from "react-activity-calendar";
 import { BiBriefcase, BiBuildings, BiCurrentLocation, BiLinkAlt } from "react-icons/bi";
+import { useParams } from "react-router-dom";
 import activityData from "./activityData";
 import assesment from "./images/assesment.png";
 import discussion from "./images/discussion2.png";
@@ -42,10 +42,13 @@ const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
     };
   }
 );
-function Profile() {
+function ProfileGeneral() {
+
+  const params = useParams();
+  const username = params.username;
 
   const [userInfo, setUserInfo] = useState([]);
-
+  
   useEffect(() => {
 
     const fetchUserInfo = async () => {
@@ -53,7 +56,7 @@ function Profile() {
       const authToken = JSON.parse(localStorage.getItem("authToken"));
       console.log("AUTH TOKEN in local storage: ",authToken);
 
-      await axios.get("http://localhost:8000/users/details/", {
+      await axios.get("http://localhost:8000/users/user/".concat(username), {
         headers: {
             'Authorization': 'Token '.concat(authToken.token)
           }
@@ -73,7 +76,7 @@ function Profile() {
     fetchUserInfo();
       
 
-  }, []);
+  }, [username]);
 
 
 
@@ -194,24 +197,11 @@ function Profile() {
               </Tooltip>
             </Descriptions.Item>
           </Descriptions>
-
-          <p align="center">
-            <Button
-              type="primary"
-              shape="round"
-              icon={<UserOutlined />}
-              size="large"
-              style={{ margin: "10px 10px 10px 10px" }}
-              href="http://localhost:3000/profile_edit/"
-            >
-              Edit Profile
-            </Button>
-          </p>
         </Sider>
 
         <div style={{ margin: "auto" }}>
           <div className="">
-            <h1 id="title"> Welcome to your profile </h1>
+            <h1 id="title"> Welcome to {userInfo.username}&apos;s profile </h1>
           </div>
           <div>
             <p align="center">
@@ -231,17 +221,10 @@ function Profile() {
                       />
                     </a>
                   }
-                  actions={
-                    [
-                      // <SettingOutlined key="setting" />,
-                      // <EditOutlined key="edit" />,
-                      // <EllipsisOutlined key="ellipsis" />,
-                    ]
-                  }
                 >
                   <Meta
                     title="Problems"
-                    description="Find your solved problems here"
+                    description={`${userInfo.username}'s solved problems`}
                     style={{ display: "block" }}
                   />
                 </Card>
@@ -257,17 +240,10 @@ function Profile() {
                       />
                     </a>
                   }
-                  actions={
-                    [
-                      // <SettingOutlined key="setting" />,
-                      // <EditOutlined key="edit" />,
-                      // <EllipsisOutlined key="ellipsis" />,
-                    ]
-                  }
                 >
                   <Meta
                     title="Discussions"
-                    description="Find your discussions here"
+                    description={`${userInfo.username}'s discussions`}
                     style={{ display: "block" }}
                   />
                 </Card>
@@ -275,7 +251,7 @@ function Profile() {
                 <Card
                   style={{ width: 250, border: "groove" }}
                   cover={
-                    <a href="/myassessments">
+                    <a href="/">
                       <img
                         alt="example"
                         src={assesment}
@@ -286,17 +262,10 @@ function Profile() {
                       />
                     </a>
                   }
-                  actions={
-                    [
-                      // <SettingOutlined key="setting" />,
-                      // <EditOutlined key="edit" />,
-                      // <EllipsisOutlined key="ellipsis" />,
-                    ]
-                  }
                 >
                   <Meta
                     title="Assesments"
-                    description="Find your assesments here"
+                    description={`${userInfo.username}'s assesments`}
                     style={{
                       display: "block",
                     }}
@@ -392,4 +361,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default ProfileGeneral;

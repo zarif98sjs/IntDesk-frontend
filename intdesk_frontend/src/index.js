@@ -6,9 +6,6 @@ import Home from "./Home";
 import Login from "./login";
 import Logout from "./LogOut";
 import Profile from "./profile";
-import QuestionIndividual from "./QuestionIndividual";
-import QuestionNew from "./QuestionNew";
-import Questions from "./Questions";
 import Register from "./register";
 import reportWebVitals from './reportWebVitals';
 
@@ -17,6 +14,7 @@ import ProblemNew from "./Problems/ProblemNew";
 import Problems from "./Problems/Problems";
 // import ProblemResult from './Problems/ProblemResult';
 
+
 import Assessments from "./Assessments/Assessments";
 import AssessDetails from './Assessments/assess_details';
 import AssessQuesForm from './Assessments/AssessQuesForm';
@@ -24,9 +22,15 @@ import AssessmentsQues from './Assessments/AssessQues';
 import AssessForm from './Assessments/assess_form';
 import AssessmentsMine from './Assessments/AssessmentsMine';
 
+
 import Populate from './Assessments/data_populate';
 
-import QuestionsMine from './QuestionsMine';
+import DiscussionIndividual from './Discussions/DiscussionIndividual';
+import Discussions from './Discussions/Discussions';
+import DiscussionsMine from './Discussions/DiscussionsMine';
+import DiscussionsNew from './Discussions/discussionsNew';
+import ProfileEdit from './ProfileEdit';
+import ProfileGeneral from './ProfileGeneral';
 
 
 
@@ -49,15 +53,17 @@ ReactDOM.render(
     <Doc />
     <Routes>
       <Route exact path="/" element={<Home/>}/>
-      <Route exact path="/questions" element={<Questions/>}/>
-      <Route exact path="/question/:id" element={<QuestionIndividual/>}/>
-      <Route exact path="/question/new" element={<QuestionNew/>}/>
-      <Route exact path="/myq" element={<QuestionsMine/>}/>
+      <Route exact path="/discussions" element={<Discussions/>}/>
+      <Route exact path="/discussion/:id" element={<DiscussionIndividual/>}/>
+      <Route exact path="/discussion/new" element={<DiscussionsNew/>}/>
+      <Route exact path="/mydiscussions" element={<DiscussionsMine/>}/>
 
       <Route exact path="/login" element={<Login/>}/>
       <Route exact path="/logout" element={<Logout/>}/>
       <Route exact path="/signup" element={<Register/>}/>
       <Route exact path="/profile" element={<Profile/>}/>
+      <Route exact path="/profile_edit" element={<ProfileEdit/>}/>
+      <Route exact path="/profile/:username" element={<ProfileGeneral/>}/>
 
       <Route exact path="/assessments" element={<Assessments/>}/>
       <Route exact path="/assessments/:id" element={<AssessDetails/>}/>

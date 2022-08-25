@@ -1,5 +1,5 @@
 
-import logo from './images/logo5.png'; // Tell webpack this JS file uses this image
+import logo from './images/logo5.png'; 
 import Navbar from "./navbar";
 
 export default function Home() {

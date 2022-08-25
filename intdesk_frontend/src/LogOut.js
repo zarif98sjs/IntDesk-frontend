@@ -9,6 +9,7 @@ function Logout() {
   }, []);
   console.log("Logging out ...");
   localStorage.setItem("isLoggedIn", "false");
+  localStorage.setItem("user", null);
   return (
           <div className="">
             <Navbar />
