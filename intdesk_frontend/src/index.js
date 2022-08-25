@@ -26,6 +26,7 @@ import AssessForm from './assess_form';
 import Populate from './data_populate';
 
 import ProfileEdit from './ProfileEdit';
+import ProfileGeneral from './ProfileGeneral';
 import QuestionsMine from './QuestionsMine';
 
 
@@ -59,6 +60,7 @@ ReactDOM.render(
       <Route exact path="/signup" element={<Register/>}/>
       <Route exact path="/profile" element={<Profile/>}/>
       <Route exact path="/profile_edit" element={<ProfileEdit/>}/>
+      <Route exact path="/profile/:username" element={<ProfileGeneral/>}/>
 
       <Route exact path="/assessments" element={<Assessments/>}/>
       <Route exact path="/assessments/:id" element={<AssessDetails/>}/>

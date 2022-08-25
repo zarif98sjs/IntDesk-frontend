@@ -45,9 +45,12 @@ const { Search } = Input;
         dataIndex: 'name',
         key: 'name',
         render: (_, record) => (
-          <Space size="middle">
+          <a href={`profile/${record.name}`} >
+             <Space size="middle">
             <Tag color="blue">{record.name}</Tag>
           </Space>
+          </a>
+         
         ),
         filters : userNames,
         onFilter: (value: string, record) => record.name.indexOf(value) === 0,
