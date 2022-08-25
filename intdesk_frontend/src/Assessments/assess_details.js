@@ -4,8 +4,8 @@ import React, { useState, Component, useEffect } from 'react';
 import {  Link, useParams } from "react-router-dom";
 import { StarOutlined, StarFilled, StarTwoTone,ProjectFilled,IdcardTwoTone, BuildTwoTone, CarryOutTwoTone,SafetyCertificateFilled,SafetyCertificateTwoTone, CopyTwoTone,HourglassTwoTone, ClockCircleTwoTone } from '@ant-design/icons';
 import axios from 'axios';
-
-import Navbar from './navbar';
+import Moment from 'moment';
+import Navbar from '../navbar';
 import "./assessDetails.css";
 
 
@@ -20,6 +20,9 @@ function AssessDetails() {
 
   const [assessment, setAssessment] = useState([]);
   const [roles, setRoles] = useState('');
+  const [passed, setPassed] = useState(false);
+  const [taken, setTaken] = useState(false);
+  const [timeDiff, setTimeDiff] = useState(0);
 
   function commaSeperate(obj, separator) {
     console.log(obj);
@@ -62,6 +65,37 @@ function AssessDetails() {
           .catch(err => {
             console.log(err);
           })
+
+          await axios.get("http://localhost:8000/assessments/assessment/".concat(assessmentID).concat("/get_user_status/"),{headers :{
+            'Authorization': 'Token '.concat(authToken.token),
+            'Content-Type' : 'application/json'
+          }})
+          .then(res => {
+            const ara = res.data;
+            console.log(window.$log = ara);
+            if( ara === "passed" ){
+              setPassed(true)
+            }
+            else if( ara === "not taken"){
+              setTaken(false);
+            }
+            else{
+              setTaken(true);
+              let time = ara.substring(0, 10);
+              let given = Moment(time, "YYYY-MM-DD");
+              let current = Moment().startOf('day');
+
+              // Difference in number of days
+              setTimeDiff( 30 - Moment.duration(current.diff(given)).asDays() );
+              
+            }
+           
+           
+          })
+          .catch(err => {
+            console.log(err);
+          })
+
       };
 
       
@@ -74,8 +108,13 @@ function AssessDetails() {
     }, [assessmentID]);
 
     
+    const checkTaken = (
+      taken ? <h3 id = 'title'> {timeDiff} more days before you can retake this assessment </h3> : <Button  type="link" htmlType="submit" href={`${assessmentID}/assess_ques`}>Take Assessment Quiz </Button> 
+    )
 
-
+    const checkPassed = (
+      passed ? <h3 id = 'title'> You have already passed this assessment </h3> : checkTaken
+    )
     
   
 
@@ -94,10 +133,10 @@ function AssessDetails() {
                     <h3> <CarryOutTwoTone style={{ fontSize: '18px', color: '#08c' }} />  {assessment.passed_by} passed this</h3>
 
                     <h3> <CopyTwoTone style={{ fontSize: '18px', color: '#08c' }} />   Total 15 questions</h3>
-                    <h3> <HourglassTwoTone style={{ fontSize: '18px', color: '#08c' }} />   Individual time for each question</h3>
+                    <h3> <HourglassTwoTone style={{ fontSize: '18px', color: '#08c' }}   />   Individual time for each question</h3>
                     
                     {isLoggedIn ? ( 
-                      <Button  type="link" htmlType="submit" href={`${assessmentID}/assess_ques`}>Take Assessment Quiz </Button>
+                      checkPassed
                     ) : (
                       <Link to="/login">Log In to take the assessment quiz </Link>
                     )}

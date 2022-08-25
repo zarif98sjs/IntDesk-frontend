@@ -20,3 +20,13 @@
   margin: auto;
   padding: 24px;
 }
+
+.ant-badge:not(.ant-badge-not-a-wrapper) {
+  margin : auto;
+  margin-right: 20px;
+}
+.ant-badge.ant-badge-rtl:not(.ant-badge-not-a-wrapper) {
+  margin : auto;
+  margin-right: 0;
+  margin-left: 20px;
+}
