@@ -16,13 +16,13 @@ import ProblemIndividual from "./Problems/ProblemIndividual";
 import ProblemNew from "./Problems/ProblemNew";
 import Problems from "./Problems/Problems";
 
-import Assessments from "./Assessments";
-import AssessDetails from './assess_details';
-import AssessQuesForm from './AssessQuesForm';
-import AssessmentsQues from './AssessQues';
-import AssessForm from './assess_form';
+import Assessments from "./Assessments/Assessments";
+import AssessDetails from './Assessments/assess_details';
+import AssessQuesForm from './Assessments/AssessQuesForm';
+import AssessmentsQues from './Assessments/AssessQues';
+import AssessForm from './Assessments/assess_form';
 
-import Populate from './data_populate';
+import Populate from './Assessments/data_populate';
 
 import QuestionsMine from './QuestionsMine';
 

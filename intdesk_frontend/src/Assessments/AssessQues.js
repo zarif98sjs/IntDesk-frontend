@@ -5,7 +5,7 @@ import { SnippetsFilled } from '@ant-design/icons';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import axios from "axios";
 import remarkGfm from 'remark-gfm';
-import Navbar from "./navbar";
+import Navbar from "../navbar";
 import './assess.css';
 
 
@@ -28,6 +28,10 @@ function AssessmentsQues(props) {
   const [value, setValue] = useState();
   const [points, setPoints] = useState(0);
   const [totalPoints, setTotalPoints] = useState(0);
+
+  const [wrongQues, setWrongQues] = useState([]);
+  const [wrongOptions, setWrongOptions] = useState([]);
+  const [wrongVal, setWrongVal] = useState([]);
 
   const {initialMinute = 0,initialSeconds = 50} = props;
   const [ minutes, setMinutes ] = useState(initialMinute);
@@ -137,6 +141,10 @@ function AssessmentsQues(props) {
         // console.log("Submitted value");
         // console.log(value);
         // console.log(options.values);
+        // let wrong = 1;
+        if( complete === true ){
+          return;
+        }
         if( value !== undefined ){
           let opt_id = 0;
           // console.log(options);
@@ -165,17 +173,58 @@ function AssessmentsQues(props) {
           .then(res => {
             console.log(window.$log = res.data);
             if(res.data === true){
-              
+              // wrong = 0;
               setPoints(points + question.points);
+            }
+            else{
+              let tempWrongQues = wrongQues;
+              let tempWrongOptions = wrongOptions;
+              let tempWrongValues = wrongVal;
+
+              tempWrongQues.push(question);
+              tempWrongOptions.push(options);
+              tempWrongValues.push(value);
+
+              console.log("Wrong Questions");
+              console.log(tempWrongQues);
+              console.log(tempWrongOptions);
+              console.log(tempWrongValues);
+
+              setWrongQues(tempWrongQues);
+              setWrongOptions(tempWrongOptions);
+              setWrongVal(tempWrongValues);
+
             }
           })
           .catch(err => {
             console.log(err);
-          })
-      
-          
+          })      
 
         }
+        else{
+          let tempWrongQues = wrongQues;
+          let tempWrongOptions = wrongOptions;
+          let tempWrongValues = wrongVal;
+
+          tempWrongQues.push(question);
+          tempWrongOptions.push(options);
+          tempWrongValues.push(value);
+
+          console.log("Wrong Questions");
+          console.log(tempWrongQues);
+          console.log(tempWrongOptions);
+          console.log(tempWrongValues);
+
+          setWrongQues(tempWrongQues);
+          setWrongOptions(tempWrongOptions);
+          setWrongVal(tempWrongValues);
+         
+
+
+        }
+          
+          
+        
         // console.log(question.points);
         console.log("gained points");
         console.log(points);
@@ -229,6 +278,7 @@ function AssessmentsQues(props) {
         let postData = {
           'points' : points,
           'total_points' : totalPoints,
+          'assessment' : assessmentID,
         };
     
         console.log(postData);
@@ -313,6 +363,29 @@ function AssessmentsQues(props) {
         <h1 id= 'title'><SnippetsFilled />  {getPassed()} </h1>
         <h2>Total points : {points} / {totalPoints} </h2>
         <Link to = "/assessments" > Go back to Assessments </Link>
+        <br/><br/><br/>
+
+        <h1> Wrong Answers </h1>
+
+        {wrongQues.map((item, index) => {
+          return (
+            <div>
+              <ReactMarkdown remarkPlugins={[remarkGfm]} >
+                    {item.description}
+              </ReactMarkdown>
+
+              <Radio.Group defaultValue={wrongVal[index]} style={{ width: 'auto' }}>
+              {wrongOptions[index].map((answer, key) => (
+                <div className='col md-4'>
+                  <Radio value={answer.description} size='large' disabled> {answer.description}</Radio>
+                </div>
+                ))}
+              </Radio.Group>
+              
+            </div> 
+          );
+        })}
+
         </p>
         
         

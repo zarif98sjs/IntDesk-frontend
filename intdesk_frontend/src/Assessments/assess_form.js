@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from 'react';
 import { Navigate } from "react-router-dom";
 import AssessQuesForm from './AssessQuesForm';
-import Navbar from './navbar';
+import Navbar from '../navbar';
 import "./AssessNew.css";
 
 

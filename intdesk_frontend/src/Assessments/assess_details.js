@@ -5,7 +5,7 @@ import {  Link, useParams } from "react-router-dom";
 import { StarOutlined, StarFilled, StarTwoTone,ProjectFilled,IdcardTwoTone, BuildTwoTone, CarryOutTwoTone,SafetyCertificateFilled,SafetyCertificateTwoTone, CopyTwoTone,HourglassTwoTone, ClockCircleTwoTone } from '@ant-design/icons';
 import axios from 'axios';
 
-import Navbar from './navbar';
+import Navbar from '../navbar';
 import "./assessDetails.css";
 
 
@@ -94,7 +94,7 @@ function AssessDetails() {
                     <h3> <CarryOutTwoTone style={{ fontSize: '18px', color: '#08c' }} />  {assessment.passed_by} passed this</h3>
 
                     <h3> <CopyTwoTone style={{ fontSize: '18px', color: '#08c' }} />   Total 15 questions</h3>
-                    <h3> <HourglassTwoTone style={{ fontSize: '18px', color: '#08c' }} />   Individual time for each question</h3>
+                    <h3> <HourglassTwoTone style={{ fontSize: '18px', color: '#08c' }}   />   Individual time for each question</h3>
                     
                     {isLoggedIn ? ( 
                       <Button  type="link" htmlType="submit" href={`${assessmentID}/assess_ques`}>Take Assessment Quiz </Button>
