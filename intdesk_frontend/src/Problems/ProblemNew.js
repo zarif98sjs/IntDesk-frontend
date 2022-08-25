@@ -168,7 +168,7 @@ function ProblemNew() {
         submitCompanies(id);
         submitSubcategories(id);
              // navigate to the problems page
-       window.location.href = "/problems";
+      //  window.location.href = "/problems";
   
       })
       .catch(err => {
@@ -184,13 +184,17 @@ function ProblemNew() {
       }})
       .then(res => {
         console.log(window.$log = res.data);
+        console.log('id now', id);
+        console.log('Input outputs now:')
+
+        console.log(problem.inputOutputs);
         
-        // submitIO(id);
-        // submitRoles(id);
-        // submitCompanies(id);
-        // submitSubcategories(id);
+        submitIO(id);
+        submitRoles(id);
+        submitCompanies(id);
+        submitSubcategories(id);
         // // navigate to the problems page
-        window.location.href = `/problems/problem/${id}`;
+        // window.location.href = `/problems/problem/${id}`;
 
         
       })
