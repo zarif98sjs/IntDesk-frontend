@@ -1,16 +1,17 @@
-import { Col, Row, Menu } from "antd";
 import axios from "axios";
 import "katex/dist/katex.min.css";
 import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { useLocation, useParams, Link } from "react-router-dom";
+import { Col, Row, Menu } from "antd";
+
 import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import bookmark from "../images/bookmark.png";
 import bookmarkWhite from "../images/bookmark-white.png"
 import bookmarkBlack from "../images/bookmark-black.png"
-import Navbar from "../navbar";
+import Navbar from "../Navbar/Navbar";
 import IDE from "./IDE";
 import "./problems.css";
 

@@ -1,9 +1,8 @@
 import { PlusOutlined } from "@ant-design/icons"
-import { Space, Table, Tag, Button, Input, Select } from "antd"
+import { Button, Input, Select, Space, Table, Tag } from "antd"
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-import Navbar from "../navbar"
+import Navbar from "../Navbar/Navbar"
 
 import "./problems.css"
 

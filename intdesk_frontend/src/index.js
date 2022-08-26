@@ -3,9 +3,9 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 import Home from "./Home";
-import Login from "./LogIn";
+import Login from "./login";
 import Logout from "./LogOut";
-import Register from "./Register";
+import Register from "./register";
 import reportWebVitals from "./reportWebVitals";
 
 import ProblemIndividual from "./Problems/ProblemIndividual";

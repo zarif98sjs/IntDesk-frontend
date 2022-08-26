@@ -10,7 +10,7 @@ import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import copy from "../images/copy-content.png";
 
-import Navbar from "../navbar";
+import Navbar from "../Navbar/Navbar";
 import "./result.css";
 
 

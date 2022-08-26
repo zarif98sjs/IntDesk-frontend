@@ -1,11 +1,12 @@
 
-import LanguageData from "./LanguageData"
 import Editor from "@monaco-editor/react";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Select from "react-select";
 import spinner from "../images/spinner.gif";
+import LanguageData from "./LanguageData"
+
 import "./ide.css";
 
 
