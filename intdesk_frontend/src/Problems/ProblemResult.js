@@ -1,5 +1,5 @@
 
-import { Menu, Space, Table, Tag, Alert } from 'antd';
+import { Alert, Menu, Space, Table, Tag } from 'antd';
 import axios from 'axios';
 
 import React, { useEffect, useState } from 'react';
@@ -198,7 +198,7 @@ function ProblemResult() {
                 setTotalPoints(old => old+problem.input_outputs[i].points);
               }
               setFinalResult(oldResult => (
-                (oldResult === "Accepted" ? 
+                (oldResult.status === "Accepted" ? 
                 {
                   "status" : response.data.status.description, 
                   "time" : Math.max(oldResult.time, timeUsed),
@@ -272,32 +272,7 @@ function ProblemResult() {
               console.log("result returned");
               console.log(result);
               console.log()
-              // if(result.status !== "Accepted")
-              // {
-              //   setFinalResult(response.data.status.description);
-              //   let j = 0;
-              //   for(j=i+1; j< problem.input_outputs.length;j+=1)
-              //   {
-              //     setResults(oldResult => (
-              //       [
-              //         ...oldResult,
-              //         {
-              //           'case_no': j,
-              //           'case_description': "",
-              //           'status': "Skipped",
-              //           'memory': "None",
-              //           'time': "None"
-              //         },
-              //       ]
-              //     ))
-              //   }
-
-              //   return;
-                
-              // }
-  
-            
-  
+              
           })
           .catch((err) => {
               let error = err.response ? err.response.data : err;

@@ -27,7 +27,7 @@ export default function SubMenu(props){
     ))
     
     return (
-        <Menu mode="horizontal">
+        <Menu mode="horizontal" defaultSelectedKeys={["Description"]}>
             {elements}
         </Menu>
     )

@@ -1,18 +1,18 @@
 import Editor from "@monaco-editor/react"
 import axios from "axios"
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import {Link} from "react-router-dom"
 import Select from "react-select"
 import spinner from "../images/spinner.gif"
 import "./ide.css"
 import LanguageData from "./LanguageData"
 
-export default function IDE({problem, solution}){
+export default function IDE({problem, id}){
     
     
-    const authToken = JSON.parse(localStorage.getItem("authToken"));
+    const [authToken, setAuthToken] = useState(JSON.parse(localStorage.getItem("authToken")));
 
-    const [code, setCode] = useState("// Enter your code here")
+    const [code, setCode] = useState("")
     const [language, setLanguage] = useState(LanguageData[0])
     const [fontSize, setFontSize] = useState(16)
     const [input, setInput] = useState("")
@@ -27,8 +27,36 @@ export default function IDE({problem, solution}){
         )
     )
 
-    const options = {fontSize}
+    const options = {
+        "fontSize": fontSize, 
+        "minimap": {enabled: false}
+    }
 
+    useEffect(() => {
+        const fetchSolution = async () => {
+            console.log("fetching solution for ", id);
+            await axios.get("http://localhost:8000/problems/problem/".concat(id).concat('/latest_solution'), {
+                headers: {
+                  Authorization: "Token ".concat(authToken.token),
+                  "Content-Type": "application/json",
+                },
+              })
+            .then(res => {
+
+            console.log("solution returned")
+            console.log(window.$log = res.data)
+            setCode(res.data.code);
+  
+            })
+            .catch(err => {
+                console.log("solution error");
+              console.log(err)
+            })
+          }
+          fetchSolution();
+    }, [id, authToken])
+
+    
     
     const checkStatus = async (token) => {
 
@@ -247,7 +275,8 @@ export default function IDE({problem, solution}){
                 theme="light"
                 language={language.value}
                 defaultLanguage={LanguageData[0].value}
-                defaultValue="// Enter your code here"
+                defaultValue={code}
+                value = {code}
                 onChange={(value) => { setCode(value) }}
                 style = {{border: "black"}}
             />
