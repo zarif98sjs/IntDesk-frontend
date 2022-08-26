@@ -16,11 +16,11 @@ import axios from "axios";
 import React, { useEffect, useState } from 'react';
 import ActivityCalendar from "react-activity-calendar";
 import { BiBriefcase, BiBuildings, BiCurrentLocation, BiLinkAlt } from "react-icons/bi";
+import assesment from "../images/assesment.png";
+import discussion from "../images/discussion2.png";
+import problem_img from "../images/problem.png";
+import Navbar from "../Navbar/Navbar";
 import activityData from "./activityData";
-import assesment from "./images/assesment.png";
-import discussion from "./images/discussion2.png";
-import problem_img from "./images/problem.png";
-import Navbar from "./Navbar/Navbar";
 
 const { Header, Content, Sider } = Layout;
 

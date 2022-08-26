@@ -5,23 +5,22 @@ import ErrorPage from "./ErrorPage";
 import Home from "./Home";
 import Login from "./login";
 import Logout from "./LogOut";
-import Profile from "./profile";
 import Register from "./register";
 import reportWebVitals from './reportWebVitals';
 
 import ProblemIndividual from "./Problems/ProblemIndividual";
 import ProblemNew from "./Problems/ProblemNew";
-import Problems from "./Problems/Problems";
 import ProblemResult from "./Problems/ProblemResult";
+import Problems from "./Problems/Problems";
 // import ProblemResult from './Problems/ProblemResult';
 
 
 import Assessments from "./Assessments/Assessments";
-import AssessDetails from './Assessments/assess_details';
-import AssessQuesForm from './Assessments/AssessQuesForm';
-import AssessmentsQues from './Assessments/AssessQues';
-import AssessForm from './Assessments/assess_form';
 import AssessmentsMine from './Assessments/AssessmentsMine';
+import AssessmentsQues from './Assessments/AssessQues';
+import AssessQuesForm from './Assessments/AssessQuesForm';
+import AssessDetails from './Assessments/assess_details';
+import AssessForm from './Assessments/assess_form';
 
 
 import Populate from './Assessments/data_populate';
@@ -30,8 +29,11 @@ import DiscussionIndividual from './Discussions/DiscussionIndividual';
 import Discussions from './Discussions/Discussions';
 import DiscussionsMine from './Discussions/DiscussionsMine';
 import DiscussionsNew from './Discussions/discussionsNew';
-import ProfileEdit from './ProfileEdit';
-import ProfileGeneral from './ProfileGeneral';
+
+import Profile from './Profile/Profile';
+import ProfileEdit from './Profile/ProfileEdit';
+import ProfileGeneral from './Profile/ProfileGeneral';
+
 
 
 
@@ -62,6 +64,7 @@ ReactDOM.render(
       <Route exact path="/login" element={<Login/>}/>
       <Route exact path="/logout" element={<Logout/>}/>
       <Route exact path="/signup" element={<Register/>}/>
+      
       <Route exact path="/profile" element={<Profile/>}/>
       <Route exact path="/profile_edit" element={<ProfileEdit/>}/>
       <Route exact path="/profile/:username" element={<ProfileGeneral/>}/>

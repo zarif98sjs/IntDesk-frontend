@@ -15,7 +15,7 @@ import {
 } from "react-icons/bi";
 import { GoMarkGithub } from "react-icons/go";
 import { Navigate } from "react-router-dom";
-import Navbar from "./Navbar/Navbar";
+import Navbar from "../Navbar/Navbar";
 
 const { Option } = Select;
 const { Text, Link } = Typography;
