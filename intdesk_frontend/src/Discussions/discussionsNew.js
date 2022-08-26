@@ -3,7 +3,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Navigate } from "react-router-dom";
 import Markdown from "react-textarea-markdown";
-import Navbar from '../navbar';
+import Navbar from '../Navbar/Navbar';
+
 import "./discussionsNew.css";
 
 const { TextArea } = Input;
@@ -79,7 +80,7 @@ function DiscussionsNew() {
           <div className="">
             {isLoggedIn ? ( 
               <div>
-              <Navbar />
+              <Navbar/>
                 <h1 id='title'>New Discussion</h1>
            
                   <Input id='title' onChange={handleTitleChange} placeholder="Enter topic title..."/>

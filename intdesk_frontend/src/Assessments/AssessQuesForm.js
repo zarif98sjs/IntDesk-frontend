@@ -3,8 +3,8 @@ import axios from "axios";
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import Markdown from "react-textarea-markdown";
+import Navbar from '../Navbar/Navbar';
 import "./AssessNew.css";
-import Navbar from '../navbar';
 
 const { Option } = Select;
 

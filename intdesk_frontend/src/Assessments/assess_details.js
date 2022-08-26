@@ -1,11 +1,10 @@
-import { Typography , Button, Radio} from 'antd';
-import ReactMarkdown from 'react-markdown';
-import React, { useState, Component, useEffect } from 'react';
-import {  Link, useParams } from "react-router-dom";
-import { StarOutlined, StarFilled, StarTwoTone,ProjectFilled,IdcardTwoTone, BuildTwoTone, CarryOutTwoTone,SafetyCertificateFilled,SafetyCertificateTwoTone, CopyTwoTone,HourglassTwoTone, ClockCircleTwoTone } from '@ant-design/icons';
+import { BuildTwoTone, CarryOutTwoTone, CopyTwoTone, HourglassTwoTone, IdcardTwoTone, ProjectFilled } from '@ant-design/icons';
+import { Button } from 'antd';
 import axios from 'axios';
 import Moment from 'moment';
-import Navbar from '../navbar';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from "react-router-dom";
+import Navbar from '../Navbar/Navbar';
 import "./assessDetails.css";
 
 
@@ -121,7 +120,7 @@ function AssessDetails() {
     return (
         
         <div className="">
-                <Navbar/>
+                <Navbar />
                 {/* <h1 id='title'>   Single Question </h1> */}
                   <div id = 'questions'>
                     <p align='center'>

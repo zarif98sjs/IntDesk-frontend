@@ -1,11 +1,11 @@
 
-import { Menu, Space, Table, Tag, Alert } from 'antd';
+import { Alert, Menu, Space, Table, Tag } from 'antd';
 import axios from 'axios';
 
 import React, { useEffect, useState } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import spinner from "../images/spinner.gif";
-import Navbar from '../navbar';
+import Navbar from '../Navbar/Navbar';
 import "./result.css";
 
 

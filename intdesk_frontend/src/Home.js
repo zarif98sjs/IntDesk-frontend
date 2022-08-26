@@ -1,6 +1,6 @@
 
-import logo from './images/logo5.png'; 
-import Navbar from "./navbar";
+import logo from './images/logo5.png';
+import Navbar from "./Navbar/Navbar";
 
 export default function Home() {
   return (

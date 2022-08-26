@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
+
 class LeftMenu extends Component {
   render() {
     return (

@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import logo from "./images/logo13.png";
-import Navbar from "./navbar";
+import Navbar from "./Navbar/Navbar";
 
 function Register() {
   const [isSubmitted, setIsSubmitted] = useState(false);

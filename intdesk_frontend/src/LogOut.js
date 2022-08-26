@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import Navbar from "./navbar";
+import Navbar from "./Navbar/Navbar";
 
 function Logout() {
   useEffect(() => {
@@ -12,7 +12,7 @@ function Logout() {
   localStorage.setItem("user", null);
   return (
           <div className="">
-            <Navbar />
+            <Navbar/>
               <h1 id='title'>  You have been logged out </h1>
           </div>
         );

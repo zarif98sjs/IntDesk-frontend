@@ -1,12 +1,12 @@
 import { Button, Drawer } from "antd";
 import "antd/dist/antd.min.css";
 import { useEffect, useState } from "react";
-import logo from './images/logoOnly.png';
-import LeftMenu from "./left";
+import logo from '../images/logoOnly.png';
+import LeftMenu from "./LeftMenu";
 import "./logo.css";
 import "./navbar.css";
-import RightMenu from "./right";
-import RightUser from "./rightUser";
+import RightMenu from "./RightMenu";
+import RightUser from "./RightUserMenu";
 
 function Navbar() {
 

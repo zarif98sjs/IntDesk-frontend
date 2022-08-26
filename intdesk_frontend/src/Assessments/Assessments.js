@@ -1,10 +1,9 @@
 
 
-import React, { useEffect, useState } from 'react';
-import { Card, Button, Input, Select, Space, Avatar, List} from 'antd';
-import { Navigate, Link } from 'react-router-dom';
+import { Avatar, Input, List, Select, Space } from 'antd';
 import axios from "axios";
-import Navbar from "../navbar";
+import React, { useEffect, useState } from 'react';
+import Navbar from '../Navbar/Navbar';
 import './assess.css';
 
 

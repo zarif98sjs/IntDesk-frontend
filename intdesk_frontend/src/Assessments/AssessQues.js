@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Card, Button, Radio, Typography, List, Result} from 'antd';
-import ReactMarkdown from 'react-markdown';
-import { SnippetsFilled } from '@ant-design/icons';
-import { useParams, Navigate, Link } from 'react-router-dom';
+import { Button, Radio, Result } from 'antd';
 import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+import { Link, useParams } from 'react-router-dom';
 import remarkGfm from 'remark-gfm';
-import Navbar from "../navbar";
+import Navbar from '../Navbar/Navbar';
 import './assess.css';
 
 

@@ -1,9 +1,7 @@
 import { Button, Input, InputNumber } from 'antd';
 import axios from "axios";
-import React, { useEffect, useState } from 'react';
-import { Navigate } from "react-router-dom";
-import AssessQuesForm from './AssessQuesForm';
-import Navbar from '../navbar';
+import React, { useState } from 'react';
+import Navbar from '../Navbar/Navbar';
 import "./AssessNew.css";
 
 

@@ -3,15 +3,15 @@ import axios from "axios";
 import 'katex/dist/katex.min.css';
 import React, { useEffect, useState } from "react";
 import ReactMarkdown from 'react-markdown';
-import { useLocation, useParams, Link } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import rehypeKatex from 'rehype-katex';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
-import IDE from "./IDE";
 import bookmark from "../images/bookmark.png";
-import Navbar from "../navbar";
-import "./problems.css";
+import Navbar from '../Navbar/Navbar';
 import SubMenu from "../SubMenu";
+import IDE from "./IDE";
+import "./problems.css";
 
 export default function ProblemIndividual(){
 
