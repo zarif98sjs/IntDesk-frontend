@@ -1,7 +1,6 @@
 import { Menu } from "antd";
 import { Component } from "react";
-import { Link } from "react-router-dom"
-
+import { Link } from "react-router-dom";
 
 class RightMenu extends Component {
   render() {

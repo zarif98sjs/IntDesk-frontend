@@ -1,26 +1,37 @@
 import {
-  CodeOutlined, GithubOutlined, LaptopOutlined,
+  CodeOutlined,
+  GithubOutlined,
+  LaptopOutlined,
   NotificationOutlined,
   RocketOutlined,
   UserOutlined
 } from "@ant-design/icons";
 import {
-  Avatar, Badge, Card,
+  Avatar,
+  Badge,
+  Button,
+  Card,
   Descriptions,
   Layout,
   Progress,
-  Space, Tag, Tooltip
+  Space,
+  Tag,
+  Tooltip
 } from "antd";
 import axios from "axios";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import ActivityCalendar from "react-activity-calendar";
-import { BiBriefcase, BiBuildings, BiCurrentLocation, BiLinkAlt } from "react-icons/bi";
-import { useParams } from "react-router-dom";
+import {
+  BiBriefcase,
+  BiBuildings,
+  BiCurrentLocation,
+  BiLinkAlt
+} from "react-icons/bi";
+import assesment from "../images/assesment.png";
+import discussion from "../images/discussion2.png";
+import problem_img from "../images/problem.png";
+import Navbar from "../Navbar/Navbar";
 import activityData from "./activityData";
-import assesment from "./images/assesment.png";
-import discussion from "./images/discussion2.png";
-import problem_img from "./images/problem.png";
-import Navbar from "./navbar";
 
 const { Header, Content, Sider } = Layout;
 
@@ -42,43 +53,34 @@ const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
     };
   }
 );
-function ProfileGeneral() {
-
-  const params = useParams();
-  const username = params.username;
-
+function Profile() {
   const [userInfo, setUserInfo] = useState([]);
-  
+
   useEffect(() => {
-
     const fetchUserInfo = async () => {
-      
       const authToken = JSON.parse(localStorage.getItem("authToken"));
-      console.log("AUTH TOKEN in local storage: ",authToken);
+      console.log("AUTH TOKEN in local storage: ", authToken);
 
-      await axios.get("http://localhost:8000/users/user/".concat(username), {
-        headers: {
-            'Authorization': 'Token '.concat(authToken.token)
-          }
+      await axios
+        .get("http://localhost:8000/users/details/", {
+          headers: {
+            Authorization: "Token ".concat(authToken.token),
+          },
         })
-        .then(res => {
+        .then((res) => {
           console.log("User Info FETCHED");
           // console.log(window.$log = res.data.results);
           const data = res.data;
-          console.log(window.$log = data);
+          console.log((window.$log = data));
           setUserInfo(data);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
-        })
-    }; 
+        });
+    };
 
     fetchUserInfo();
-      
-
-  }, [username]);
-
-
+  }, []);
 
   return (
     <Layout style={{ background: "white" }}>
@@ -90,28 +92,35 @@ function ProfileGeneral() {
           style={{ background: "white" }}
         >
           {/* <p align="center"> */}
-            <Card style={{ width: 300, background: "white",textAlign:'center' }}>
-              <Meta
-                avatar={<Avatar style={{paddingLeft:'6%'}} src="https://joeschmoe.io/api/v1/random" />}
-                title={`${userInfo.first_name} ${userInfo.last_name}`}
-                description={`${userInfo.username}`}
-                style={{
-                  display: "block",
-                }}
-              />
-            </Card>  
+          <Card
+            style={{ width: 300, background: "white", textAlign: "center" }}
+          >
+            <Meta
+              avatar={
+                <Avatar
+                  style={{ paddingLeft: "6%" }}
+                  src="https://joeschmoe.io/api/v1/random"
+                />
+              }
+              title={`${userInfo.first_name} ${userInfo.last_name}`}
+              description={`${userInfo.username}`}
+              style={{
+                display: "block",
+              }}
+            />
+          </Card>
           {/* </p> */}
 
-          <div style={{ textAlign:"right" }}>
-          <Badge.Ribbon text="C++ Intermediate">
+          <div style={{ textAlign: "right" }}>
+            <Badge.Ribbon text="C++ Intermediate">
               <Card title=" " size="small">
-              <i>Solved 50 problems in C++</i>
-                </Card>
+                <i>Solved 50 problems in C++</i>
+              </Card>
             </Badge.Ribbon>
 
             <Badge.Ribbon text="Algorithm Master" color="red">
               <Card title=" " size="small">
-              <i>Solved 100 Algorithm Problems</i>
+                <i>Solved 100 Algorithm Problems</i>
               </Card>
             </Badge.Ribbon>
 
@@ -123,22 +132,24 @@ function ProfileGeneral() {
             </Badge.Ribbon>
           </div>
 
-          
           <Descriptions
             title=""
             bordered
-            style={{ width: 300, paddingTop:"5%", textAlign:'right'}}
+            style={{ width: 300, paddingTop: "5%", textAlign: "right" }}
           >
-            
             <Descriptions.Item
               label=<Tooltip title="Location">
-                <BiCurrentLocation style={{ fontSize: "18px", color: "#08c" }} />
+                <BiCurrentLocation
+                  style={{ fontSize: "18px", color: "#08c" }}
+                />
               </Tooltip>
               span={3}
             >
-              <Tooltip title="Location">{userInfo.city}, {userInfo.country}</Tooltip>
+              <Tooltip title="Location">
+                {userInfo.city}, {userInfo.country}
+              </Tooltip>
             </Descriptions.Item>
-            
+
             <Descriptions.Item
               label=<Tooltip title="Occupation">
                 <BiBriefcase style={{ fontSize: "18px", color: "#08c" }} />
@@ -154,7 +165,9 @@ function ProfileGeneral() {
               </Tooltip>
               span={3}
             >
-              <Tooltip title="Workplace/Institution">{userInfo.current_workplace}</Tooltip>
+              <Tooltip title="Workplace/Institution">
+                {userInfo.current_workplace}
+              </Tooltip>
             </Descriptions.Item>
             <Descriptions.Item
               label=<Tooltip title="Language">
@@ -179,8 +192,8 @@ function ProfileGeneral() {
               span={3}
             >
               <Tooltip title="Language">
-                {userInfo.languages?.map(tag => (
-                <Tag color="geekblue">{tag}</Tag>
+                {userInfo.languages?.map((tag) => (
+                  <Tag color="geekblue">{tag}</Tag>
                 ))}
               </Tooltip>
             </Descriptions.Item>
@@ -191,17 +204,30 @@ function ProfileGeneral() {
               span={3}
             >
               <Tooltip title="Skills">
-                {userInfo.skills?.map(tag => (
-                <Tag color="purple">{tag}</Tag>
+                {userInfo.skills?.map((tag) => (
+                  <Tag color="purple">{tag}</Tag>
                 ))}
               </Tooltip>
             </Descriptions.Item>
           </Descriptions>
+
+          <p align="center">
+            <Button
+              type="primary"
+              shape="round"
+              icon={<UserOutlined />}
+              size="large"
+              style={{ margin: "10px 10px 10px 10px" }}
+              href="http://localhost:3000/profile_edit/"
+            >
+              Edit Profile
+            </Button>
+          </p>
         </Sider>
 
         <div style={{ margin: "auto" }}>
           <div className="">
-            <h1 id="title"> Welcome to {userInfo.username}&apos;s profile </h1>
+            <h1 id="title"> Welcome to your profile </h1>
           </div>
           <div>
             <p align="center">
@@ -221,10 +247,17 @@ function ProfileGeneral() {
                       />
                     </a>
                   }
+                  actions={
+                    [
+                      // <SettingOutlined key="setting" />,
+                      // <EditOutlined key="edit" />,
+                      // <EllipsisOutlined key="ellipsis" />,
+                    ]
+                  }
                 >
                   <Meta
                     title="Problems"
-                    description={`${userInfo.username}'s solved problems`}
+                    description="Find your solved problems here"
                     style={{ display: "block" }}
                   />
                 </Card>
@@ -240,10 +273,17 @@ function ProfileGeneral() {
                       />
                     </a>
                   }
+                  actions={
+                    [
+                      // <SettingOutlined key="setting" />,
+                      // <EditOutlined key="edit" />,
+                      // <EllipsisOutlined key="ellipsis" />,
+                    ]
+                  }
                 >
                   <Meta
                     title="Discussions"
-                    description={`${userInfo.username}'s discussions`}
+                    description="Find your discussions here"
                     style={{ display: "block" }}
                   />
                 </Card>
@@ -251,7 +291,7 @@ function ProfileGeneral() {
                 <Card
                   style={{ width: 250, border: "groove" }}
                   cover={
-                    <a href="/">
+                    <a href="/myassessments">
                       <img
                         alt="example"
                         src={assesment}
@@ -262,10 +302,17 @@ function ProfileGeneral() {
                       />
                     </a>
                   }
+                  actions={
+                    [
+                      // <SettingOutlined key="setting" />,
+                      // <EditOutlined key="edit" />,
+                      // <EllipsisOutlined key="ellipsis" />,
+                    ]
+                  }
                 >
                   <Meta
                     title="Assesments"
-                    description={`${userInfo.username}'s assesments`}
+                    description="Find your assesments here"
                     style={{
                       display: "block",
                     }}
@@ -305,8 +352,6 @@ function ProfileGeneral() {
               blockRadius="10"
             />
           </div>
-
-
 
           <div
             style={{
@@ -361,4 +406,4 @@ function ProfileGeneral() {
   );
 }
 
-export default ProfileGeneral;
+export default Profile;

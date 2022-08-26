@@ -2,7 +2,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import { Button, Input, Select, Space, Table, Tag, Typography } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Navbar from "../navbar";
+import Navbar from "../Navbar/Navbar";
 import "./discussions.css";
 
 const { Text, Link } = Typography;
