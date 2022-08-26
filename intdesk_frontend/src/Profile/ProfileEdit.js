@@ -468,7 +468,7 @@ function ProfileEdit() {
 
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       {isSubmitted ? SuccessSignUp : renderForm};{/* {renderForm} */}
     </div>
   );
