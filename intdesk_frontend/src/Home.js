@@ -1,6 +1,7 @@
 
 import { Card, Space } from "antd";
 import RecommendedAssess from "./Assessments/recommendedAssess";
+import RecommendProblems from "./Problems/RecommendProblems";
 import logo from './images/logo5.png';
 import assesment from "./images/assesment.png";
 import discussion from "./images/discussion2.png";
@@ -28,7 +29,7 @@ export default function Home() {
             <Card
               style={{ width: 250, border: "groove" }}
               cover={
-                <a href="/discussions">
+                <a href="/problems">
                   <img
                     alt="example"
                     src={problem_img}
@@ -114,6 +115,12 @@ export default function Home() {
       <div style={{padding:'20px'}}>
         <h1 align='center'> Recommended Assessments</h1>
                 <RecommendedAssess/>
+
+      </div>
+      
+      <div style={{padding:'20px'}}>
+        <h1 align='center'> Recommended Problems</h1>
+                <RecommendProblems/>
 
       </div>
 

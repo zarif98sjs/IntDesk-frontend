@@ -1,13 +1,9 @@
-import Editor from "@monaco-editor/react"
-import { Col, Row, Menu, Space, Tag, Table, Alert, Button } from "antd";
+import Editor from "@monaco-editor/react";
+import { Menu, Space, Table, Tag } from "antd";
 import axios from "axios";
 import "katex/dist/katex.min.css";
 import React, { useEffect, useState } from "react";
-import ReactMarkdown from "react-markdown";
-import { useLocation, useParams, Link } from "react-router-dom";
-import rehypeKatex from "rehype-katex";
-import remarkGfm from "remark-gfm";
-import remarkMath from "remark-math";
+import { Link, useLocation, useParams } from "react-router-dom";
 import copy from "../images/copy-content.png";
 
 import Navbar from "../Navbar/Navbar";
@@ -103,6 +99,7 @@ export default function ProblemSubmissions() {
     const fetchSolutions = async () => {
         console.log("fetching solution for ", id);
         await axios.get("http://localhost:8000/problems/problem/".concat(id).concat('/solutions'), {
+            // await axios.get("http://localhost:8000/mysolved/test_solutions"), {
             headers: {
               Authorization: "Token ".concat(authToken.token),
               "Content-Type": "application/json",

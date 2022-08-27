@@ -31,7 +31,8 @@ export default function Problems(){
   const [searchMatchIds, setSearchMatchIds] = useState([]);
   const [categoryMatchIds, setCategoryMatchIds] = useState([]);
 
-  const isAdmin = JSON.parse(localStorage.getItem("user")).is_admin;
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const [isAdmin, setIsAdmin] = useState(user ? user.is_admin : false);
 
   const columns = [
     {
@@ -66,8 +67,26 @@ export default function Problems(){
       key: 'difficulty',
       render: (_, record) => (
         <Space size="middle">
+
+          {record.difficulty === "Easy" ? 
+          (
+            <Tag color="green">{record.difficulty}</Tag>
+          ):
+          (
+          record.difficulty === "Medium" ? 
+          (
+            <Tag color="yellow">{record.difficulty}</Tag>
+          )
+          :
+          (
+            <Tag color="red">{record.difficulty}</Tag>
+          )
           
-            <Tag color="geekblue">{record.difficulty}</Tag>
+          )
+          
+          }
+          
+            
           
 
         </Space>

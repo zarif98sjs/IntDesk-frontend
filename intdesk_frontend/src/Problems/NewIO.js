@@ -1,4 +1,4 @@
-import { Input } from "antd";
+import { Button, Input } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 
 function NewIO({ problem, setProblem }) {
@@ -24,7 +24,7 @@ function NewIO({ problem, setProblem }) {
   const handleAddClick = () => {
     const newInputOutputs = [
       ...problem.inputOutputs,
-      { input: "", output: "", points: 1 },
+      { input: "", output: "", points: 1, description: "" },
     ];
     setProblem((oldProblem) => ({
       ...oldProblem,
@@ -51,6 +51,16 @@ function NewIO({ problem, setProblem }) {
                 min="1"
                 placeholder="Enter points..."
               />
+              
+              <label htmlFor="description" style={{paddingLeft: "130px"}}>Description</label>
+              <Input
+                id="description"
+                name="description"
+                value={problem.inputOutputs[i].description}
+                onChange={(event) => handleInputChange(event, i)}
+                type="text"
+                placeholder="Enter case description..."
+              />
             </div>
 
             <div className="input-row--left">
@@ -75,22 +85,29 @@ function NewIO({ problem, setProblem }) {
             </div>
             <div className="button-row">
               {problem.inputOutputs.length !== 1 && (
-                <button
-                  className="submit-btn"
-                  type="button"
-                  onClick={() => handleRemoveClick(i)}
-                >
-                  Remove
-                </button>
+                <Button
+                type="primary"
+                onClick={() => handleRemoveClick(i)}
+                shape="round"
+                size="large"
+                style={{ float: "left"}}
+              >
+                Remove
+              </Button>
+          
+                
               )}
               {problem.inputOutputs.length - 1 === i && (
-                <button
-                  className="submit-btn"
-                  type="button"
-                  onClick={handleAddClick}
-                >
-                  Add More
-                </button>
+                <Button
+                type="primary"
+                onClick={() => handleAddClick()}
+                shape="round"
+                size="large"
+                style={{ float: "left"}}
+              >
+                Add More
+              </Button>
+                
               )}
             </div>
           </div>

@@ -1,11 +1,11 @@
 
 import Editor from "@monaco-editor/react";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Select from "react-select";
 import spinner from "../images/spinner.gif";
-import LanguageData from "./LanguageData"
+import LanguageData from "./LanguageData";
 
 import "./ide.css";
 
@@ -15,7 +15,7 @@ export default function IDE({problem, id}){
     
     const [authToken, setAuthToken] = useState(JSON.parse(localStorage.getItem("authToken")));
 
-    const [code, setCode] = useState("")
+    const [code, setCode] = useState("//Enter your code here")
     const [language, setLanguage] = useState(LanguageData[0])
     const [fontSize, setFontSize] = useState(16)
     const [input, setInput] = useState("")
@@ -255,7 +255,8 @@ export default function IDE({problem, id}){
             theme="light"
             language={language.value}
             defaultLanguage={LanguageData[0].value}
-            defaultValue="// Enter your code here"
+            defaultValue={code}
+            value={code}
             onChange={(value) => {
               setCode(value);
             }}
@@ -283,11 +284,7 @@ export default function IDE({problem, id}){
               />
             )}
 
-            {/* <textarea rows="4" cols="50" readOnly>
-                At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies.
-                </textarea> */}
-            {/* {output === "" ? <pre style={{color:"grey"}}>Enter output</pre> : <pre>{output}</pre>} */}
-          </div>
+           </div>
         </div>
         <div className="button-container">
           <div>
@@ -300,16 +297,15 @@ export default function IDE({problem, id}){
             </button>
           </div>
           <div>
-            {/* <button type="button" className="submit-btn" onClick={() => submitCode()}>
-                       Submit
-                    </button> */}
+            
             <Link
               to={`/problems/problem/${problem.id}/result`}
               state={{ problem, code, language }}
             >
-              <button type="button" className="submit-btn">
+              <button type="button" className="run-btn">
                 Submit
               </button>
+              
             </Link>
           </div>
         </div>

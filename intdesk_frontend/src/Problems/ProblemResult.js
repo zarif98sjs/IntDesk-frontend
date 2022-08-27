@@ -24,6 +24,7 @@ function ProblemResult() {
   const [loading, setLoading] = useState(true);
 
   const [results, setResults] = useState([])
+  const [input_outputs, setInput_outputs] = useState(problem.input_outputs);
   const [remainingCases, setremainingCases] = useState(problem.input_outputs.length + 1);
   const [finalResult, setFinalResult] = useState({"status": "Accepted", "time": 0, "memory": 0});
   const [totalPoints, setTotalPoints] = useState(0);
@@ -43,11 +44,11 @@ function ProblemResult() {
     },
     {
       title: 'Case Description',
-      dataIndex: 'case_description',
-      key: 'case_description',
+      dataIndex: 'description',
+      key: 'description',
       render: (_, record) => (
         <Space size="middle">
-          <Tag color="geekblue">{record.case_description}</Tag>
+          <Tag color="geekblue">{record.description}</Tag>
         </Space>
       ),
     },
@@ -186,7 +187,7 @@ function ProblemResult() {
                   ...oldResult,
                   {
                     'case_no': i+1,
-                    'case_description': "",
+                    'description': problem.input_outputs[i].description,
                     'status': response.data.status?.description,
                     'memory': `${memoryUsed} KB`,
                     'time': `${timeUsed} s`

@@ -1,4 +1,4 @@
-import { Alert, Menu } from 'antd';
+import { Alert, Menu, Button } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
@@ -11,8 +11,11 @@ function ProblemNew() {
 
   
 
-  const authToken = JSON.parse(localStorage.getItem("authToken"));
+  const [authToken, setAuthToken] = useState(JSON.parse(localStorage.getItem("authToken")));
   const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem("isLoggedIn")));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const [isAdmin, setIsAdmin] = useState(user ? user.is_admin : false);
+  
   const [page, setPage] = useState("statement");
   const [mode, setMode] = useState("POST");
   const params = useParams();
@@ -31,7 +34,7 @@ function ProblemNew() {
     description: "",
     submissionCount: 0,
     solveCount: 0,
-    inputOutputs: [{"input": "", "output": "", "points": 1}],
+    inputOutputs: [{"input": "", "output": "", "points": 1, "description": ""}],
     roles: [{"role": ""}],
     companies: [{"company": ""}],
     subcategories: [{"subcategory": "", "category": ""}],
@@ -255,8 +258,7 @@ function ProblemNew() {
         window.location.href = "/problems"
   }, [updated])
   useEffect(() => {
-      setIsLoggedIn(JSON.parse(localStorage.getItem("isLoggedIn")));
-      if(!JSON.parse(localStorage.getItem("user")).is_admin)
+      if(!isAdmin)
       {
         window.location.href = "/problems"
       }
@@ -353,7 +355,7 @@ function ProblemNew() {
       else {
         setMode("POST");
       }
-  }, [id]);
+  }, [id, isAdmin]);
 
   return (
     <div className="">
@@ -389,9 +391,15 @@ function ProblemNew() {
         </div>
         <div className='problem--forms'>
         <div className="button-row--right">
-            <button className="submit-btn" type="button" onClick={() => handleSubmit()} style={{width: "200px", marginRight: "40px"}}>
-              {mode === 'POST' ? "Create Problem" : "Save Problem"}
-            </button>
+        <Button
+              type="primary"
+              onClick={() => handleSubmit()}
+              shape="round"
+              size="large"
+              style={{ float: "left", margin: "0px 5%" }}
+          >
+            {mode === 'POST' ? "Create Problem" : "Save Problem"}
+          </Button>
               
         </div>
         {error.isError && 
