@@ -24,6 +24,7 @@ import AssessQuesForm from "./Assessments/AssessQuesForm";
 import AssessDetails from "./Assessments/assess_details";
 import AssessForm from "./Assessments/assess_form";
 import AssessResult from "./Assessments/assessResult";
+import AssessEdit from "./Assessments/AssessEdit";
 
 import Populate from "./Assessments/data_populate";
 
@@ -79,6 +80,7 @@ ReactDOM.render(
         element={<AssessQuesForm />}
       />
       <Route exact path="/assessments/assess_new" element={<AssessForm />} />
+      <Route exact path="/assessments/:id/assess_edit" element={<AssessEdit />} />
 
       <Route exact path="/assessments/populate" element={<Populate />} />
 

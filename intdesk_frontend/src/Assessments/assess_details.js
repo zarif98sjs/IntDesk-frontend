@@ -5,7 +5,8 @@ import {
   HourglassTwoTone,
   IdcardTwoTone,
   ProjectFilled,
-  PlusOutlined
+  PlusOutlined,
+  EditOutlined 
 } from "@ant-design/icons";
 import { Button, Grid } from "antd";
 import axios from "axios";
@@ -20,7 +21,7 @@ function AssessDetails() {
   const [isLoggedIn, setIsLoggedIn] = useState(
     JSON.parse(localStorage.getItem("isLoggedIn"))
   );
-  
+
   localStorage.setItem("completeAssess", "false");
 
   const params = useParams();
@@ -192,17 +193,34 @@ function AssessDetails() {
       </div>
       <div>
         {isAdmin &&
-          <Button
-            type="primary"
-            href={"/assessments/".concat(assessmentID).concat("/assess_ques_new")}
-            shape="round"
-            icon={<PlusOutlined />}
-            size="large"
-            style={{ float: 'right', margin: '0px 10% 0px 0px' }}
-          >
+          <div>
+            <div>
+            <Button
+              type="primary"
+              href={"/assessments/".concat(assessmentID).concat("/assess_edit")}
+              shape="round"
+              icon={<EditOutlined />}
+              size="large"
+              style={{ float: 'right', margin: '0px 10% 0px 0px' }}
+            >
 
-            Add New Questions
-          </Button>
+              Edit Assessment
+            </Button>
+            </div>
+            <div>
+            <Button
+              type="primary"
+              href={"/assessments/".concat(assessmentID).concat("/assess_ques_new")}
+              shape="round"
+              icon={<PlusOutlined />}
+              size="large"
+              style={{ float: 'right', margin: '0px 2% 0px 0px' }}
+            >
+
+              Add New Questions
+            </Button>
+            </div>
+          </div>
         }
       </div>
 
