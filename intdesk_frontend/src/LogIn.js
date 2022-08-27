@@ -1,35 +1,64 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Typography } from "antd";
 import axios from "axios";
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import logo from "./images/logo13.png";
 import Navbar from "./Navbar/Navbar";
 
-function Register() {
+const { Text, Link } = Typography;
+
+function Login() {
+  // React States
+  const [error, setError] = useState();
+  // const [errorMessages, setErrorMessages] = useState();
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const onFinish = (values) => {
-    console.log("Success:", values);
-    console.log("Submitted");
+  
+  const onFinish = async (values) => {
+    console.log("Values:", values);
 
+    // POST
     let postData = {
       username: values.username,
-      email: values.email,
       password: values.password,
-      password2: values.password2,
-      first_name: values.first_name,
-      last_name: values.last_name,
     };
 
-    axios
-      .post("http://localhost:8000/users/register/", postData, {
+    // use await so that next request doesn't happen until this request is done
+    await axios
+      .post("http://localhost:8000/users/login/", postData, {
         headers: {
           "Content-Type": "application/json",
         },
       })
       .then((res) => {
-        console.log((window.$log = res.data));
+        console.log("AUTH TOKEN GOT: ", res.data);
+
+        // set < authToken > in local stroage
+        localStorage.setItem("authToken", JSON.stringify(res.data));
+
+        // set < loggedIn > in local stroage
+        localStorage.setItem("isLoggedIn", "true");
+
         setIsSubmitted(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        setError("Invalid username or password. Try Again !");
+      });
+
+    const authToken = JSON.parse(localStorage.getItem("authToken"));
+    console.log("AUTH TOKEN in local storage: ", authToken);
+
+    await axios
+      .get("http://localhost:8000/users/details/", {
+        headers: {
+          Authorization: "Token ".concat(authToken.token),
+        },
+      })
+      .then((res) => {
+        // set < user > in local storage
+        console.log("Fetchd user in login", res.data);
+        localStorage.setItem("user", JSON.stringify(res.data));
       })
       .catch((err) => {
         console.log(err);
@@ -39,12 +68,6 @@ function Register() {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-
-  const SuccessSignUp = (
-    <div>
-      <Navigate to="/" />
-    </div>
-  );
 
   const renderForm = (
     <div
@@ -62,7 +85,7 @@ function Register() {
           paddingTop: "2%",
         }}
       >
-        <h1>Sign Up</h1>
+        <h2>Login</h2>
       </div>
 
       <div
@@ -76,7 +99,7 @@ function Register() {
         <Form
           name="basic"
           labelCol={{
-            span: 10,
+            span: 8,
           }}
           wrapperCol={{
             span: 20,
@@ -102,64 +125,12 @@ function Register() {
           </Form.Item>
 
           <Form.Item
-            label="Email"
-            name="email"
-            rules={[
-              {
-                required: true,
-                message: "Please input your email!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="First Name"
-            name="first_name"
-            rules={[
-              {
-                required: true,
-                message: "Please input your first name!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="Last Name"
-            name="last_name"
-            rules={[
-              {
-                required: true,
-                message: "Please input your last name!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
             label="Password"
             name="password"
             rules={[
               {
                 required: true,
                 message: "Please input your password!",
-              },
-            ]}
-          >
-            <Input.Password />
-          </Form.Item>
-
-          <Form.Item
-            label="Confirm Password"
-            name="password2"
-            rules={[
-              {
-                required: true,
-                message: "Retype your password!",
               },
             ]}
           >
@@ -178,29 +149,31 @@ function Register() {
           </Form.Item>
         </Form>
       </div>
-
       <div
         style={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          height: "20vh",
+          height: "25vh",
         }}
       >
-        <p style={{ alignItems: "center" }}>
-          Already have an account? <br />
-          <a href="/login">Log in here</a>
-        </p>
+        {error ? <Text type="danger">{error}</Text> : null}
       </div>
+    </div>
+  );
+
+  const SuccessLogin = (
+    <div>
+      <Navigate to="/" />
     </div>
   );
 
   return (
     <div>
       <Navbar />
-      {isSubmitted ? SuccessSignUp : renderForm};
+      {isSubmitted ? SuccessLogin : renderForm};
     </div>
   );
 }
 
-export default Register;
+export default Login;
