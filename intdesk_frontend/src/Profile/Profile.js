@@ -275,7 +275,7 @@ function Profile() {
             <Card
               style={{ width: 250, border: "groove" }}
               cover={
-                <a href="/mydiscussions">
+                <a href="/myproblems">
                   <img
                     alt="example"
                     src={problem_img}
@@ -293,7 +293,7 @@ function Profile() {
             >
               <Meta
                 title="Problems"
-                description="Find your solved problems here"
+                description="Find your problems here"
                 style={{ display: "block" }}
               />
             </Card>
