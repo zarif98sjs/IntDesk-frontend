@@ -158,7 +158,7 @@ export default function BookMarksMine(){
       return newdata
     }
     const fetchProblems = async () => {
-      axios.get("http://localhost:8000/problems/mybookproblemmarks", {
+      axios.get("http://localhost:8000/problems/mybookmarks", {
         headers: {
           Authorization: "Token ".concat(authToken.token),
           "Content-Type": "application/json",

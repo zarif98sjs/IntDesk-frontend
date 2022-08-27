@@ -11,8 +11,11 @@ function ProblemNew() {
 
   
 
-  const authToken = JSON.parse(localStorage.getItem("authToken"));
+  const [authToken, setAuthToken] = useState(JSON.parse(localStorage.getItem("authToken")));
   const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem("isLoggedIn")));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const [isAdmin, setIsAdmin] = useState(user ? user.is_admin : false);
+  
   const [page, setPage] = useState("statement");
   const [mode, setMode] = useState("POST");
   const params = useParams();
@@ -255,8 +258,7 @@ function ProblemNew() {
         window.location.href = "/problems"
   }, [updated])
   useEffect(() => {
-      setIsLoggedIn(JSON.parse(localStorage.getItem("isLoggedIn")));
-      if(!JSON.parse(localStorage.getItem("user")).is_admin)
+      if(!isAdmin)
       {
         window.location.href = "/problems"
       }
@@ -353,7 +355,7 @@ function ProblemNew() {
       else {
         setMode("POST");
       }
-  }, [id]);
+  }, [id, isAdmin]);
 
   return (
     <div className="">
