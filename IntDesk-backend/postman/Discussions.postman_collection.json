@@ -1,0 +1,710 @@
+{
+	"info": {
+		"_postman_id": "801892ab-83e9-4e0e-8aaa-90351c4156c7",
+		"name": "Discussions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15529288"
+	},
+	"item": [
+		{
+			"name": "discussion list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/discussion/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"discussion",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "discussion list",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/discussion/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"discussion",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 11 Jul 2022 08:47:29 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.8.13"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, POST, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "731"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"count\": 3,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"id\": 1,\n            \"comments\": [],\n            \"title\": \"Discussion 1\",\n            \"description\": \"Hello World\",\n            \"created_at\": \"2022-07-11T14:25:16.727607+06:00\",\n            \"updated_at\": \"2022-07-11T14:25:16.727621+06:00\",\n            \"upvotes\": 0,\n            \"downvotes\": 0,\n            \"views\": 0,\n            \"comment_count\": 0\n        },\n        {\n            \"id\": 2,\n            \"comments\": [],\n            \"title\": \"Discussion 2\",\n            \"description\": \"Leetcode stonks\",\n            \"created_at\": \"2022-07-11T14:33:18.483466+06:00\",\n            \"updated_at\": \"2022-07-11T14:33:18.483487+06:00\",\n            \"upvotes\": 0,\n            \"downvotes\": 0,\n            \"views\": 0,\n            \"comment_count\": 0\n        },\n        {\n            \"id\": 3,\n            \"comments\": [],\n            \"title\": \"Discussion 2\",\n            \"description\": \"Leetcode stonks\",\n            \"created_at\": \"2022-07-11T14:36:55.522892+06:00\",\n            \"updated_at\": \"2022-07-11T14:36:55.522923+06:00\",\n            \"upvotes\": 0,\n            \"downvotes\": 0,\n            \"views\": 0,\n            \"comment_count\": 0\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "discussion detail",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/discussion/2",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"discussion",
+						"2"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "discussion detail",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/discussion/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"discussion",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 11 Jul 2022 09:05:47 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.8.13"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, PUT, PATCH, DELETE, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "470"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"comments\": [\n        {\n            \"comment\": \"Test Comment\",\n            \"created_at\": \"2022-07-11T15:05:21.739293+06:00\",\n            \"updated_at\": \"2022-07-11T15:05:21.739325+06:00\"\n        },\n        {\n            \"comment\": \"Test Comment 2\",\n            \"created_at\": \"2022-07-11T15:05:43.525741+06:00\",\n            \"updated_at\": \"2022-07-11T15:05:43.525756+06:00\"\n        }\n    ],\n    \"title\": \"Discussion 1\",\n    \"description\": \"Hello World\",\n    \"created_at\": \"2022-07-11T14:25:16.727607+06:00\",\n    \"updated_at\": \"2022-07-11T14:25:16.727621+06:00\",\n    \"upvotes\": 0,\n    \"downvotes\": 0,\n    \"views\": 0,\n    \"comment_count\": 0\n}"
+				}
+			]
+		},
+		{
+			"name": "discussion",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Discussion Test with auth 3\",\r\n  \"description\" : \"Leetcode stonks\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/discussion/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"discussion",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "discussion",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Discussion 2\",\r\n  \"description\" : \"Leetcode stonks\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/discussion/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"discussion",
+								""
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 11 Jul 2022 08:36:55 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.8.13"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, POST, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "213"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 3,\n    \"title\": \"Discussion 2\",\n    \"description\": \"Leetcode stonks\",\n    \"created_at\": \"2022-07-11T14:36:55.522892+06:00\",\n    \"updated_at\": \"2022-07-11T14:36:55.522923+06:00\",\n    \"upvotes\": 0,\n    \"downvotes\": 0,\n    \"views\": 0,\n    \"comment_count\": 0\n}"
+				}
+			]
+		},
+		{
+			"name": "comment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"comment\": \"Test Comment 2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/discussion/1/comment/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"discussion",
+						"1",
+						"comment",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "comment",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"comment\": \"Test Comment 2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/discussion/1/comment/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"discussion",
+								"1",
+								"comment",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 11 Jul 2022 09:05:43 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.8.13"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "POST, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "131"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 2,\n    \"comment\": \"Test Comment 2\",\n    \"created_at\": \"2022-07-11T15:05:43.525741+06:00\",\n    \"updated_at\": \"2022-07-11T15:05:43.525756+06:00\"\n}"
+				}
+			]
+		},
+		{
+			"name": "comments from ind. discussion",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"comment\": \"Test Comment 2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/discussion/1/comments/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"discussion",
+						"1",
+						"comments",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "comments",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"comment\": \"Test Comment 2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/discussion/1/comments",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"discussion",
+								"1",
+								"comments"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 11 Jul 2022 10:24:51 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.8.13"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "437"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 1,\n        \"comment\": \"Test Comment\",\n        \"parent\": null,\n        \"created_at\": \"2022-07-11T15:05:21.739293+06:00\",\n        \"updated_at\": \"2022-07-11T15:05:21.739325+06:00\"\n    },\n    {\n        \"id\": 2,\n        \"comment\": \"Test Comment 2\",\n        \"parent\": null,\n        \"created_at\": \"2022-07-11T15:05:43.525741+06:00\",\n        \"updated_at\": \"2022-07-11T15:05:43.525756+06:00\"\n    },\n    {\n        \"id\": 3,\n        \"comment\": \"Test Comment 3\",\n        \"parent\": null,\n        \"created_at\": \"2022-07-11T15:24:00.833045+06:00\",\n        \"updated_at\": \"2022-07-11T15:24:00.833079+06:00\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "ind. comment from ind. discussion",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"comment\": \"Test Comment 2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/discussion/2/comment_id/4",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"discussion",
+						"2",
+						"comment_id",
+						"4"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "ind. comment from ind. discussion",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"comment\": \"Test Comment 2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/discussion/2/comment_id/4",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"discussion",
+								"2",
+								"comment_id",
+								"4"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 11 Jul 2022 10:13:32 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.8.13"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "145"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 4,\n    \"comment\": \"Test Comment 4\",\n    \"parent\": null,\n    \"created_at\": \"2022-07-11T15:40:51.335666+06:00\",\n    \"updated_at\": \"2022-07-11T15:40:51.335681+06:00\"\n}"
+				}
+			]
+		},
+		{
+			"name": "reply to comment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"comment\": \"Replying to D2C4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/discussion/2/create_reply/4/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"discussion",
+						"2",
+						"create_reply",
+						"4",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "reply to comment",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"comment\": \"Replying to D2C4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/discussion/2/create_reply/4/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"discussion",
+								"2",
+								"create_reply",
+								"4",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 11 Jul 2022 10:22:17 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.8.13"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "POST, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "144"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 5,\n    \"comment\": \"Replying to D2C4\",\n    \"parent\": 4,\n    \"created_at\": \"2022-07-11T16:22:17.433969+06:00\",\n    \"updated_at\": \"2022-07-11T16:22:17.433986+06:00\"\n}"
+				}
+			]
+		}
+	]
+}
