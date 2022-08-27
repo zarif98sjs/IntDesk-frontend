@@ -5,6 +5,7 @@
     overflow-y: hidden;
     background-color: white;
     padding-left: 50px;
+    border-left: 1px solid grey;
 }
 
 .ide--menu{
@@ -126,7 +127,7 @@ h4{
     /* right: 130px; */
     /* align-self: flex-end; */
     width: 100px;
-    height: 50px;
+    height: 40px;
     border-radius: 10px;
     font-size: 16px;
     font-weight: bold;
@@ -147,7 +148,7 @@ h4{
     bottom: 10px;
     /* right: 18px; */
     width: 100px;
-    height: 50px;
+    height: 40px;
     
     font-size: 16px;
     font-weight: bold;

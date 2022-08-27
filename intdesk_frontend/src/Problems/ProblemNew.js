@@ -1,4 +1,4 @@
-import { Alert, Menu } from 'antd';
+import { Alert, Menu, Button } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
@@ -34,7 +34,7 @@ function ProblemNew() {
     description: "",
     submissionCount: 0,
     solveCount: 0,
-    inputOutputs: [{"input": "", "output": "", "points": 1}],
+    inputOutputs: [{"input": "", "output": "", "points": 1, "description": ""}],
     roles: [{"role": ""}],
     companies: [{"company": ""}],
     subcategories: [{"subcategory": "", "category": ""}],
@@ -391,9 +391,15 @@ function ProblemNew() {
         </div>
         <div className='problem--forms'>
         <div className="button-row--right">
-            <button className="submit-btn" type="button" onClick={() => handleSubmit()} style={{width: "200px", marginRight: "40px"}}>
-              {mode === 'POST' ? "Create Problem" : "Save Problem"}
-            </button>
+        <Button
+              type="primary"
+              onClick={() => handleSubmit()}
+              shape="round"
+              size="large"
+              style={{ float: "left", margin: "0px 5%" }}
+          >
+            {mode === 'POST' ? "Create Problem" : "Save Problem"}
+          </Button>
               
         </div>
         {error.isError && 

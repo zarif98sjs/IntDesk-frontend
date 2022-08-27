@@ -9,7 +9,6 @@ import { Col, Row, Menu, Button } from "antd";
 import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
-import bookmark from "../images/bookmark.png";
 import bookmarkWhite from "../images/bookmark-white.png"
 import bookmarkBlack from "../images/bookmark-black.png"
 import Navbar from "../Navbar/Navbar";
@@ -164,19 +163,6 @@ export default function ProblemIndividual() {
                   Edit Problem
               </Button>
               
-              // <button
-              //   className="submit-btn"
-              //   type="button"
-              //   onClick={gotoEdit}
-              //   style={{
-              //     width: "150px",
-              //     height: "40px",
-              //     marginLeft: "20px",
-              //     marginBottom: "10px",
-              //   }}
-              // >
-              //   Edit Problem
-              // </button>
               }
               <br />
               <br />
@@ -185,13 +171,13 @@ export default function ProblemIndividual() {
                   {isLoggedIn && 
                     (bookmarked ? 
                     (
-                    <button type="button" style={{backgroundColor: "white", borderRadius: "2px"}} title="Bookmark" onClick={removeBookMark}>
+                    <button type="button" style={{backgroundColor: "white", borderRadius: "10px"}} title="Bookmark" onClick={removeBookMark}>
                     <img src={bookmarkBlack} alt="Remove Bookmark" width="40px" height="50px"/>
                     </button>
                     )
                     :
                     (
-                    <button type="button" style={{backgroundColor: "white", borderRadius: "2px"}} title="Bookmark" onClick={addBookMark}>
+                    <button type="button" style={{backgroundColor: "white", borderRadius: "10px"}} title="Bookmark" onClick={addBookMark}>
                      <img src={bookmarkWhite} width="40px" height="50px" alt="Bookmark" />
                     </button>
                     )
@@ -208,8 +194,8 @@ export default function ProblemIndividual() {
                   color: "#5172b0",
                 }}
               >
-                <Col span={2}>{problem.difficulty}</Col>
-                <Col span={4}>
+                <Col span={6}>Difficulty: {problem.difficulty}</Col>
+                <Col span={6}>
                   Solves: {problem.solve_count} / {problem.submission_count}
                 </Col>
                 <Col span={6}>Time Limit: {problem.time_limit}s</Col>

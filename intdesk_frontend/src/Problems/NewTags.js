@@ -1,6 +1,6 @@
 // import { WithContext as ReactTags } from 'react-tag-input';
 // import TagEditor from 'react-tageditor';
-import { Input } from "antd";
+import { Button, Input } from "antd";
 
 function NewTags({ problem, setProblem }) {
   const handleRoleChange = (event, index) => {
@@ -102,26 +102,42 @@ function NewTags({ problem, setProblem }) {
                 onChange={(event) => handleRoleChange(event, i)}
                 placeholder="Enter role..."
               />
-              {/* </div> */}
-
-              {/* <div className="button-row"> */}
               {problem.roles.length !== 1 && (
-                <button
-                  className="submit-btn"
-                  type="button"
-                  onClick={() => handleRemoveRole(i)}
-                >
-                  Remove
-                </button>
+                  <Button
+                    type="primary"
+                    onClick={() => handleRemoveRole(i)}
+                    shape="round"
+                    size="large"
+                    style={{  margin: "0px 10px"}}
+                  >
+                    Remove
+                  </Button>
+                  
+                // <button
+                //   className="submit-btn"
+                //   type="button"
+                //   onClick={() => handleRemoveRole(i)}
+                // >
+                //   Remove
+                // </button>
               )}
               {problem.roles.length - 1 === i && (
-                <button
-                  className="submit-btn"
-                  type="button"
-                  onClick={handleAddRole}
+                // <button
+                //   className="submit-btn"
+                //   type="button"
+                //   onClick={handleAddRole}
+                // >
+                //   Add More
+                // </button>
+                <Button
+                  type="primary"
+                  onClick={() => handleAddRole()}
+                  shape="round"
+                  size="large"
+                  style={{  margin: "0px 10px" }}
                 >
                   Add More
-                </button>
+                </Button>
               )}
             </div>
           </div>
@@ -141,26 +157,42 @@ function NewTags({ problem, setProblem }) {
                 onChange={(event) => handleCompanyChange(event, i)}
                 placeholder="Enter company..."
               />
-              {/* </div> */}
-
-              {/* <div className="button-row"> */}
               {problem.companies.length !== 1 && (
-                <button
-                  className="submit-btn"
-                  type="button"
+                <Button
+                  type="primary"
                   onClick={() => handleRemoveCompany(i)}
+                  shape="round"
+                  size="large"
+                  style={{ margin: "0px 10px"}}
                 >
                   Remove
-                </button>
+                </Button>
+                
+                // <button
+                //   className="submit-btn"
+                //   type="button"
+                //   onClick={() => handleRemoveCompany(i)}
+                // >
+                //   Remove
+                // </button>
               )}
               {problem.companies.length - 1 === i && (
-                <button
-                  className="submit-btn"
-                  type="button"
-                  onClick={handleAddCompany}
+                // <button
+                //   className="submit-btn"
+                //   type="button"
+                //   onClick={handleAddCompany}
+                // >
+                //   Add More
+                // </button>
+                <Button
+                  type="primary"
+                  onClick={() => handleAddCompany()}
+                  shape="round"
+                  size="large"
+                  style={{  margin: "0px 10px"}}
                 >
                   Add More
-                </button>
+                </Button>
               )}
             </div>
           </div>
@@ -193,22 +225,41 @@ function NewTags({ problem, setProblem }) {
                 placeholder="Enter category..."
               />
               {problem.subcategories.length !== 1 && (
-                <button
-                  className="submit-btn"
-                  type="button"
+                <Button
+                  type="primary"
                   onClick={() => handleRemoveSubcategory(i)}
+                  shape="round"
+                  size="large"
+                  style={{  margin: "0px 10px"}}
                 >
                   Remove
-                </button>
+                </Button>
+              
+                // <button
+                //   className="submit-btn"
+                //   type="button"
+                //   onClick={() => handleRemoveSubcategory(i)}
+                // >
+                //   Remove
+                // </button>
               )}
               {problem.subcategories.length - 1 === i && (
-                <button
-                  className="submit-btn"
-                  type="button"
-                  onClick={handleAddSubcategory}
+                // <button
+                //   className="submit-btn"
+                //   type="button"
+                //   onClick={handleAddSubcategory}
+                // >
+                //   Add More
+                // </button>
+                <Button
+                  type="primary"
+                  onClick={() => handleAddSubcategory()}
+                  shape="round"
+                  size="large"
+                  style={{ margin: "0px 10px"}} 
                 >
                   Add More
-                </button>
+                </Button>
               )}
             </div>
           </div>

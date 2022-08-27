@@ -18,6 +18,9 @@ export default function ProblemMine(){
 
   const [authToken, setAuthToken] = useState(JSON.parse(localStorage.getItem("authToken")));
   
+  const [solved, setSolved] = useState([]);
+  const [attempted, setAttempted] = useState([]);
+  const [loaded, setLoaded] = useState(false);
   const [problems, setProblems] = useState([]);
   const [showProblems, setShowProblems] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -51,7 +54,7 @@ export default function ProblemMine(){
          {/* if tags not null */}
           {record.subcategories !== null ? record.subcategories.map(subcategory => (
             // <pre>{tag}</pre>
-            <Tag color="geekblue">{subcategory}</Tag>
+            <Tag color="purple">{subcategory}</Tag>
           )) : null}
 
         </Space>
@@ -64,9 +67,16 @@ export default function ProblemMine(){
       key: 'difficulty',
       render: (_, record) => (
         <Space size="middle">
-          
-            <Tag color="geekblue">{record.difficulty}</Tag>
-          
+          {record.difficulty === "Easy" ? 
+            <Tag color="green">{record.difficulty}</Tag>
+            :
+            record.difficulty === "Medium" ?
+            <Tag color="yellow">{record.difficulty}</Tag>
+            :
+            <Tag color="red">{record.difficulty}</Tag>
+            
+          }
+            
 
         </Space>
       ),
@@ -85,81 +95,49 @@ export default function ProblemMine(){
       dataIndex: 'submission_count',
       key: 'submission_count',
       sorter: (a, b) => a.submission_count - b.submission_count
-  },
+    },
+
     {
-      title: 'Asked In',
-      dataIndex: 'companies',
-      key: 'companies',
+      title: 'Solve Status',
+      dataIndex: 'solve_status',
+      key: 'solve_status',
       render: (_, record) => (
         <Space size="middle">
-         {/* if tags not null */}
-          {record.companies !== null ? record.companies.map(company => (
-            // <pre>{tag}</pre>userName
-            <Tag color="geekblue">{company}</Tag>
-          )) : null}
+          {record.solve_status === "Solved" ? 
+            <Tag color="green">{record.solve_status}</Tag>
+            :
+            <Tag color="red">{record.solve_status}</Tag>
+            
+          
+          }
 
         </Space>
       ),
-      filters: companies.map(obj => (
-        {
-          text: obj,
-          value: obj
-        }
-      )),
-      onFilter: (value: string, record) => record.companies.includes(value),
+      filters: [{text:"Solved", value: "Solved"}, {text: "Attempted", value: "Attempted"}],
+      onFilter: (value: string, record) => record.solve_status.indexOf(value) === 0,
     },
-    {
-      title: 'Roles',
-      dataIndex: 'roles',
-      key: 'roles',
-      render: (_, record) => (
-        <Space size="middle">
-         {/* if tags not null */}
-          {record.roles !== null ? record.roles.map(role => (
-            // <pre>{tag}</pre>
-            <Tag color="geekblue">{role}</Tag>
-          )) : null}
-
-        </Space>
-      ),
-      filters: roles.map(obj => (
-        {
-          text: obj,
-          value: obj
-        }
-      )),
-      onFilter: (value: string, record) => record.roles.includes(value),
-    },
-
+    
+    
   ];
 
-  
-
-  
-
   useEffect(() => {
-    const fixFormat = (data) => {
+
+    const fixFormat = (data, status) => {
       let newdata = data
       
       for(let i=0;i<data.length;i+=1){
-        newdata[i].companies = data[i].companies.map(obj => obj.name)
-        newdata[i].roles = data[i].roles.map(obj => obj.name)
         newdata[i].subcategories = data[i].subcategories.map(obj => obj.name)
         newdata[i].key = data[i].id
-  
-        setCompanies(oldCompanies => ([...oldCompanies, ...newdata[i].companies]));
-        setRoles(oldRoles => ([...oldRoles, ...newdata[i].roles]))
+        newdata[i].solve_status = status
         setCategories(oldCategories => ([...oldCategories, ...newdata[i].subcategories]))
         
       }
       setCategories(oldCategories => [...new Set(oldCategories)])
-      setRoles(oldRoles => [...new Set(oldRoles)])
-      setCompanies(oldCompanies => [...new Set(oldCompanies)])
       
       return newdata
     }
-    const fetchProblems = async () => {
-      axios.get("http://localhost:8000/problems/myproblems", {
+    const fetchAttempted = async () => {
+      axios.get("http://localhost:8000/problems/myattempted", {
         headers: {
           Authorization: "Token ".concat(authToken.token),
           "Content-Type": "application/json",
@@ -168,7 +146,7 @@ export default function ProblemMine(){
       .then(res => {
         
         console.log(window.$log = res.data)
-        const formatted = fixFormat(res.data);
+        const formatted = fixFormat(res.data, 'Attempted');
         setProblems(formatted);
         setShowProblems(formatted);
       })
@@ -176,12 +154,48 @@ export default function ProblemMine(){
         console.log(err)
       })
     }
-  
-    
-    fetchProblems()
+
+    const fetchSolved = async () => {
+      axios.get("http://localhost:8000/problems/mysolved", {
+        headers: {
+          Authorization: "Token ".concat(authToken.token),
+          "Content-Type": "application/json",
+        },
+      })
+      .then(res => {
+        
+        console.log(window.$log = res.data)
+        const formatted = fixFormat(res.data, 'Solved');
+        setProblems(old => (
+          [
+            ...old,
+            ...formatted
+          ]
+        ));
+        setShowProblems(old => (
+          [
+            ...old,
+            ...formatted
+          ]
+        ));
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
 
     
-  }, [authToken])
+    fetchAttempted()
+    fetchSolved();
+    
+  }, [authToken])  
+
+  
+
+  
+  
+
+  
 
   const onSearchValueChange = (e) => {
     let value = e.target.value;
