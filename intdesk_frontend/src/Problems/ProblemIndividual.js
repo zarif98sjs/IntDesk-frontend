@@ -3,7 +3,8 @@ import "katex/dist/katex.min.css";
 import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { useLocation, useParams, Link } from "react-router-dom";
-import { Col, Row, Menu } from "antd";
+import { PlusOutlined } from "@ant-design/icons"
+import { Col, Row, Menu, Button } from "antd";
 
 import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
@@ -18,7 +19,9 @@ import "./problems.css";
 export default function ProblemIndividual() {
 
 
+  
   const [authToken, setAuthToken] = useState(JSON.parse(localStorage.getItem("authToken")));
+  const isAdmin = JSON.parse(localStorage.getItem("user")).is_admin;
 
   const params = useParams();
 
@@ -45,6 +48,7 @@ export default function ProblemIndividual() {
         })
         .catch((err) => {
           console.log(err);
+          window.location.href = "/error"
         });
     };
     const checkBookMark = async () => {
@@ -143,19 +147,35 @@ export default function ProblemIndividual() {
 
           <Row>
             <Col span={12} style={{ maxHeight: "100px" }}>
-              <button
-                className="submit-btn"
-                type="button"
-                onClick={gotoEdit}
-                style={{
-                  width: "150px",
-                  height: "40px",
-                  marginLeft: "20px",
-                  marginBottom: "10px",
-                }}
-              >
-                Edit Problem
-              </button>
+              {isAdmin && 
+              <Button
+                  type="primary"
+                  href={`/problems/problem/${id}/edit`}
+                  shape="round"
+                  icon={<PlusOutlined />}
+                  size="large"
+                  style={{ float: "left", margin: "0px 30px"}}
+                >
+
+                  Edit Problem
+              </Button>
+              
+              // <button
+              //   className="submit-btn"
+              //   type="button"
+              //   onClick={gotoEdit}
+              //   style={{
+              //     width: "150px",
+              //     height: "40px",
+              //     marginLeft: "20px",
+              //     marginBottom: "10px",
+              //   }}
+              // >
+              //   Edit Problem
+              // </button>
+              }
+              <br />
+              <br />
               <h2 style={{ paddingLeft: "20px" }}>
                 {problem.name}{"        "}
                 

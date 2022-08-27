@@ -3,14 +3,15 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 import Home from "./Home";
-import Login from "./login";
+import Login from "./Login";
 import Logout from "./LogOut";
-import Register from "./register";
+import Register from "./Register";
 import reportWebVitals from "./reportWebVitals";
 
 import ProblemIndividual from "./Problems/ProblemIndividual";
 import ProblemNew from "./Problems/ProblemNew";
 import ProblemResult from "./Problems/ProblemResult";
+import ProblemMine from "./Problems/ProblemMine";
 
 import Problems from "./Problems/Problems";
 import ProblemSubmissions from "./Problems/ProblemSubmissions";
@@ -89,6 +90,10 @@ ReactDOM.render(
       <Route exact path="/problems/problem/:id/edit" element={<ProblemNew />} />
       <Route exact path="/problems/problem/:id/result" element={<ProblemResult />} />
       <Route exact path="/problems/problem/:id/submissions" element={<ProblemSubmissions />} />
+      <Route exact path="/myproblems" element={<ProblemMine />} />
+
+      <Route path="/error" element={<ErrorPage />}/>
+
       <Route path="*" element={<ErrorPage />}/>
 
     </Routes>

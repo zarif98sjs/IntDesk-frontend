@@ -1,7 +1,7 @@
 import { Alert, Menu } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Navigate, useParams, useLocation } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import NewProblemBody from "./NewProblemBody";
 import "./problemNew.css";
@@ -256,6 +256,11 @@ function ProblemNew() {
   }, [updated])
   useEffect(() => {
       setIsLoggedIn(JSON.parse(localStorage.getItem("isLoggedIn")));
+      if(!JSON.parse(localStorage.getItem("user")).is_admin)
+      {
+        window.location.href = "/problems"
+      }
+      
       if(id) {
           const fetchProblem = async () => {
             await axios.get("http://localhost:8000/problems/problem/".concat(id))

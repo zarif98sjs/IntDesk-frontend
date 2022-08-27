@@ -1,7 +1,8 @@
-import { PlusOutlined } from "@ant-design/icons"
-import { Button, Input, Select, Space, Table, Tag } from "antd"
+import { Input, Select, Space, Table, Tag, Menu } from "antd"
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
+
 import Navbar from "../Navbar/Navbar"
 
 import "./problems.css"
@@ -10,15 +11,12 @@ const { Option } = Select;
 const { Search } = Input;
 
 
+export default function BookMarksMine(){
 
+  
 
-  const gotoNew = () => {
-    window.location.href = '/problems/new'
-  }
-
-
-export default function Problems(){
-
+  const [authToken, setAuthToken] = useState(JSON.parse(localStorage.getItem("authToken")));
+  
   const [problems, setProblems] = useState([]);
   const [showProblems, setShowProblems] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -31,8 +29,7 @@ export default function Problems(){
   const [searchMatchIds, setSearchMatchIds] = useState([]);
   const [categoryMatchIds, setCategoryMatchIds] = useState([]);
 
-  const isAdmin = JSON.parse(localStorage.getItem("user")).is_admin;
-
+  
   const columns = [
     {
       title: 'Name',
@@ -134,12 +131,12 @@ export default function Problems(){
     },
 
   ];
+
   
 
   
 
   useEffect(() => {
-
     const fixFormat = (data) => {
       let newdata = data
       
@@ -148,7 +145,7 @@ export default function Problems(){
         newdata[i].roles = data[i].roles.map(obj => obj.name)
         newdata[i].subcategories = data[i].subcategories.map(obj => obj.name)
         newdata[i].key = data[i].id
-
+  
         setCompanies(oldCompanies => ([...oldCompanies, ...newdata[i].companies]));
         setRoles(oldRoles => ([...oldRoles, ...newdata[i].roles]))
         setCategories(oldCategories => ([...oldCategories, ...newdata[i].subcategories]))
@@ -161,7 +158,12 @@ export default function Problems(){
       return newdata
     }
     const fetchProblems = async () => {
-      axios.get("http://localhost:8000/problems/problem/")
+      axios.get("http://localhost:8000/problems/mybookproblemmarks", {
+        headers: {
+          Authorization: "Token ".concat(authToken.token),
+          "Content-Type": "application/json",
+        },
+      })
       .then(res => {
         
         console.log(window.$log = res.data)
@@ -173,12 +175,12 @@ export default function Problems(){
         console.log(err)
       })
     }
-
+  
     
     fetchProblems()
+
     
-    
-  }, [])
+  }, [authToken])
 
   const onSearchValueChange = (e) => {
     let value = e.target.value;
@@ -240,9 +242,8 @@ export default function Problems(){
 
     return (
         <div>
-            <Navbar />
             
-            <h1 id='title'>All Problems</h1>
+            <h1 id='title'>My Bookmarks</h1>
             <Space direction="vertical" size="large" style={{ display: "flex" }}>
               <Select
                 mode="multiple"
@@ -271,19 +272,7 @@ export default function Problems(){
                 enterButton
               />
             </Space>
-            {isAdmin && 
-            <Button
-              type="primary"
-              href="/problems/new"
-              shape="round"
-              icon={<PlusOutlined />}
-              size="large"
-              style={{ float: "left", margin: "0px 10%" }}
-            >
-
-              Create New
-            </Button>
-            }
+            
             <br />
             <br />
             <br />

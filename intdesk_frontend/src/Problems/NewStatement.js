@@ -36,7 +36,7 @@ function NewStatement({problem, setProblem, handleTextChange, handleMarkDownChan
             {/* <Markdown id='description' name='description'  defaultValue={problem.description} value={problem.description} callback={handleMarkDownChange} textarea={true} customWidth={[50,50]} style={{paddingLeft: "100px"}}>
             {problem.description}
             </Markdown> */}
-            <div className="input-row" style={{height: "500px"}} >
+            <div className="input-row" style={{height: "200px"}} >
             <MDEditor
                 value={problem.description}
                 onChange={handleMarkDownChange}
