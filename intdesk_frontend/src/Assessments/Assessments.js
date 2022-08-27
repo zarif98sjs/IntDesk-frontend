@@ -1,4 +1,4 @@
-import { CheckCircleTwoTone  } from '@ant-design/icons';
+import { CheckCircleTwoTone, PlusOutlined } from '@ant-design/icons';
 import { Card, Button, Input, Select, Space, Avatar, List } from 'antd';
 import { Navigate, Link } from 'react-router-dom';
 import axios from "axios";
@@ -29,6 +29,12 @@ function Assessments() {
   const [assessmentsTemp, setAssessmentsTemp] = useState([]);
 
   const children: React.ReactNode[] = [];
+
+  let isAdmin = false;
+  if (JSON.parse(localStorage.getItem("user")) !== null) {
+    isAdmin = JSON.parse(localStorage.getItem("user")).is_admin;
+  }
+
 
   // Extracting this method made it accessible for context/prop-drilling
   const fetchAllAssessments = () => {
@@ -128,31 +134,31 @@ function Assessments() {
       })
   };
 
-      function commaSeperate(obj, separator) {
-          let arr = [];
-          // var i; // HERE is where you move the 'var' to the top of the function
-          for (let i = 0; i < obj.length; i+=1) {
-             // console.log(obj[i].name);
-             arr.push(obj[i].name);
-          }
-          let string = "Roles :".concat( arr.join(separator || ", ") );
-          if (obj.length === 0){
-            string = "";
-          }
-          return string;
-      }
-      
+  function commaSeperate(obj, separator) {
+    let arr = [];
+    // var i; // HERE is where you move the 'var' to the top of the function
+    for (let i = 0; i < obj.length; i += 1) {
+      // console.log(obj[i].name);
+      arr.push(obj[i].name);
+    }
+    let string = "Roles :".concat(arr.join(separator || ", "));
+    if (obj.length === 0) {
+      string = "";
+    }
+    return string;
+  }
 
-      useEffect(() => {  
-        if(isLoggedIn){
-          fetchAssessments();
-        }  
-        else{
-          fetchAllAssessments();
-        }
-        fetchRecommendations();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchAssessments();
+    }
+    else {
+      fetchAllAssessments();
+    }
+    fetchRecommendations();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
 
   const onChange = (e) => {
@@ -170,51 +176,51 @@ function Assessments() {
       }
     }
 
-      setAssessmentsTemp(tempAssessmentss);
-    }  
-    
-    // loop through tags
-    for (let i = 0; i < roles.length; i+=1) {
-      children.push(<Option key={roles[i]}>{roles[i]}</Option>);
-    }
+    setAssessmentsTemp(tempAssessmentss);
+  }
+
+  // loop through tags
+  for (let i = 0; i < roles.length; i += 1) {
+    children.push(<Option key={roles[i]}>{roles[i]}</Option>);
+  }
 
   const searchRoles = (value: string[]) => {
     console.log(`selected ${value}`);
     setSearchRoleValue(value);
 
-      let tempAssessmentss = [];
-      for(let i = 0; i < assessments.length; i+=1) {
-        // if tags not null
-        if (assessments[i].roles !== null) {
-          // loop through tags
-          for (let j = 0; j < assessments[i].roles.length; j+=1) {
-            // if tag in value and already not present
-            if (value.includes(assessments[i].roles[j].name) && !tempAssessmentss.includes(assessments[i])) {
-              tempAssessmentss.push(assessments[i]);
-            }
+    let tempAssessmentss = [];
+    for (let i = 0; i < assessments.length; i += 1) {
+      // if tags not null
+      if (assessments[i].roles !== null) {
+        // loop through tags
+        for (let j = 0; j < assessments[i].roles.length; j += 1) {
+          // if tag in value and already not present
+          if (value.includes(assessments[i].roles[j].name) && !tempAssessmentss.includes(assessments[i])) {
+            tempAssessmentss.push(assessments[i]);
           }
         }
       }
-
-      console.log("tempAssessments : ",tempAssessmentss);
-      setAssessmentsTemp(tempAssessmentss);
-    };
-
-    function showStatus(index, roles) {
-      
-        return (
-          <div>
-           { ( ( status[index] !== false ) && ( status[index] !== true ) ) ? <p>Last taken on {Moment(status[index]).format("DD MMM,YYYY")} <br/>{commaSeperate(roles, ", ")}</p> : <p>{commaSeperate(roles, ", ")}</p>}
-          </div>
-        )
-  
     }
-  
-     
-    const element =  (
+
+    console.log("tempAssessments : ", tempAssessmentss);
+    setAssessmentsTemp(tempAssessmentss);
+  };
+
+  function showStatus(index, roles) {
+
+    return (
       <div>
-        {searchValue === "" && searchRoleValue.length === 0 ? (
-          <List
+        {((status[index] !== false) && (status[index] !== true)) ? <p>Last taken on {Moment(status[index]).format("DD MMM,YYYY")} <br />{commaSeperate(roles, ", ")}</p> : <p>{commaSeperate(roles, ", ")}</p>}
+      </div>
+    )
+
+  }
+
+
+  const element = (
+    <div>
+      {searchValue === "" && searchRoleValue.length === 0 ? (
+        <List
           itemLayout="horizontal"
           dataSource={assessments}
           renderItem={(item, index) => (
@@ -222,74 +228,74 @@ function Assessments() {
               <List.Item.Meta
                 avatar={<Avatar src={item.image_link} />}
                 title={
-                <div>
-                <a href={"/assessments/".concat( item.id )}>{item.skill_name}</a>
-                { (isLoggedIn && status[index] === true) ? <span style={{paddingLeft:'10px'}}><CheckCircleTwoTone /> </span>: <br/>}
-                </div>
-              }
-                description= {
-                <div>
-                  
-                  {isLoggedIn  ? ( <p>{showStatus(index, item.roles)}</p> ): ( <p>{commaSeperate(item.roles, ", ")}</p> ) }
-                </div>
-              } 
+                  <div>
+                    <a href={"/assessments/".concat(item.id)}>{item.skill_name}</a>
+                    {(isLoggedIn && status[index] === true) ? <span style={{ paddingLeft: '10px' }}><CheckCircleTwoTone /> </span> : <br />}
+                  </div>
+                }
+                description={
+                  <div>
+
+                    {isLoggedIn ? (<p>{showStatus(index, item.roles)}</p>) : (<p>{commaSeperate(item.roles, ", ")}</p>)}
+                  </div>
+                }
               />
             </List.Item>
           )}
         />
-        ) : (
-          <List
-            itemLayout="horizontal"
-            dataSource={assessmentsTemp}
-            renderItem={(item) => (
-              <List.Item>
-                <List.Item.Meta
-                  avatar={<Avatar src={item.image_link} />}
-                  title={<a href={"/assessments/".concat( item.id )}>{item.skill_name}</a>}
-                  description= {commaSeperate(item.roles, ", ")} 
-                />
-              </List.Item>
-            )}
-          />
-        )}
-      </div>
-    )
+      ) : (
+        <List
+          itemLayout="horizontal"
+          dataSource={assessmentsTemp}
+          renderItem={(item) => (
+            <List.Item>
+              <List.Item.Meta
+                avatar={<Avatar src={item.image_link} />}
+                title={<a href={"/assessments/".concat(item.id)}>{item.skill_name}</a>}
+                description={commaSeperate(item.roles, ", ")}
+              />
+            </List.Item>
+          )}
+        />
+      )}
+    </div>
+  )
 
-    const recommendedElement = (
-      <div>
-        {searchValue === "" && searchRoleValue.length === 0 ? (
-          <List
+  const recommendedElement = (
+    <div>
+      {searchValue === "" && searchRoleValue.length === 0 ? (
+        <List
           itemLayout="horizontal"
           dataSource={recommendedAssess}
           renderItem={(item) => (
             <List.Item>
               <List.Item.Meta
                 avatar={<Avatar src={item.image_link} />}
-                title={<a href={"/assessments/".concat( item.id )}>{item.skill_name}</a>}
-                description= {commaSeperate(item.roles, ", ")} 
+                title={<a href={"/assessments/".concat(item.id)}>{item.skill_name}</a>}
+                description={commaSeperate(item.roles, ", ")}
               />
             </List.Item>
           )}
         />
-        ) : (
-          <List
-            itemLayout="horizontal"
-            dataSource={tempRecommendedAssess}
-            renderItem={(item) => (
-              <List.Item>
-                <List.Item.Meta
-                  avatar={<Avatar src={item.image_link} />}
-                  title={<a href={"/assessments/".concat( item.id )}>{item.skill_name}</a>}
-                  description= {commaSeperate(item.roles, ", ")} 
-                />
-              </List.Item>
-            )}
-          />
-        )}
-      </div>
+      ) : (
+        <List
+          itemLayout="horizontal"
+          dataSource={tempRecommendedAssess}
+          renderItem={(item) => (
+            <List.Item>
+              <List.Item.Meta
+                avatar={<Avatar src={item.image_link} />}
+                title={<a href={"/assessments/".concat(item.id)}>{item.skill_name}</a>}
+                description={commaSeperate(item.roles, ", ")}
+              />
+            </List.Item>
+          )}
+        />
+      )}
+    </div>
 
-  
-    )
+
+  )
 
 
 
@@ -297,43 +303,55 @@ function Assessments() {
 
     <div>
       <Navbar />
-      
-        <h1 id='title'> All Assessments </h1>
 
-        <Space direction="vertical" size="large" style={{ display: 'flex' }}>
-          <Select
-            mode="multiple"
-            allowClear
-            style={{ width: '18.5%', float: 'right', margin: '0px 10% 0px 0px' }}
-            placeholder="Select for Roles"
-            onChange={searchRoles}
-          >
-            {children}
-          </Select>
-        </Space>
+      <h1 id='title'> All Assessments </h1>
 
-        <br />
+      <Space direction="vertical" size="large" style={{ display: 'flex' }}>
+        <Select
+          mode="multiple"
+          allowClear
+          style={{ width: '18.5%', float: 'right', margin: '0px 10% 0px 0px' }}
+          placeholder="Select for Roles"
+          onChange={searchRoles}
+        >
+          {children}
+        </Select>
+      </Space>
 
-        <Space id='space_above' size='large'>
+      <br />
 
-          <Search
-            id='search_button'
-            placeholder="Search Assessments"
-            allowClear
-            size="large"
-            onChange={onChange}
-            enterButton
-          />
-        </Space>
+      <Space id='space_above' size='large'>
 
+        <Search
+          id='search_button'
+          placeholder="Search Assessments"
+          allowClear
+          size="large"
+          onChange={onChange}
+          enterButton
+        />
+      </Space>
 
+      {isAdmin &&
+        <Button
+          type="primary"
+          href="/assessments/assess_new"
+          shape="round"
+          icon={<PlusOutlined />}
+          size="large"
+          style={{ float: "left", margin: "0px 10%" }}
+        >
 
-        <br />
-        <br />
-        <br />
+          Create New Assessment
+        </Button>
+      }
+
+      <br />
+      <br />
+      <br />
       <div style={{
-        paddingLeft:'10%',
-        paddingRight:'10%'
+        paddingLeft: '10%',
+        paddingRight: '10%'
       }}>
         <h1>Recommended For You</h1>
         {recommendedElement}
@@ -363,4 +381,4 @@ export default Assessments;
                 <Button  type="link" htmlType="submit">Take Assessment Quiz </Button>
             </Card>
             */
-                       
+

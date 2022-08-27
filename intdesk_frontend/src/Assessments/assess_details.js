@@ -4,9 +4,10 @@ import {
   CopyTwoTone,
   HourglassTwoTone,
   IdcardTwoTone,
-  ProjectFilled
+  ProjectFilled,
+  PlusOutlined
 } from "@ant-design/icons";
-import { Button } from "antd";
+import { Button, Grid } from "antd";
 import axios from "axios";
 import Moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -28,6 +29,12 @@ function AssessDetails() {
   const [passed, setPassed] = useState(false);
   const [taken, setTaken] = useState(false);
   const [timeDiff, setTimeDiff] = useState(0);
+
+  let isAdmin = false;
+  if (JSON.parse(localStorage.getItem("user")) !== null) {
+    isAdmin = JSON.parse(localStorage.getItem("user")).is_admin;
+  }
+
 
   function commaSeperate(obj, separator) {
     console.log(obj);
@@ -181,6 +188,24 @@ function AssessDetails() {
           )}
         </p>
       </div>
+      <div>
+        {isAdmin &&
+          <Button
+            type="primary"
+            href={"/assessments/".concat(assessmentID).concat("/assess_ques_new")}
+            shape="round"
+            icon={<PlusOutlined />}
+            size="large"
+            style={{ float: 'right', margin: '0px 10% 0px 0px' }}
+          >
+
+            Add New Questions
+          </Button>
+        }
+      </div>
+
+
+
       <br />
     </div>
   );
