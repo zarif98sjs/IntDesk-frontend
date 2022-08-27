@@ -1,3 +1,7 @@
+.h1{
+  margin : auto;
+}
+
 .site-card-wrapper {
     margin: auto;
     width:80%;
@@ -29,4 +33,26 @@
   margin : auto;
   margin-right: 0;
   margin-left: 20px;
+}
+
+.ant-radio-checked .ant-radio-inner{
+  border-color: indianred !important ;
+}
+
+.ant-radio-checked .ant-radio-inner:after{
+  background-color: indianred;
+}
+
+.ant-radio:hover .ant-radio-inner {
+  border-color: indianred ;
+}
+
+#qih_asses {
+  width: 70%;
+  margin: auto;
+  background-color: rgb(167, 211, 224);
+  padding-top: 1%;
+  padding-bottom: 1%;
+  border-radius: 10px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }

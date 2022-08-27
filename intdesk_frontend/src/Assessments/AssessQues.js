@@ -1,8 +1,9 @@
-import { Button, Radio, Result } from "antd";
+import { Card, Button, Radio, Typography, List, Result } from 'antd';
+import ReactMarkdown from 'react-markdown';
+import { SnippetsFilled } from '@ant-design/icons';
+import { useParams, Navigate, Link } from 'react-router-dom';
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import ReactMarkdown from "react-markdown";
-import { Link, useParams } from "react-router-dom";
 import remarkGfm from "remark-gfm";
 import Navbar from "../Navbar/Navbar";
 import "./assess.css";
@@ -37,9 +38,12 @@ function AssessmentsQues(props) {
   const [countHard, setCountHard] = useState(0);
 
   const [endAssess, setEndAssess] = useState(false);
-  const [pass, setPass] = useState("success");
+  const [pass, setPass] = useState(false);
   // const [currQues, setCurrQues] = useState();
   // Extracting this method made it accessible for context/prop-drilling
+
+
+
 
   const onChange = (e) => {
     // console.log('radio checked', e.target.value);
@@ -50,57 +54,92 @@ function AssessmentsQues(props) {
     // console.log(ques_id);
 
     // console.log(questions[QuesId]);
-    axios
-      .get(
-        "http://localhost:8000/assessments/assessment/"
-          .concat(ques_id)
-          .concat("/get_ques_options/")
-      )
-      .then((res) => {
+    axios.get("http://localhost:8000/assessments/assessment/".concat(ques_id).concat("/get_ques_options/"))
+      .then(res => {
         // console.log(window.$log = res.data);
         const ara = res.data;
         // console.log(window.$log = ara);
         console.log(ara);
         setOptions(ara);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
-      });
+      })
+
+
 
     // return "hello";
   }
 
+  const getPassed = async () => {
+    // console.log("inside getPassed");
+    if (endAssess === true) {
+      return pass;
+    }
+    console.log("Assessment not already checked");
+    setEndAssess(true);
+   
+    let postData = {
+      'points': points,
+      'total_points': totalPoints,
+      'assessment': assessmentID,
+    };
+
+    console.log(postData);
+
+    await axios.post('http://localhost:8000/assessments/assessment/'.concat(assessmentID).concat('/assessment_result/'), postData, {
+      headers: {
+        'Authorization': 'Token '.concat(authToken.token),
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => {
+        console.log("Assessment result shown")
+        console.log(window.$log = res.data);
+        if (res.data === 'Passed') {
+          setPass(true);
+          return true;
+        }
+
+
+        return false;
+
+        // setEndAssess(true);   
+
+      })
+      .catch(err => {
+        console.log(err);
+      })
+
+    // setPass(false);
+    return false;
+  }
+
   const fetchQuestions = async () => {
-    console.log("Complete ", complete);
+    // console.log("Complete ", complete)
     if (QuesId.length === 6) {
       setIsLoaded(false);
       console.log("QuesId Length : ", QuesId.length);
       setComplete(true);
+      // window.sessionStorage.setItem("complete", complete);
       return;
     }
 
     let postData = {
-      E: countEasy,
-      M: countMed,
-      H: countHard,
-      quesID: QuesId,
+      'E': countEasy,
+      'M': countMed,
+      'H': countHard,
+      'quesID': QuesId,
     };
 
     console.log(postData);
-    await axios
-      .post(
-        "http://localhost:8000/assessments/assessment/"
-          .concat(assessmentID)
-          .concat("/questions/"),
-        postData,
-        {
-          headers: {
-            // 'Authorization': 'Token '.concat(authToken.token),
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((res) => {
+    await axios.post("http://localhost:8000/assessments/assessment/".concat(assessmentID).concat("/questions/"), postData, {
+      headers: {
+        // 'Authorization': 'Token '.concat(authToken.token),
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => {
         // console.log(window.$log = res.data);
         const ara = res.data;
         // console.log(window.$log = ara);
@@ -113,28 +152,38 @@ function AssessmentsQues(props) {
         // console.log(ara.difficulty_level);
         if (ara.difficulty_level === "H") {
           setCountHard(countHard + 1);
-        } else if (ara.difficulty_level === "M") {
+        }
+        else if (ara.difficulty_level === "M") {
           setCountMed(countMed + 1);
-        } else if (ara.difficulty_level === "E") {
+        }
+        else if (ara.difficulty_level === "E") {
           setCountEasy(countEasy + 1);
         }
 
         setIsLoaded(true);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
-      });
+      })
   };
 
   useEffect(() => {
     // set logged in
     setIsLoggedIn(JSON.parse(localStorage.getItem("isLoggedIn")));
-    if (question === undefined) {
+    console.log("Complete ", complete)
+    // console.log("endAssess : ", endAssess)
+    if (complete === true) {
+      getPassed();
+    }
+    else if (question === undefined) {
       fetchQuestions();
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [assessmentID]);
+  }, [assessmentID, complete]);
+
+
+
 
   const submittedQuestion = async () => {
     // console.log("Submitted value");
@@ -159,31 +208,25 @@ function AssessmentsQues(props) {
       // console.log(opt_id);
 
       let postData = {
-        ques_id: question.id,
-        option_id: opt_id,
+        'ques_id': question.id,
+        'option_id': opt_id,
       };
 
       // console.log(postData);
 
-      axios
-        .post(
-          "http://localhost:8000/assessments/assessment/"
-            .concat(assessmentID)
-            .concat("/get_right_answer/"),
-          postData,
-          {
-            headers: {
-              // 'Authorization': 'Token '.concat(authToken.token),
-              "Content-Type": "application/json",
-            },
-          }
-        )
-        .then((res) => {
-          console.log((window.$log = res.data));
+      axios.post('http://localhost:8000/assessments/assessment/'.concat(assessmentID).concat('/get_right_answer/'), postData, {
+        headers: {
+          // 'Authorization': 'Token '.concat(authToken.token),
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(res => {
+          console.log(window.$log = res.data);
           if (res.data === true) {
             // wrong = 0;
             setPoints(points + question.points);
-          } else {
+          }
+          else {
             let tempWrongQues = wrongQues;
             let tempWrongOptions = wrongOptions;
             let tempWrongValues = wrongVal;
@@ -200,12 +243,15 @@ function AssessmentsQues(props) {
             setWrongQues(tempWrongQues);
             setWrongOptions(tempWrongOptions);
             setWrongVal(tempWrongValues);
+
           }
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
-        });
-    } else {
+        })
+
+    }
+    else {
       let tempWrongQues = wrongQues;
       let tempWrongOptions = wrongOptions;
       let tempWrongValues = wrongVal;
@@ -222,7 +268,12 @@ function AssessmentsQues(props) {
       setWrongQues(tempWrongQues);
       setWrongOptions(tempWrongOptions);
       setWrongVal(tempWrongValues);
+
+
+
     }
+
+
 
     // console.log(question.points);
     console.log("gained points");
@@ -244,14 +295,16 @@ function AssessmentsQues(props) {
           setSeconds(question.time);
         }
       }
-    }, 1000);
+    }, 1000)
     return () => {
       clearInterval(myInterval);
     };
   });
 
+
+
   function getQuestion() {
-    let ques_description = "";
+    let ques_description = ""
     if (question !== undefined) {
       ques_description = question.description;
       // getOptions(question.id);
@@ -263,140 +316,82 @@ function AssessmentsQues(props) {
     return ques_description;
   }
 
-  async function getPassed() {
-    console.log(pass === "success");
-    if (complete === false) {
-      return pass;
-    }
-    // console.log("inside getPassed");
-    if (endAssess === true) {
-      return pass;
-    }
-    console.log("Assessment not already checked");
-    setEndAssess(true);
-    let postData = {
-      points: points,
-      total_points: totalPoints,
-      assessment: assessmentID,
-    };
 
-    console.log(postData);
 
-    await axios
-      .post(
-        "http://localhost:8000/assessments/assessment/"
-          .concat(assessmentID)
-          .concat("/assessment_result/"),
-        postData,
-        {
-          headers: {
-            Authorization: "Token ".concat(authToken.token),
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((res) => {
-        console.log("Assessment result shown");
-        console.log((window.$log = res.data));
-        if (res.data === "Passed") {
-          setPass("success");
-          return "success";
-        }
 
-        setPass("error");
-        return "error";
-
-        // setEndAssess(true);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    return "error";
-  }
 
   function showOptions() {
     if (options !== undefined) {
       return (
-        <div id="qi">
-          <Radio.Group
-            onChange={onChange}
-            value={value}
-            style={{ width: "auto" }}
-          >
+        <div id='qi'>
+
+          <Radio.Group onChange={onChange} value={value} style={{ width: 'auto' }}>
             {options.map((answer, key) => (
-              <div className="col md-4">
-                <Radio value={answer.description} size="large">
-                  {" "}
-                  {answer.description}
-                </Radio>
+              <div className='col md-4'>
+                <Radio value={answer.description} size='large'> {answer.description}</Radio>
               </div>
             ))}
           </Radio.Group>
           <div style={{ display: "flex" }}>
-            <Button
-              type="primary"
-              id="next"
-              onClick={submittedQuestion}
-              style={{ marginLeft: "auto" }}
-            >
-              Next
-            </Button>
+
+            <Button type="primary" id='next' onClick={submittedQuestion} style={{ marginLeft: "auto" }}>Next</Button>
           </div>
         </div>
-      );
+      )
     }
     return <div>--</div>;
+
+
+
   }
+
+
 
   const loadQuestion = (
     <div>
-      <div id="qih">
+      <div id='qih_asses'>
         <h3 style={{ textAlign: "center" }}>Question </h3>
       </div>
       <br />
       <div style={{ display: "flex" }}>
-        <h3 id="element3" style={{ textAlign: "center" }}>
-          {" "}
-          Time Left: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-        </h3>
+        <h3 id='element3' style={{ textAlign: "center" }}> Time Left: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h3>
       </div>
       <br />
 
-      <div id="qi">
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+      <div id='qi'>
+
+        <ReactMarkdown remarkPlugins={[remarkGfm]} >
           {getQuestion()}
         </ReactMarkdown>
       </div>
       <br />
       {showOptions()}
+
     </div>
-  );
+  )
 
   const showResult = (
     <div>
+
       <Result
-        status={getPassed() === "success" ? "success" : "error"}
-        title={"Total points : "
-          .concat(points)
-          .concat(" / ")
-          .concat(totalPoints)}
-        extra={[<Link to="/assessments"> Go back to Assessments </Link>]}
+        status={(pass === true) ? 'success' : "error"}
+        title={"Total points : ".concat(points).concat(" / ").concat(totalPoints)}
+        extra={[
+          <Link to="/assessments" > Go back to Assessments </Link>
+        ]}
       />
 
-      <h1 align="center"> Wrong Answers </h1>
+      <h1 align='center'>  Wrong Answers </h1>
 
       {wrongQues.map((item, index) => {
         return (
           <div>
-            <div id="qi">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            <div id='qi'>
+              <ReactMarkdown remarkPlugins={[remarkGfm]} >
                 {item.description}
               </ReactMarkdown>
 
-              <Radio.Group
-                defaultValue={wrongVal[index]}
-                style={{ width: "auto" }}
-              >
+              <Radio.Group defaultValue={wrongVal[index]} style={{ width: 'auto' }}>
                 {wrongOptions[index].map((answer, key) => (
                   <div className="col md-4">
                     <Radio value={answer.description} size="large" disabled>
@@ -411,32 +406,59 @@ function AssessmentsQues(props) {
           </div>
         );
       })}
-    </div>
-  );
 
-  const endAssessment = endAssess ? showResult : <br />;
+    </div>
+
+  )
+
+  const endAssessment = (
+    endAssess ? showResult : <br />
+
+  )
 
   // const element =  (
   //   // console.log(points);
 
-  //   complete ? endAssessment : <div> None </div>
+  //   complete ? endAssessment : <div> None </div>  
+
 
   // )
 
-  const loadPage = isLoaded ? loadQuestion : endAssessment;
+  const loadPage = (
+    isLoaded ? loadQuestion : endAssessment
+  )
+
+
 
   return (
+
     <div>
       <Navbar />
-      <h1 style={{ textAlign: "center" }}>Assessment Test</h1>
-      <br />
-      {isLoggedIn ? (
-        loadPage
-      ) : (
-        <Link to="/login">Log In to take the assessment quiz </Link>
-      )}
+
+      <div style={{
+        paddingTop: '2%',
+      }}>
+
+        <h1 style={{ textAlign: "center" }}>Assessment Test</h1>
+        <br />
+        {isLoggedIn ? (
+          loadPage
+        ) : (
+          <Link to="/login">Log In to take the assessment quiz </Link>
+        )}
+
+
+      </div>
+
     </div>
-  );
+
+
+  )
 }
 
+
+
 export default AssessmentsQues;
+
+
+
