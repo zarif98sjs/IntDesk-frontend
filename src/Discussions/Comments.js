@@ -75,7 +75,7 @@ function Comments({ comments, discussionId }) {
           console.log("authToken here", authToken);
           axios
             .post(
-              "http://localhost:8000/discussion/"
+              "http://localhost:8000/discussions/discussion/"
                 .concat(discussionId)
                 .concat("/comment/"),
               postData,
@@ -125,7 +125,7 @@ function Comments({ comments, discussionId }) {
           console.log("postData here", postData);
           axios
             .post(
-              "http://localhost:8000/discussion/"
+              "http://localhost:8000/discussions/discussion/"
                 .concat(discussionId)
                 .concat("/comment/"),
               postData,

@@ -54,7 +54,7 @@ function DiscussionIndividual() {
       // create a POST request to mark this discussion as upvoted by this user
       await axios
         .post(
-          "http://localhost:8000/discussion/"
+          "http://localhost:8000/discussions/discussion/"
             .concat(discussion.id)
             .concat("/upvoted/"),
           {},
@@ -82,7 +82,7 @@ function DiscussionIndividual() {
       // create a DELETE request to mark this discussion as not upvoted by this user
       await axios
         .delete(
-          "http://localhost:8000/discussion/"
+          "http://localhost:8000/discussions/discussion/"
             .concat(discussion.id)
             .concat("/delete_upvoted/"),
           {
@@ -106,7 +106,7 @@ function DiscussionIndividual() {
     console.log("putData here", putData);
     await axios
       .put(
-        "http://localhost:8000/discussion/".concat(discussion.id).concat("/"),
+        "http://localhost:8000/discussions/discussion/".concat(discussion.id).concat("/"),
         putData,
         {
           headers: {
@@ -145,7 +145,7 @@ function DiscussionIndividual() {
       // create a POST request to mark this discussion as upvoted by this user
       await axios
         .post(
-          "http://localhost:8000/discussion/"
+          "http://localhost:8000/discussions/discussion/"
             .concat(discussion.id)
             .concat("/downvoted/"),
           {},
@@ -173,7 +173,7 @@ function DiscussionIndividual() {
       // create a DELETE request to mark this discussion as not upvoted by this user
       await axios
         .delete(
-          "http://localhost:8000/discussion/"
+          "http://localhost:8000/discussions/discussion/"
             .concat(discussion.id)
             .concat("/delete_downvoted/"),
           {
@@ -197,7 +197,7 @@ function DiscussionIndividual() {
     console.log("putData here", putData);
     await axios
       .put(
-        "http://localhost:8000/discussion/".concat(discussion.id).concat("/"),
+        "http://localhost:8000/discussions/discussion/".concat(discussion.id).concat("/"),
         putData,
         {
           headers: {
@@ -219,7 +219,7 @@ function DiscussionIndividual() {
   useEffect(() => {
     const fetchDiscussion = async () => {
       await axios
-        .get("http://localhost:8000/discussion/".concat(id))
+        .get("http://localhost:8000/discussions/discussion/".concat(id))
         .then((res) => {
           console.log("DISCUSSIONS FETCHED");
           // console.log(window.$log = res.data.results);
@@ -238,7 +238,7 @@ function DiscussionIndividual() {
     const fetchComments = async () => {
       await axios
         .get(
-          "http://localhost:8000/discussion/".concat(id).concat("/comments/")
+          "http://localhost:8000/discussions/discussion/".concat(id).concat("/comments/")
         )
         .then((res) => {
           const ara = res.data;
@@ -302,7 +302,7 @@ function DiscussionIndividual() {
     const check_vote_status = async () => {
       await axios
         .get(
-          "http://localhost:8000/discussion/"
+          "http://localhost:8000/discussions/discussion/"
             .concat(id)
             .concat("/check_vote_status/"),
           {

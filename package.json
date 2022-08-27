@@ -1,6 +1,7 @@
 {
   "name": "intdesk_frontend",
   "version": "0.1.0",
+  "proxy": "http://localhost:8000/",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
@@ -45,6 +46,10 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "yarn add -D prettier && yarn add -D babel-eslint && npx install-peerdeps --dev eslint-config-airbnb && yarn add -D eslint-config-prettier eslint-plugin-prettier"
+  },
+  "engine":{
+    "node": ">=8.0.0",
+    "npm": ">=5.0.0"
   },
   "eslintConfig": {
     "extends": [

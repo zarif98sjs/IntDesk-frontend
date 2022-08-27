@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -32,6 +33,9 @@ import DiscussionsNew from "./Discussions/DiscussionsNew";
 import Profile from "./Profile/Profile";
 import ProfileEdit from "./Profile/ProfileEdit";
 import ProfileGeneral from "./Profile/ProfileGeneral";
+
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.xsrfHeaderName = "X-CSRFToken";
 
 const rootElement = document.getElementById("root");
 
@@ -87,10 +91,17 @@ ReactDOM.render(
       />
       <Route exact path="/problems/new" element={<ProblemNew />} />
       <Route exact path="/problems/problem/:id/edit" element={<ProblemNew />} />
-      <Route exact path="/problems/problem/:id/result" element={<ProblemResult />} />
-      <Route exact path="/problems/problem/:id/submissions" element={<ProblemSubmissions />} />
-      <Route path="*" element={<ErrorPage />}/>
-
+      <Route
+        exact
+        path="/problems/problem/:id/result"
+        element={<ProblemResult />}
+      />
+      <Route
+        exact
+        path="/problems/problem/:id/submissions"
+        element={<ProblemSubmissions />}
+      />
+      <Route path="*" element={<ErrorPage />} />
     </Routes>
   </Router>,
   rootElement
