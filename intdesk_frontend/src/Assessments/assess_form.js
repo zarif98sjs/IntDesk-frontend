@@ -142,13 +142,13 @@ function AssessForm() {
           onChange={handleRolesChange}
           placeholder="Roles (use comma separated values)"
         />
-        <Input
+        {/* <Input
           id="tag_ara"
           onChange={handleCategoriesChange}
           placeholder="Categories (use comma separated values)"
-        />
+        /> */}
 
-        <Button type="primary" id="button_submit" onClick={submitFunc}>
+        <Button  type="primary" id="button_submit" onClick={submitFunc}>
           Create Assessment
         </Button>
       </div>
