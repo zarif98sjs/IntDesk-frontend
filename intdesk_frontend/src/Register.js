@@ -1,63 +1,36 @@
-import { Button, Form, Input, Typography } from "antd";
+import { Button, Form, Input } from "antd";
 import axios from "axios";
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import logo from "./images/logo13.png";
-import Navbar from "./navbar";
+import Navbar from "./Navbar/Navbar";
 
-const { Text, Link } = Typography;
-
-function Login() {
-  // React States
-  const [error, setError] = useState();
-  // const [errorMessages, setErrorMessages] = useState();
+function Register() {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const onFinish = async (values) => {
-    console.log("Values:", values);
+  
+  const onFinish = (values) => {
+    console.log("Success:", values);
+    console.log("Submitted");
 
-    // POST
     let postData = {
       username: values.username,
+      email: values.email,
       password: values.password,
+      password2: values.password2,
+      first_name: values.first_name,
+      last_name: values.last_name,
     };
 
-    // use await so that next request doesn't happen until this request is done
-    await axios
-      .post("http://localhost:8000/users/login/", postData, {
+    axios
+      .post("http://localhost:8000/users/register/", postData, {
         headers: {
           "Content-Type": "application/json",
         },
       })
       .then((res) => {
-        console.log("AUTH TOKEN GOT: ", res.data);
-
-        // set < authToken > in local stroage
-        localStorage.setItem("authToken", JSON.stringify(res.data));
-
-        // set < loggedIn > in local stroage
-        localStorage.setItem("isLoggedIn", "true");
-
+        console.log((window.$log = res.data));
         setIsSubmitted(true);
-      })
-      .catch((err) => {
-        console.log(err);
-        setError("Invalid username or password. Try Again !");
-      });
-
-    const authToken = JSON.parse(localStorage.getItem("authToken"));
-    console.log("AUTH TOKEN in local storage: ", authToken);
-
-    await axios
-      .get("http://localhost:8000/users/details/", {
-        headers: {
-          Authorization: "Token ".concat(authToken.token),
-        },
-      })
-      .then((res) => {
-        // set < user > in local storage
-        console.log("Fetchd user in login", res.data);
-        localStorage.setItem("user", JSON.stringify(res.data));
       })
       .catch((err) => {
         console.log(err);
@@ -67,6 +40,12 @@ function Login() {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
+  const SuccessSignUp = (
+    <div>
+      <Navigate to="/" />
+    </div>
+  );
 
   const renderForm = (
     <div
@@ -84,7 +63,7 @@ function Login() {
           paddingTop: "2%",
         }}
       >
-        <h2>Login</h2>
+        <h1>Sign Up</h1>
       </div>
 
       <div
@@ -98,7 +77,7 @@ function Login() {
         <Form
           name="basic"
           labelCol={{
-            span: 8,
+            span: 10,
           }}
           wrapperCol={{
             span: 20,
@@ -124,12 +103,64 @@ function Login() {
           </Form.Item>
 
           <Form.Item
+            label="Email"
+            name="email"
+            rules={[
+              {
+                required: true,
+                message: "Please input your email!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="First Name"
+            name="first_name"
+            rules={[
+              {
+                required: true,
+                message: "Please input your first name!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Last Name"
+            name="last_name"
+            rules={[
+              {
+                required: true,
+                message: "Please input your last name!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
             label="Password"
             name="password"
             rules={[
               {
                 required: true,
                 message: "Please input your password!",
+              },
+            ]}
+          >
+            <Input.Password />
+          </Form.Item>
+
+          <Form.Item
+            label="Confirm Password"
+            name="password2"
+            rules={[
+              {
+                required: true,
+                message: "Retype your password!",
               },
             ]}
           >
@@ -148,31 +179,29 @@ function Login() {
           </Form.Item>
         </Form>
       </div>
+
       <div
         style={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          height: "25vh",
+          height: "20vh",
         }}
       >
-        {error ? <Text type="danger">{error}</Text> : null}
+        <p style={{ alignItems: "center" }}>
+          Already have an account? <br />
+          <a href="/login">Log in here</a>
+        </p>
       </div>
-    </div>
-  );
-
-  const SuccessLogin = (
-    <div>
-      <Navigate to="/" />
     </div>
   );
 
   return (
     <div>
       <Navbar />
-      {isSubmitted ? SuccessLogin : renderForm};
+      {isSubmitted ? SuccessSignUp : renderForm};
     </div>
   );
 }
 
-export default Login;
+export default Register;

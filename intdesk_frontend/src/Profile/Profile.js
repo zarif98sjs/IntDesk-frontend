@@ -1,26 +1,37 @@
 import {
-  CodeOutlined, GithubOutlined, LaptopOutlined,
+  CodeOutlined,
+  GithubOutlined,
+  LaptopOutlined,
   NotificationOutlined,
   RocketOutlined,
   UserOutlined
 } from "@ant-design/icons";
 import {
-  Avatar, Badge, Button,
+  Avatar,
+  Badge,
+  Button,
   Card,
   Descriptions,
   Layout,
   Progress,
-  Space, Tag, Tooltip
+  Space,
+  Tag,
+  Tooltip
 } from "antd";
 import axios from "axios";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import ActivityCalendar from "react-activity-calendar";
-import { BiBriefcase, BiBuildings, BiCurrentLocation, BiLinkAlt } from "react-icons/bi";
+import {
+  BiBriefcase,
+  BiBuildings,
+  BiCurrentLocation,
+  BiLinkAlt
+} from "react-icons/bi";
+import assesment from "../images/assesment.png";
+import discussion from "../images/discussion2.png";
+import problem_img from "../images/problem.png";
+import Navbar from "../Navbar/Navbar";
 import activityData from "./activityData";
-import assesment from "./images/assesment.png";
-import discussion from "./images/discussion2.png";
-import problem_img from "./images/problem.png";
-import Navbar from "./navbar";
 
 const { Header, Content, Sider } = Layout;
 
@@ -43,7 +54,6 @@ const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
   }
 );
 function Profile() {
-
   const [userInfo, setUserInfo] = useState([]);
   const [passedAssess, setPassedAssess] = useState([]);
 
@@ -65,13 +75,15 @@ function Profile() {
           console.log("User Info FETCHED");
           // console.log(window.$log = res.data.results);
           const data = res.data;
-          console.log(window.$log = data);
+          console.log((window.$log = data));
           setUserInfo(data);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         })
     };
+
+   
 
     // Extracting this method made it accessible for context/prop-drilling
     const fetchAssessments = async () => {
@@ -116,8 +128,6 @@ function Profile() {
 
   }, []);
 
-
-
   return (
     <Layout style={{ background: "white" }}>
       <Navbar />
@@ -128,16 +138,23 @@ function Profile() {
           style={{ background: "white" }}
         >
           {/* <p align="center"> */}
-            <Card style={{ width: 300, background: "white",textAlign:'center' }}>
-              <Meta
-                avatar={<Avatar style={{paddingLeft:'6%'}} src="https://joeschmoe.io/api/v1/random" />}
-                title={`${userInfo.first_name} ${userInfo.last_name}`}
-                description={`${userInfo.username}`}
-                style={{
-                  display: "block",
-                }}
-              />
-            </Card>  
+          <Card
+            style={{ width: 300, background: "white", textAlign: "center" }}
+          >
+            <Meta
+              avatar={
+                <Avatar
+                  style={{ paddingLeft: "6%" }}
+                  src="https://joeschmoe.io/api/v1/random"
+                />
+              }
+              title={`${userInfo.first_name} ${userInfo.last_name}`}
+              description={`${userInfo.username}`}
+              style={{
+                display: "block",
+              }}
+            />
+          </Card>
           {/* </p> */}
 
           <div >
@@ -154,18 +171,21 @@ function Profile() {
           <Descriptions
             title=""
             bordered
-            style={{ width: 300, paddingTop:"5%", textAlign:'right'}}
+            style={{ width: 300, paddingTop: "5%", textAlign: "right" }}
           >
-            
             <Descriptions.Item
               label=<Tooltip title="Location">
-                <BiCurrentLocation style={{ fontSize: "18px", color: "#08c" }} />
+                <BiCurrentLocation
+                  style={{ fontSize: "18px", color: "#08c" }}
+                />
               </Tooltip>
               span={3}
             >
-              <Tooltip title="Location">{userInfo.city}, {userInfo.country}</Tooltip>
+              <Tooltip title="Location">
+                {userInfo.city}, {userInfo.country}
+              </Tooltip>
             </Descriptions.Item>
-            
+
             <Descriptions.Item
               label=<Tooltip title="Occupation">
                 <BiBriefcase style={{ fontSize: "18px", color: "#08c" }} />
@@ -181,7 +201,9 @@ function Profile() {
               </Tooltip>
               span={3}
             >
-              <Tooltip title="Workplace/Institution">{userInfo.current_workplace}</Tooltip>
+              <Tooltip title="Workplace/Institution">
+                {userInfo.current_workplace}
+              </Tooltip>
             </Descriptions.Item>
             <Descriptions.Item
               label=<Tooltip title="Language">

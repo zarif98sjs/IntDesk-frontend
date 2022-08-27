@@ -16,9 +16,12 @@
     "es6": true,
     "jest": true
   },
-  "rules": { 
+  "rules": {
+    "object-shorthand": 0,
     "jsx-ally/label-has-associated-control": 0,
     "no-useless-return": 0,
+    "no-use-before-define": 0,
+    "no-loop-func": 0,
     "no-await-in-loop": 0,
     "react/jsx-boolean-value": 0,
     "camelcase": 0,
@@ -41,16 +44,22 @@
     "linebreak-style": 0,
     "react/prop-types": 0,
     "jsx-a11y/click-events-have-key-events": 0,
-    "jsx-a11y/label-has-associated-control": ["error", {
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
         "required": {
           "some": ["nesting", "id"]
         }
-      }],
-    "jsx-a11y/label-has-for": ["error", {
+      }
+    ],
+    "jsx-a11y/label-has-for": [
+      "error",
+      {
         "required": {
           "some": ["nesting", "id"]
         }
-      }],
+      }
+    ],
     "react/jsx-filename-extension": [
       1,
       {

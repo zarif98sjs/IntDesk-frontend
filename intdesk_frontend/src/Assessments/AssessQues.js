@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from 'react';
 import { Card, Button, Radio, Typography, List, Result } from 'antd';
 import ReactMarkdown from 'react-markdown';
 import { SnippetsFilled } from '@ant-design/icons';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import axios from "axios";
-import remarkGfm from 'remark-gfm';
-import Navbar from "../navbar";
-import './assess.css';
-
-
-
-
-
+import React, { useEffect, useState } from "react";
+import remarkGfm from "remark-gfm";
+import Navbar from "../Navbar/Navbar";
+import "./assess.css";
 
 function AssessmentsQues(props) {
-
   const authToken = JSON.parse(localStorage.getItem("authToken"));
-  const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem("isLoggedIn")));
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    JSON.parse(localStorage.getItem("isLoggedIn"))
+  );
 
   const params = useParams();
   const assessmentID = params.id;
@@ -397,8 +393,11 @@ function AssessmentsQues(props) {
 
               <Radio.Group defaultValue={wrongVal[index]} style={{ width: 'auto' }}>
                 {wrongOptions[index].map((answer, key) => (
-                  <div className='col md-4'>
-                    <Radio value={answer.description} size='large' disabled> {answer.description}</Radio>
+                  <div className="col md-4">
+                    <Radio value={answer.description} size="large" disabled>
+                      {" "}
+                      {answer.description}
+                    </Radio>
                   </div>
                 ))}
               </Radio.Group>

@@ -1,18 +1,13 @@
 
-
-import React, { useEffect, useState } from 'react';
 import { Card, Button, Input, Select, Space, Avatar, List } from 'antd';
 import { Navigate, Link } from 'react-router-dom';
 import axios from "axios";
-import Navbar from "../navbar";
-import './assess.css';
-
+import React, { useEffect, useState } from "react";
+import Navbar from "../Navbar/Navbar";
+import "./assess.css";
 
 const { Option } = Select;
 const { Search } = Input;
-
-
-
 
 function Assessments() {
 
@@ -88,26 +83,26 @@ function Assessments() {
       })
   };
 
-  function commaSeperate(obj, separator) {
-    let arr = [];
-    // var i; // HERE is where you move the 'var' to the top of the function
-    for (let i = 0; i < obj.length; i += 1) {
-      // console.log(obj[i].name);
-      arr.push(obj[i].name);
-    }
-    let string = "Roles :".concat(arr.join(separator || ", "));
-    if (obj.length === 0) {
-      string = "";
-    }
-    return string;
-  }
+      function commaSeperate(obj, separator) {
+          let arr = [];
+          // var i; // HERE is where you move the 'var' to the top of the function
+          for (let i = 0; i < obj.length; i+=1) {
+             // console.log(obj[i].name);
+             arr.push(obj[i].name);
+          }
+          let string = "Roles :".concat( arr.join(separator || ", ") );
+          if (obj.length === 0){
+            string = "";
+          }
+          return string;
+      }
+      
 
-
-  useEffect(() => {
-    fetchAssessments();
-    fetchRecommendations();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+      useEffect(() => {    
+        fetchAssessments();
+        fetchRecommendations();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, []);
 
 
   const onChange = (e) => {
@@ -125,134 +120,107 @@ function Assessments() {
       }
     }
 
-    setAssessmentsTemp(tempAssessmentss);
-
-    tempAssessmentss = [];
-    for (let i = 0; i < recommendedAssess.length; i += 1) {
-      if (recommendedAssess[i].skill_name.toLowerCase().includes(value.toLowerCase())) {
-        tempAssessmentss.push(recommendedAssess[i]);
-      }
+      setAssessmentsTemp(tempAssessmentss);
+    }  
+    
+    // loop through tags
+    for (let i = 0; i < roles.length; i+=1) {
+      children.push(<Option key={roles[i]}>{roles[i]}</Option>);
     }
-
-    console.log("tempAssessments : ", tempAssessmentss);
-    setTempRecommendedAssess(tempAssessmentss);
-  }
-
-  // loop through tags
-  for (let i = 0; i < roles.length; i += 1) {
-    children.push(<Option key={roles[i]}>{roles[i]}</Option>);
-  }
 
   const searchRoles = (value: string[]) => {
     console.log(`selected ${value}`);
     setSearchRoleValue(value);
 
-    let tempAssessmentss = [];
-    for (let i = 0; i < assessments.length; i += 1) {
-      // if tags not null
-      if (assessments[i].roles !== null) {
-        // loop through tags
-        for (let j = 0; j < assessments[i].roles.length; j += 1) {
-          // if tag in value and already not present
-          if (value.includes(assessments[i].roles[j].name) && !tempAssessmentss.includes(assessments[i])) {
-            tempAssessmentss.push(assessments[i]);
+      let tempAssessmentss = [];
+      for(let i = 0; i < assessments.length; i+=1) {
+        // if tags not null
+        if (assessments[i].roles !== null) {
+          // loop through tags
+          for (let j = 0; j < assessments[i].roles.length; j+=1) {
+            // if tag in value and already not present
+            if (value.includes(assessments[i].roles[j].name) && !tempAssessmentss.includes(assessments[i])) {
+              tempAssessmentss.push(assessments[i]);
+            }
           }
         }
       }
-    }
 
-    // console.log("tempAssessments : ",tempAssessmentss);
-    setAssessmentsTemp(tempAssessmentss);
+      console.log("tempAssessments : ",tempAssessmentss);
+      setAssessmentsTemp(tempAssessmentss);
+    };
 
-    tempAssessmentss = [];
-    for (let i = 0; i < recommendedAssess.length; i += 1) {
-      // if tags not null
-      console.log("roles of temp assessments")
-      console.log(recommendedAssess[i].roles)
-      if (recommendedAssess[i].roles !== null) {
-        // loop through tags
-        for (let j = 0; j < recommendedAssess[i].roles.length; j += 1) {
-          // if tag in value and already not present
-          if (value.includes(recommendedAssess[i].roles[j].name) && !tempAssessmentss.includes(recommendedAssess[i])) {
-            tempAssessmentss.push(recommendedAssess[i]);
-          }
-        }
-      }
-    }
-
-    // console.log("tempAssessments : ",tempAssessmentss);
-    setTempRecommendedAssess(tempAssessmentss);
-  };
-
-
-  const element = (
-    <div>
-      {searchValue === "" && searchRoleValue.length === 0 ? (
-        <List
+     
+    const element =  (
+      <div>
+        {searchValue === "" && searchRoleValue.length === 0 ? (
+          <List
           itemLayout="horizontal"
           dataSource={assessments}
           renderItem={(item) => (
             <List.Item>
               <List.Item.Meta
                 avatar={<Avatar src={item.image_link} />}
-                title={<a href={"/assessments/".concat(item.id)}>{item.skill_name}</a>}
-                description={commaSeperate(item.roles, ", ")}
+                title={<a href={"/assessments/".concat( item.id )}>{item.skill_name}</a>}
+                description= {commaSeperate(item.roles, ", ")} 
               />
             </List.Item>
           )}
         />
-      ) : (
-        <List
-          itemLayout="horizontal"
-          dataSource={assessmentsTemp}
-          renderItem={(item) => (
-            <List.Item>
-              <List.Item.Meta
-                avatar={<Avatar src={item.image_link} />}
-                title={<a href={"/assessments/".concat(item.id)}>{item.skill_name}</a>}
-                description={commaSeperate(item.roles, ", ")}
-              />
-            </List.Item>
-          )}
-        />
-      )}
-    </div>
-  )
+        ) : (
+          <List
+            itemLayout="horizontal"
+            dataSource={assessmentsTemp}
+            renderItem={(item) => (
+              <List.Item>
+                <List.Item.Meta
+                  avatar={<Avatar src={item.image_link} />}
+                  title={<a href={"/assessments/".concat( item.id )}>{item.skill_name}</a>}
+                  description= {commaSeperate(item.roles, ", ")} 
+                />
+              </List.Item>
+            )}
+          />
+        )}
+      </div>
+    )
 
-  const recommendedElement = (
-    <div>
-      {searchValue === "" && searchRoleValue.length === 0 ? (
-        <List
+    const recommendedElement = (
+      <div>
+        {searchValue === "" && searchRoleValue.length === 0 ? (
+          <List
           itemLayout="horizontal"
           dataSource={recommendedAssess}
           renderItem={(item) => (
             <List.Item>
               <List.Item.Meta
                 avatar={<Avatar src={item.image_link} />}
-                title={<a href={"/assessments/".concat(item.id)}>{item.skill_name}</a>}
-                description={commaSeperate(item.roles, ", ")}
+                title={<a href={"/assessments/".concat( item.id )}>{item.skill_name}</a>}
+                description= {commaSeperate(item.roles, ", ")} 
               />
             </List.Item>
           )}
         />
-      ) : (
-        <List
-          itemLayout="horizontal"
-          dataSource={tempRecommendedAssess}
-          renderItem={(item) => (
-            <List.Item>
-              <List.Item.Meta
-                avatar={<Avatar src={item.image_link} />}
-                title={<a href={"/assessments/".concat(item.id)}>{item.skill_name}</a>}
-                description={commaSeperate(item.roles, ", ")}
-              />
-            </List.Item>
-          )}
-        />
-      )}
-    </div>
+        ) : (
+          <List
+            itemLayout="horizontal"
+            dataSource={tempRecommendedAssess}
+            renderItem={(item) => (
+              <List.Item>
+                <List.Item.Meta
+                  avatar={<Avatar src={item.image_link} />}
+                  title={<a href={"/assessments/".concat( item.id )}>{item.skill_name}</a>}
+                  description= {commaSeperate(item.roles, ", ")} 
+                />
+              </List.Item>
+            )}
+          />
+        )}
+      </div>
 
-  )
+  
+    )
+
 
 
   return (
@@ -325,4 +293,4 @@ export default Assessments;
                 <Button  type="link" htmlType="submit">Take Assessment Quiz </Button>
             </Card>
             */
-
+                       

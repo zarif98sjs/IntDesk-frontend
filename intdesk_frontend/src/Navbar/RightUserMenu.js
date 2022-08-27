@@ -2,8 +2,7 @@ import { Menu } from "antd";
 import { Component } from "react";
 import { Link } from "react-router-dom";
 
-
-class RightUser extends Component {
+class RightUserMenu extends Component {
   render() {
     return (
       <Menu mode="horizontal">
@@ -18,4 +17,4 @@ class RightUser extends Component {
   }
 }
 
-export default RightUser;
+export default RightUserMenu;

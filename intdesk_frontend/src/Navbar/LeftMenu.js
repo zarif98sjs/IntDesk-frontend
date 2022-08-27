@@ -2,9 +2,9 @@ import { Menu } from "antd";
 import { Component } from "react";
 import { Link } from "react-router-dom";
 
-
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
+
 class LeftMenu extends Component {
   render() {
     return (

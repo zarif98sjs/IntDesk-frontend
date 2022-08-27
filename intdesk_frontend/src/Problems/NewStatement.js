@@ -36,11 +36,11 @@ function NewStatement({problem, setProblem, handleTextChange, handleMarkDownChan
             {/* <Markdown id='description' name='description'  defaultValue={problem.description} value={problem.description} callback={handleMarkDownChange} textarea={true} customWidth={[50,50]} style={{paddingLeft: "100px"}}>
             {problem.description}
             </Markdown> */}
-            <div className="input-row" >
+            <div className="input-row" style={{height: "500px"}} >
             <MDEditor
                 value={problem.description}
                 onChange={handleMarkDownChange}
-                style={{width: "100%", height: "500px", maxHeight: "1000px", marginLeft: "20px", marginRight: "40px", marginBottom: "40px", paddingLeft: "20px", paddingRight: "20px"}}
+                style={{width: "100%", height: "100%", maxHeight: "500px", marginLeft: "20px", marginRight: "40px", marginBottom: "0px", paddingLeft: "20px", paddingRight: "20px"}}
             />
             
             {/* <MDEditor.Markdown source={problem.description} style={{ whiteSpace: 'pre-wrap' }} /> */}

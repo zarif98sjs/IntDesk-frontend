@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { useParams } from "react-router-dom";
 import remarkGfm from "remark-gfm";
-import Comments from "../Comments";
-import Navbar from "../navbar";
+import Navbar from "../Navbar/Navbar";
+import Comments from "./Comments";
 import "./discussionIndividual.css";
 import "./discussions.css";
 

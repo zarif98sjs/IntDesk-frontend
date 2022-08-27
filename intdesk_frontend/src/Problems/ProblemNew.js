@@ -1,13 +1,15 @@
 import { Alert, Menu } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
-import Navbar from '../navbar';
+import { Navigate, useParams, useLocation } from 'react-router-dom';
+import Navbar from '../Navbar/Navbar';
 import NewProblemBody from "./NewProblemBody";
 import "./problemNew.css";
 
 
 function ProblemNew() {
+
+  
 
   const authToken = JSON.parse(localStorage.getItem("authToken"));
   const [isLoggedIn, setIsLoggedIn] = useState(JSON.parse(localStorage.getItem("isLoggedIn")));
@@ -15,8 +17,12 @@ function ProblemNew() {
   const [mode, setMode] = useState("POST");
   const params = useParams();
 
+  const [updated, setUpdated] = useState({problem: false, input_outputs: false, roles: false, companies: false, subcategories: false});
+
+
   const [id, setId] = useState(params.id);
 
+  
   const [problem, setProblem] = useState({
     title: "",
     timeLimit: 1,
@@ -50,11 +56,16 @@ function ProblemNew() {
       await axios.post(address ,postData,{headers: {
         'Authorization': 'Token '.concat(authToken.token),
         'Content-Type' : 'application/json'
-    }})
-    .then(res => {
-        console.log("success adding roles")
-        console.log(window.$log = res.data);
-    })
+      }})
+      .then(res => {
+          console.log("success adding roles")
+          console.log(window.$log = res.data);
+          setUpdated(oldValue => (
+            {
+            ...oldValue,
+            roles: true
+          }))
+      })
     .catch(err => {
         console.log("error adding roles")
         console.log(err);
@@ -76,6 +87,12 @@ function ProblemNew() {
   .then(res => {
       console.log("success adding companies")
       console.log(window.$log = res.data);
+      setUpdated(oldValue => (
+        {
+          ...oldValue,
+          companies: true
+        }
+      ))
   })
   .catch(err => {
       console.log("error adding companies")
@@ -99,6 +116,12 @@ function ProblemNew() {
   .then(res => {
       console.log("success adding subcategories")
       console.log(window.$log = res.data);
+      setUpdated(oldValue => (
+        {
+          ...oldValue,
+          subcategories: true
+        }
+      ))
   })
   .catch(err => {
       console.log("error adding subcategories")
@@ -120,6 +143,12 @@ function ProblemNew() {
     .then(res => {
         console.log("success adding input_output")
         console.log(window.$log = res.data);
+        setUpdated(oldValue => (
+          {
+            ...oldValue,
+            input_outputs: true
+          }
+        ))
     })
     .catch(err => {
         console.log("error adding input_output")
@@ -142,6 +171,8 @@ function ProblemNew() {
       return 
     }
 
+    
+
     // POST
     let postData = {
       'title': problem.title,
@@ -162,13 +193,16 @@ function ProblemNew() {
       }})
       .then(res => {
         console.log(window.$log = res.data);
+        setUpdated(oldValue => ({
+          ...oldValue,
+          problem: true
+        }))
         const id = res.data.id;
         submitIO(id);
         submitRoles(id);
         submitCompanies(id);
         submitSubcategories(id);
-             // navigate to the problems page
-       window.location.href = "/problems";
+             
   
       })
       .catch(err => {
@@ -184,14 +218,20 @@ function ProblemNew() {
       }})
       .then(res => {
         console.log(window.$log = res.data);
-        
-        // submitIO(id);
-        // submitRoles(id);
-        // submitCompanies(id);
-        // submitSubcategories(id);
-        // // navigate to the problems page
-        window.location.href = `/problems/problem/${id}`;
+        setUpdated(oldValue => ({
+          ...oldValue,
+          problem: true
+        }))
+        console.log('id now', id);
+        console.log('Input outputs now:')
 
+        console.log(problem.inputOutputs);
+        
+        submitIO(id);
+        submitRoles(id);
+        submitCompanies(id);
+        submitSubcategories(id);
+        
         
       })
       .catch(err => {
@@ -209,7 +249,11 @@ function ProblemNew() {
       
      
   }
-
+  useEffect(() => {
+      console.log("inside updated use effect", updated);
+      if(updated.problem && updated.roles && updated.companies && updated.input_outputs && updated.subcategories)
+        window.location.href = "/problems"
+  }, [updated])
   useEffect(() => {
       setIsLoggedIn(JSON.parse(localStorage.getItem("isLoggedIn")));
       if(id) {
@@ -231,7 +275,7 @@ function ProblemNew() {
 
               let prevSubcategories = [];
               for(let i=0;i<res.data.subcategories.length;i+=1){
-                prevSubcategories.push({'category': res.data.subcategories[i].category, 'subcategory': res.data.subcategories[i].name});
+                prevSubcategories.push({'category': res.data.subcategories[i].category.name, 'subcategory': res.data.subcategories[i].name});
               }
               
               setProblem(oldProblem => (

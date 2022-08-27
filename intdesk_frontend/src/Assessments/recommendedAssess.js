@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Button, Input, Select, Space, Avatar, List } from 'antd';
 import { Navigate, Link } from 'react-router-dom';
 import axios from "axios";
-import Navbar from "../navbar";
+import Navbar from "../Navbar/Navbar";
 import './assess.css';
 
 

@@ -1,5 +1,4 @@
-
-import Navbar from "./navbar";
+import Navbar from "./Navbar/Navbar";
 
 export default function App() {
   return (
@@ -8,4 +7,3 @@ export default function App() {
     </div>
   );
 }
-

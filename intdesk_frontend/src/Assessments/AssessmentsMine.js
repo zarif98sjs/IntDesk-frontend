@@ -1,21 +1,13 @@
-
-
-import React, { useEffect, useState } from 'react';
-import { Input, Select, Space, Avatar, List, Badge, } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
-import { Navigate, Link } from 'react-router-dom';
+import { Avatar, Badge, Input, List, Select, Space } from "antd";
+import { Link } from 'react-router-dom';
 import axios from "axios";
-import Moment from 'moment';
-import Navbar from "../navbar";
-
-import './assess.css';
-
+import Moment from "moment";
+import React, { useEffect, useState } from "react";
+import Navbar from "../Navbar/Navbar";
+import "./assess.css";
 
 const { Option } = Select;
 const { Search } = Input;
-
-
-
 
 function AssessmentsMine() {
   const authToken = JSON.parse(localStorage.getItem("authToken"));
@@ -296,7 +288,6 @@ function AssessmentsMine() {
                   Last taken on {Moment(takenTimes[index]).format("DD MMM,YYYY")}<br /></p>}
               />
             </List.Item>
-
           )}
         />
       ) : (

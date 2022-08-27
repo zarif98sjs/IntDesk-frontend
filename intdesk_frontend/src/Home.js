@@ -1,25 +1,25 @@
 
-import { Card, Space} from "antd";
+import { Card, Space } from "antd";
 import RecommendedAssess from "./Assessments/recommendedAssess";
-import logo from './images/logo5.png'; 
+import logo from './images/logo5.png';
 import assesment from "./images/assesment.png";
 import discussion from "./images/discussion2.png";
 import problem_img from "./images/problem.png";
-import Navbar from "./navbar";
+import Navbar from "./Navbar/Navbar";
 
 const { Meta } = Card;
 
 export default function Home() {
   return (
     <div>
-    <Navbar />
-    {/* <p align="center">
+      <Navbar />
+      {/* <p align="center">
     <img src={logo} alt="IntDesk" />
     </p> */}
 
-    <div style={{padding:'10px'}}>
-      <h1 align = "center" >Features</h1>
+      <div style={{padding:'20px'}}>
         <p align="center">
+          <h1 align='center'> Features</h1>
           <Space
             direction="horizontal"
             align="center"
@@ -46,7 +46,7 @@ export default function Home() {
             >
               <Meta
                 title="Problems"
-                description="Solve coding problems of different interviews"
+                description="Find your solved problems here"
                 style={{ display: "block" }}
               />
             </Card>
@@ -72,7 +72,7 @@ export default function Home() {
             >
               <Meta
                 title="Discussions"
-                description="Ask away your queries and seek help from the community"
+                description="Find your discussions here"
                 style={{ display: "block" }}
               />
             </Card>
@@ -101,7 +101,7 @@ export default function Home() {
             >
               <Meta
                 title="Assesments"
-                description="Assess your skills and earn badges"
+                description="Find your assesments here"
                 style={{
                   display: "block",
                 }}
@@ -110,14 +110,13 @@ export default function Home() {
           </Space>
         </p>
       </div>
-    
 
-    <div>
-      <h1 align='center'> Recommended Assessments </h1>
-      <RecommendedAssess />
-    </div>
+      <div style={{padding:'20px'}}>
+        <h1 align='center'> Recommended Assessments</h1>
+                <RecommendedAssess/>
+
+      </div>
 
     </div>
   );
 }
-
