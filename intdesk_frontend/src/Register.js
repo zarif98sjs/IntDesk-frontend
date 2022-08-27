@@ -8,6 +8,7 @@ import Navbar from "./Navbar/Navbar";
 function Register() {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  
   const onFinish = (values) => {
     console.log("Success:", values);
     console.log("Submitted");

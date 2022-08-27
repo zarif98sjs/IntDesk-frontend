@@ -3,15 +3,16 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 import Home from "./Home";
-import Login from "./Login";
+
+import Login from "./LogIn";
 import Logout from "./LogOut";
 import Register from "./Register";
 import reportWebVitals from "./reportWebVitals";
 
 import ProblemIndividual from "./Problems/ProblemIndividual";
+import ProblemMine from "./Problems/ProblemMine";
 import ProblemNew from "./Problems/ProblemNew";
 import ProblemResult from "./Problems/ProblemResult";
-import ProblemMine from "./Problems/ProblemMine";
 
 import Problems from "./Problems/Problems";
 import ProblemSubmissions from "./Problems/ProblemSubmissions";
