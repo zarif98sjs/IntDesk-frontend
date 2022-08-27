@@ -1,8 +1,9 @@
-
+import { CheckCircleTwoTone  } from '@ant-design/icons';
 import { Card, Button, Input, Select, Space, Avatar, List } from 'antd';
 import { Navigate, Link } from 'react-router-dom';
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Moment from "moment";
 import Navbar from "../Navbar/Navbar";
 import "./assess.css";
 
@@ -22,14 +23,15 @@ function Assessments() {
   const [searchRoleValue, setSearchRoleValue] = useState([]);
   const [roles, setRoles] = useState([]);
 
+  const [status, setStatus] = useState([]);
+
 
   const [assessmentsTemp, setAssessmentsTemp] = useState([]);
 
   const children: React.ReactNode[] = [];
 
-
   // Extracting this method made it accessible for context/prop-drilling
-  const fetchAssessments = () => {
+  const fetchAllAssessments = () => {
     axios.get("http://localhost:8000/assessments/assessment/")
       .then(res => {
         console.log(window.$log = res.data);
@@ -37,6 +39,49 @@ function Assessments() {
         console.log(window.$log = ara);
         setAssessments(ara);
         setAssessmentsTemp(ara);
+
+        let tempRoles = [];
+
+        // for loop to get the user name
+        for (let i = 0; i < ara.length; i += 1) {
+          // loop through tags if tags not null
+          if (ara[i].roles !== null) {
+            for (let j = 0; j < ara[i].roles.length; j += 1) {
+              // if tag not in tempTags
+              if (!tempRoles.includes(ara[i].roles[j].name)) {
+                tempRoles.push(ara[i].roles[j].name);
+                // children.push(<Option key={ara[i].tags[j]}>{ara[i].tags[j]}</Option>);
+              }
+            }
+          }
+        }
+        console.log(tempRoles);
+        setRoles(tempRoles);
+
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  };
+
+  // Extracting this method made it accessible for context/prop-drilling
+  const fetchAssessments = () => {
+    axios.get("http://localhost:8000/assessments/assessment/get_assessment/", {
+      headers: {
+        'Authorization': 'Token '.concat(authToken.token),
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => {
+        console.log(window.$log = res.data);
+        const ara = res.data.assess;
+        const status = res.data.status;
+        // console.log(window.$log = ara);
+        // console.log(ara.assess)
+        // console.log(ara.status)
+        setAssessments(ara);
+        setAssessmentsTemp(ara);
+        setStatus(status);
 
         let tempRoles = [];
 
@@ -98,8 +143,13 @@ function Assessments() {
       }
       
 
-      useEffect(() => {    
-        fetchAssessments();
+      useEffect(() => {  
+        if(isLoggedIn){
+          fetchAssessments();
+        }  
+        else{
+          fetchAllAssessments();
+        }
         fetchRecommendations();
       // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
@@ -150,6 +200,16 @@ function Assessments() {
       setAssessmentsTemp(tempAssessmentss);
     };
 
+    function showStatus(index, roles) {
+      
+        return (
+          <div>
+           { ( ( status[index] !== false ) && ( status[index] !== true ) ) ? <p>Last taken on {Moment(status[index]).format("DD MMM,YYYY")} <br/>{commaSeperate(roles, ", ")}</p> : <p>{commaSeperate(roles, ", ")}</p>}
+          </div>
+        )
+  
+    }
+  
      
     const element =  (
       <div>
@@ -157,12 +217,22 @@ function Assessments() {
           <List
           itemLayout="horizontal"
           dataSource={assessments}
-          renderItem={(item) => (
+          renderItem={(item, index) => (
             <List.Item>
               <List.Item.Meta
                 avatar={<Avatar src={item.image_link} />}
-                title={<a href={"/assessments/".concat( item.id )}>{item.skill_name}</a>}
-                description= {commaSeperate(item.roles, ", ")} 
+                title={
+                <div>
+                <a href={"/assessments/".concat( item.id )}>{item.skill_name}</a>
+                { (isLoggedIn && status[index] === true) ? <span style={{paddingLeft:'10px'}}><CheckCircleTwoTone /> </span>: <br/>}
+                </div>
+              }
+                description= {
+                <div>
+                  
+                  {isLoggedIn  ? ( <p>{showStatus(index, item.roles)}</p> ): ( <p>{commaSeperate(item.roles, ", ")}</p> ) }
+                </div>
+              } 
               />
             </List.Item>
           )}
