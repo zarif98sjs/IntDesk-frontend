@@ -1,0 +1,1 @@
+web: gunicorn intdesk_api.wsgi --log-file -
