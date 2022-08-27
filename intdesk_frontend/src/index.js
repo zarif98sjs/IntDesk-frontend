@@ -23,6 +23,7 @@ import AssessmentsQues from "./Assessments/AssessQues";
 import AssessQuesForm from "./Assessments/AssessQuesForm";
 import AssessDetails from "./Assessments/assess_details";
 import AssessForm from "./Assessments/assess_form";
+import AssessResult from "./Assessments/assessResult";
 
 import Populate from "./Assessments/data_populate";
 
@@ -69,8 +70,8 @@ ReactDOM.render(
       <Route
         exact
         path="/assessments/:id/assess_ques"
-        element={<AssessmentsQues />}
-      />
+        element={<AssessmentsQues />}/>
+      <Route exact path="/assessments/:id/assess_result" element={<AssessResult />} />
       <Route exact path="/myassessments" element={<AssessmentsMine />} />
       <Route
         exact
@@ -93,9 +94,9 @@ ReactDOM.render(
       <Route exact path="/problems/problem/:id/submissions" element={<ProblemSubmissions />} />
       <Route exact path="/myproblems" element={<ProblemMine />} />
 
-      <Route path="/error" element={<ErrorPage />}/>
+      <Route path="/error" element={<ErrorPage />} />
 
-      <Route path="*" element={<ErrorPage />}/>
+      <Route path="*" element={<ErrorPage />} />
 
     </Routes>
   </Router>,

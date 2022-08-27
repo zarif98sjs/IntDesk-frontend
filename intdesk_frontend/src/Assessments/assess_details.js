@@ -20,6 +20,8 @@ function AssessDetails() {
   const [isLoggedIn, setIsLoggedIn] = useState(
     JSON.parse(localStorage.getItem("isLoggedIn"))
   );
+  
+  localStorage.setItem("completeAssess", "false");
 
   const params = useParams();
   const assessmentID = params.id;

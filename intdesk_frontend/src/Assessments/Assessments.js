@@ -177,6 +177,19 @@ function Assessments() {
     }
 
     setAssessmentsTemp(tempAssessmentss);
+
+    tempAssessmentss = [];
+
+    for (let i = 0; i < recommendedAssess.length; i += 1) {
+
+      // convert to lower case and check substring match
+      if (recommendedAssess[i].skill_name.toLowerCase().includes(value.toLowerCase())) {
+        // console.log(assessments[i]);
+        tempAssessmentss.push(recommendedAssess[i]);
+      }
+    }
+
+    setTempRecommendedAssess(tempAssessmentss);
   }
 
   // loop through tags
@@ -204,6 +217,23 @@ function Assessments() {
 
     console.log("tempAssessments : ", tempAssessmentss);
     setAssessmentsTemp(tempAssessmentss);
+
+    tempAssessmentss = [];
+    for (let i = 0; i < recommendedAssess.length; i += 1) {
+      // if tags not null
+      if (recommendedAssess[i].roles !== null) {
+        // loop through tags
+        for (let j = 0; j < recommendedAssess[i].roles.length; j += 1) {
+          // if tag in value and already not present
+          if (value.includes(recommendedAssess[i].roles[j].name) && !tempAssessmentss.includes(recommendedAssess[i])) {
+            tempAssessmentss.push(recommendedAssess[i]);
+          }
+        }
+      }
+    }
+
+    console.log("tempAssessments : ", tempAssessmentss);
+    setTempRecommendedAssess(tempAssessmentss);
   };
 
   function showStatus(index, roles) {

@@ -46,7 +46,7 @@ export default function Home() {
             >
               <Meta
                 title="Problems"
-                description="Find your solved problems here"
+                description="Solve coding problems of interviews"
                 style={{ display: "block" }}
               />
             </Card>
@@ -72,7 +72,7 @@ export default function Home() {
             >
               <Meta
                 title="Discussions"
-                description="Find your discussions here"
+                description="Discuss and ask away your queries about anything"
                 style={{ display: "block" }}
               />
             </Card>
@@ -101,7 +101,7 @@ export default function Home() {
             >
               <Meta
                 title="Assesments"
-                description="Find your assesments here"
+                description="Assess your skills and earn badges"
                 style={{
                   display: "block",
                 }}

@@ -1,4 +1,4 @@
-import { Avatar, Badge, Input, List, Select, Space } from "antd";
+import { Avatar, Badge, Empty, Input, List, Select, Space } from "antd";
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import Moment from "moment";
@@ -382,6 +382,10 @@ function AssessmentsMine() {
       <br />
       <br />
       <h1 id='title'>Passed Assessments</h1>
+      { ( passedAssess.length === 0 ) ? 
+      <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+      :<br/>
+      }
       <div style={{ margin: '20px' }} >
         {passedAssess.map((item, key) => (
           <Badge >

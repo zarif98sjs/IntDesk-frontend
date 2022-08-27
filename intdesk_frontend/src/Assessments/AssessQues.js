@@ -1,11 +1,12 @@
 import { Card, Button, Radio, Typography, List, Result } from 'antd';
 import ReactMarkdown from 'react-markdown';
-import { SnippetsFilled } from '@ant-design/icons';
-import { useParams, Navigate, Link } from 'react-router-dom';
+import { SecurityScanTwoTone, SnippetsFilled, WindowsFilled } from '@ant-design/icons';
+import { useParams, Navigate, Link , Redirect} from 'react-router-dom';
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import remarkGfm from "remark-gfm";
 import Navbar from "../Navbar/Navbar";
+import AssessResult from './assessResult';
 import "./assess.css";
 
 function AssessmentsQues(props) {
@@ -19,7 +20,7 @@ function AssessmentsQues(props) {
   const [QuesId, setQuesId] = useState([]);
   const [question, setQuestion] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
-  const [complete, setComplete] = useState(false);
+  const [complete, setComplete] = useState(JSON.parse(localStorage.getItem("completeAssess")));
   const [options, setOptions] = useState([]);
   const [value, setValue] = useState();
   const [points, setPoints] = useState(0);
@@ -42,7 +43,7 @@ function AssessmentsQues(props) {
   // const [currQues, setCurrQues] = useState();
   // Extracting this method made it accessible for context/prop-drilling
 
-
+ 
 
 
   const onChange = (e) => {
@@ -121,6 +122,7 @@ function AssessmentsQues(props) {
       setIsLoaded(false);
       console.log("QuesId Length : ", QuesId.length);
       setComplete(true);
+      JSON.parse(localStorage.setItem("completeAssess", true))
       // window.sessionStorage.setItem("complete", complete);
       return;
     }
@@ -172,7 +174,11 @@ function AssessmentsQues(props) {
     setIsLoggedIn(JSON.parse(localStorage.getItem("isLoggedIn")));
     console.log("Complete ", complete)
     // console.log("endAssess : ", endAssess)
-    if (complete === true) {
+    if(complete === true && QuesId.length === 0){
+      window.location.href = "/assessments";
+    }
+
+    else if (complete === true) {
       getPassed();
     }
     else if (question === undefined) {
@@ -348,7 +354,7 @@ function AssessmentsQues(props) {
 
 
   const loadQuestion = (
-    <div>
+    <div style={{padding:'20px'}}>
       <div id='qih_asses'>
         <h3 style={{ textAlign: "center" }}>Question </h3>
       </div>
@@ -413,7 +419,8 @@ function AssessmentsQues(props) {
 
   const endAssessment = (
     endAssess ? showResult : <br />
-
+    // endAssess ? <AssessResult  wrongQues={wrongQues} wrongOptions={wrongOptions} wrongVal={wrongVal} points={points} totalPoints={totalPoints} /> : <br />
+    // endAssess ? <Navigate to= {"/assessments/".concat(assessmentID).concat("/assess_result")} state={{ wrongQues:{wrongQues}, wrongOptions:{wrongOptions}, wrongVal:{wrongVal}, points:{points}, totalPoints:{totalPoints} }}/> : <br/>
   )
 
   // const element =  (
