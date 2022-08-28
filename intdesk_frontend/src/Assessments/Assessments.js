@@ -1,4 +1,9 @@
-import { CheckCircleTwoTone, PlusOutlined } from '@ant-design/icons';
+import {
+  CheckCircleTwoTone,
+  ProjectFilled,
+  PlusOutlined,
+  EditOutlined 
+} from "@ant-design/icons";
 import { Card, Button, Input, Select, Space, Avatar, List } from 'antd';
 import { Navigate, Link } from 'react-router-dom';
 import axios from "axios";
@@ -256,7 +261,8 @@ function Assessments() {
           renderItem={(item, index) => (
             <List.Item>
               <List.Item.Meta
-                avatar={<Avatar src={item.image_link} />}
+                // avatar={<Avatar src={item.image_link} />}
+                avatar={<Avatar src={<ProjectFilled style={{ fontSize: "50px", color: "#08c" }} /> }/> }
                 title={
                   <div>
                     <a href={"/assessments/".concat(item.id)}>{item.skill_name}</a>
@@ -280,7 +286,8 @@ function Assessments() {
           renderItem={(item) => (
             <List.Item>
               <List.Item.Meta
-                avatar={<Avatar src={item.image_link} />}
+                // avatar={<Avatar src={item.image_link} />}
+                avatar={<Avatar src={<ProjectFilled style={{ fontSize: "50px", color: "#08c" }} /> }/> }
                 title={<a href={"/assessments/".concat(item.id)}>{item.skill_name}</a>}
                 description={commaSeperate(item.roles, ", ")}
               />
@@ -300,7 +307,8 @@ function Assessments() {
           renderItem={(item) => (
             <List.Item>
               <List.Item.Meta
-                avatar={<Avatar src={item.image_link} />}
+                // avatar={<Avatar src={item.image_link} />}
+                avatar={<Avatar src={<ProjectFilled style={{ fontSize: "50px", color: "#08c" }} /> }/> }
                 title={<a href={"/assessments/".concat(item.id)}>{item.skill_name}</a>}
                 description={commaSeperate(item.roles, ", ")}
               />
@@ -314,7 +322,8 @@ function Assessments() {
           renderItem={(item) => (
             <List.Item>
               <List.Item.Meta
-                avatar={<Avatar src={item.image_link} />}
+                // avatar={<Avatar src={item.image_link} />}
+                avatar={<Avatar src={<ProjectFilled style={{ fontSize: "50px", color: "#08c" }} /> }/> }
                 title={<a href={"/assessments/".concat(item.id)}>{item.skill_name}</a>}
                 description={commaSeperate(item.roles, ", ")}
               />

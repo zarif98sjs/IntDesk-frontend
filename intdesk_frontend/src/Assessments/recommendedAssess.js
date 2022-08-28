@@ -1,4 +1,9 @@
-
+import {
+    CheckCircleTwoTone,
+    ProjectFilled,
+    PlusOutlined,
+    EditOutlined 
+  } from "@ant-design/icons";
 
 import React, { useEffect, useState } from 'react';
 import { Card, Button, Input, Select, Space, Avatar, List } from 'antd';
@@ -74,7 +79,8 @@ function RecommendedAssess() {
           renderItem={(item) => (
             <List.Item>
               <List.Item.Meta
-                avatar={<Avatar src={item.image_link} />}
+                // avatar={<Avatar src={item.image_link} />}
+                avatar={<Avatar src={<ProjectFilled style={{ fontSize: "50px", color: "#08c" }} /> }/> }
                 title={<a href={"/assessments/".concat(item.id)}>{item.skill_name}</a>}
                 description={commaSeperate(item.roles, ", ")}
               />
