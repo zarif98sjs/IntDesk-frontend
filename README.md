@@ -2,7 +2,6 @@
 
 <p align='center'>
 <img alt="IntDesk" src="logo/logo1.png" />
-
 Your go-to interview preparation platform
 </p>
 
