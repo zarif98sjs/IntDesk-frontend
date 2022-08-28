@@ -169,16 +169,16 @@ function Profile() {
             setHardSolved(data.solved[2][1]);
           }
 
-          if(data.all[0] != null && data.solved[0] != null && data.solved[0] > 0){
-            setEasyPercent(Math.round((data.solved[0][1] / data.all[0][1]) * 100));
+          if(data.all[0] != null && data.solved[0] != null && data.solved[0][1] > 0){
+            setEasyPercent(Math.round((1.0 * data.solved[0][1] / data.all[0][1]) * 100));
           }
 
-          if(data.all[1] != null && data.solved[1] != null && data.solved[1] > 0){
-            setMediumPercent(Math.round((data.solved[1][1] / data.all[1][1]) * 100));
+          if(data.all[1] != null && data.solved[1] != null && data.solved[1][1] > 0){
+            setMediumPercent(Math.round((1.0 * data.solved[1][1] / data.all[1][1]) * 100));
           }
 
-          if(data.all[2] != null && data.solved[2] != null && data.solved[2] > 0){
-            setHardPercent(Math.round((data.solved[2][1] / data.all[2][1]) * 100));
+          if(data.all[2] != null && data.solved[2] != null && data.solved[2][1] > 0){
+            setHardPercent(Math.round((1.0 * data.solved[2][1] / data.all[2][1]) * 100));
           }
 
         })

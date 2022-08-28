@@ -96,7 +96,7 @@ function AssessEdit() {
         skill_name: values.skill_name,
         taken_by: values.taken_by,
         passed_by: values.passed_by,
-        image_link: values.limage_link,
+        image_link: values.image_link,
         roles:  values.roles,
       
     };
