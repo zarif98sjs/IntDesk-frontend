@@ -56,22 +56,22 @@ const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
 function Profile() {
   const [userInfo, setUserInfo] = useState([]);
   const [passedAssess, setPassedAssess] = useState([]);
+  
 
   useEffect(() => {
 
     const authToken = JSON.parse(localStorage.getItem("authToken"));
-
+    
     const fetchUserInfo = async () => {
-
-
       console.log("AUTH TOKEN in local storage: ", authToken);
 
-      await axios.get("http://localhost:8000/users/details/", {
-        headers: {
-          'Authorization': 'Token '.concat(authToken.token)
-        }
-      })
-        .then(res => {
+      await axios
+        .get("http://localhost:8000/users/details/", {
+          headers: {
+            Authorization: "Token ".concat(authToken.token),
+          },
+        })
+        .then((res) => {
           console.log("User Info FETCHED");
           // console.log(window.$log = res.data.results);
           const data = res.data;
@@ -80,23 +80,22 @@ function Profile() {
         })
         .catch((err) => {
           console.log(err);
-        })
+        });
     };
-
-   
 
     // Extracting this method made it accessible for context/prop-drilling
     const fetchAssessments = async () => {
-      await axios.get("http://localhost:8000/assessments/user_taken_assessments/", {
-        headers: {
-          'Authorization': 'Token '.concat(authToken.token),
-          'Content-Type': 'application/json'
-        }
-      })
-        .then(res => {
+      await axios
+        .get("http://localhost:8000/assessments/user_taken_assessments/", {
+          headers: {
+            Authorization: "Token ".concat(authToken.token),
+            "Content-Type": "application/json",
+          },
+        })
+        .then((res) => {
           // console.log(window.$log = res.data);
           const ara = res.data;
-          console.log(window.$log = ara);
+          console.log((window.$log = ara));
           // console.log(ara.assessment);
           // setAssessments(ara);
           // setAssessmentsTemp(ara);
@@ -110,22 +109,17 @@ function Profile() {
             console.log(ara[i].passed);
             if (ara[i].passed === true) {
               tempPassed.push(ara[i].assessment);
-
             }
           }
           setPassedAssess(tempPassed);
-
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
-        })
+        });
     };
-
 
     fetchUserInfo();
     fetchAssessments();
-
-
   }, []);
 
   return (
@@ -157,17 +151,19 @@ function Profile() {
           </Card>
           {/* </p> */}
 
-          <div >
+          <div>
             {passedAssess.map((item, key) => (
-              <p align='center'>
-                  <Badge.Ribbon text={item.skill_name} color='red'>     
-                       <Avatar src={item.image_link} style={{align:'center', margin:'10px'}} />
-                  </Badge.Ribbon>
+              <p align="center">
+                <Badge.Ribbon text={item.skill_name} color="red">
+                  <Avatar
+                    src={item.image_link}
+                    style={{ align: "center", margin: "10px" }}
+                  />
+                </Badge.Ribbon>
               </p>
-
-              ))}
+            ))}
           </div>
-          
+
           <Descriptions
             title=""
             bordered
@@ -217,230 +213,228 @@ function Profile() {
               label=<Tooltip title="Website">
                 <GithubOutlined style={{ fontSize: "18px", color: "#08c" }} />
               </Tooltip>
-              span = { 3}
-    >
-    <Tooltip title="GitHub">{userInfo.github_link}</Tooltip>
-            </Descriptions.Item >
+              span={3}
+            >
+              <Tooltip title="GitHub">{userInfo.github_link}</Tooltip>
+            </Descriptions.Item>
             <Descriptions.Item
               label=<Tooltip title="Language">
                 <CodeOutlined style={{ fontSize: "18px", color: "#08c" }} />
               </Tooltip>
-  span = { 3}
-    >
-    <Tooltip title="Language">
-      {userInfo.languages?.map(tag => (
-        <Tag color="geekblue">{tag}</Tag>
-      ))}
-    </Tooltip>
-            </Descriptions.Item >
+              span={3}
+            >
+              <Tooltip title="Language">
+                {userInfo.languages?.map((tag) => (
+                  <Tag color="geekblue">{tag}</Tag>
+                ))}
+              </Tooltip>
+            </Descriptions.Item>
             <Descriptions.Item
               label=<Tooltip title="Skills">
                 <RocketOutlined style={{ fontSize: "18px", color: "#08c" }} />
               </Tooltip>
-  span = { 3}
-    >
-    <Tooltip title="Skills">
-      {userInfo.skills?.map(tag => (
-        <Tag color="purple">{tag}</Tag>
-      ))}
-    </Tooltip>
-            </Descriptions.Item >
-          </Descriptions >
-
-    <p align="center">
-      <Button
-        type="primary"
-        shape="round"
-        icon={<UserOutlined />}
-        size="large"
-        style={{ margin: "10px 10px 10px 10px" }}
-        href="http://localhost:3000/profile_edit/"
-      >
-        Edit Profile
-      </Button>
-    </p>
-        </Sider >
-
-    <div style={{ margin: "auto" }}>
-      <div className="">
-        <h1 id="title"> Welcome to your profile </h1>
-      </div>
-      <div>
-        <p align="center">
-          <Space
-            direction="horizontal"
-            align="center"
-            style={{ gap: "5%" }}
-          >
-            <Card
-              style={{ width: 250, border: "groove" }}
-              cover={
-                <a href="/myproblems">
-                  <img
-                    alt="example"
-                    src={problem_img}
-                    style={{ width: "70%", padding: "12%" }}
-                  />
-                </a>
-              }
-              actions={
-                [
-                  // <SettingOutlined key="setting" />,
-                  // <EditOutlined key="edit" />,
-                  // <EllipsisOutlined key="ellipsis" />,
-                ]
-              }
+              span={3}
             >
-              <Meta
-                title="Problems"
-                description="Find your problems here"
-                style={{ display: "block" }}
-              />
-            </Card>
+              <Tooltip title="Skills">
+                {userInfo.skills?.map((tag) => (
+                  <Tag color="purple">{tag}</Tag>
+                ))}
+              </Tooltip>
+            </Descriptions.Item>
+          </Descriptions>
 
-            <Card
-              style={{ width: 250, border: "groove" }}
-              cover={
-                <a href="/mydiscussions">
-                  <img
-                    alt="example"
-                    src={discussion}
-                    style={{ width: "70%", padding: "12%" }}
-                  />
-                </a>
-              }
-              actions={
-                [
-                  // <SettingOutlined key="setting" />,
-                  // <EditOutlined key="edit" />,
-                  // <EllipsisOutlined key="ellipsis" />,
-                ]
-              }
+          <p align="center">
+            <Button
+              type="primary"
+              shape="round"
+              icon={<UserOutlined />}
+              size="large"
+              style={{ margin: "10px 10px 10px 10px" }}
+              href="http://localhost:3000/profile_edit/"
             >
-              <Meta
-                title="Discussions"
-                description="Find your discussions here"
-                style={{ display: "block" }}
-              />
-            </Card>
+              Edit Profile
+            </Button>
+          </p>
+        </Sider>
 
-            <Card
-              style={{ width: 250, border: "groove" }}
-              cover={
-                <a href="/myassessments">
-                  <img
-                    alt="example"
-                    src={assesment}
+        <div style={{ margin: "auto" }}>
+          <div className="">
+            <h1 id="title"> Welcome to your profile </h1>
+          </div>
+          <div>
+            <p align="center">
+              <Space
+                direction="horizontal"
+                align="center"
+                style={{ gap: "5%" }}
+              >
+                <Card
+                  style={{ width: 250, border: "groove" }}
+                  cover={
+                    <a href="/myproblems">
+                      <img
+                        alt="example"
+                        src={problem_img}
+                        style={{ width: "70%", padding: "12%" }}
+                      />
+                    </a>
+                  }
+                  actions={
+                    [
+                      // <SettingOutlined key="setting" />,
+                      // <EditOutlined key="edit" />,
+                      // <EllipsisOutlined key="ellipsis" />,
+                    ]
+                  }
+                >
+                  <Meta
+                    title="Problems"
+                    description="Find your problems here"
+                    style={{ display: "block" }}
+                  />
+                </Card>
+
+                <Card
+                  style={{ width: 250, border: "groove" }}
+                  cover={
+                    <a href="/mydiscussions">
+                      <img
+                        alt="example"
+                        src={discussion}
+                        style={{ width: "70%", padding: "12%" }}
+                      />
+                    </a>
+                  }
+                  actions={
+                    [
+                      // <SettingOutlined key="setting" />,
+                      // <EditOutlined key="edit" />,
+                      // <EllipsisOutlined key="ellipsis" />,
+                    ]
+                  }
+                >
+                  <Meta
+                    title="Discussions"
+                    description="Find your discussions here"
+                    style={{ display: "block" }}
+                  />
+                </Card>
+
+                <Card
+                  style={{ width: 250, border: "groove" }}
+                  cover={
+                    <a href="/myassessments">
+                      <img
+                        alt="example"
+                        src={assesment}
+                        style={{
+                          width: "70%",
+                          padding: "12%",
+                        }}
+                      />
+                    </a>
+                  }
+                  actions={
+                    [
+                      // <SettingOutlined key="setting" />,
+                      // <EditOutlined key="edit" />,
+                      // <EllipsisOutlined key="ellipsis" />,
+                    ]
+                  }
+                >
+                  <Meta
+                    title="Assesments"
+                    description="Find your assesments here"
                     style={{
-                      width: "70%",
-                      padding: "12%",
+                      display: "block",
                     }}
                   />
-                </a>
-              }
-              actions={
-                [
-                  // <SettingOutlined key="setting" />,
-                  // <EditOutlined key="edit" />,
-                  // <EllipsisOutlined key="ellipsis" />,
-                ]
-              }
-            >
-              <Meta
-                title="Assesments"
-                description="Find your assesments here"
-                style={{
-                  display: "block",
+                </Card>
+              </Space>
+            </p>
+          </div>
+
+          <div style={{ paddingTop: "5%", paddingLeft: "3.5%" }}>
+            <ActivityCalendar
+              data={activityData}
+              labels={{
+                legend: {
+                  less: "Less",
+                  more: "More",
+                },
+                months: [
+                  "Jan",
+                  "Feb",
+                  "Mar",
+                  "Apr",
+                  "May",
+                  "Jun",
+                  "Jul",
+                  "Aug",
+                  "Sep",
+                  "Oct",
+                  "Nov",
+                  "Dec",
+                ],
+                tooltip: "<strong>{{count}} contributions</strong> on {{date}}",
+                totalCount: "{{count}} contributions in {{year}}",
+                weekdays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+              }}
+              color="#061e84"
+              blockRadius="10"
+            />
+          </div>
+
+          <div
+            style={{
+              width: 500,
+              margin: "auto",
+              paddingTop: "5%",
+              paddingBottom: "5%",
+            }}
+          >
+            <Tooltip title="240/340 Easy Problems Solved">
+              <Progress
+                type="line"
+                strokeWidth={12}
+                strokeColor={{
+                  "0%": "#108ee9",
+                  "100%": "#87d068",
                 }}
+                percent={90}
+                format={(percent) => `Easy Solved : ${percent}%`}
               />
-            </Card>
-          </Space>
-        </p>
-      </div>
+            </Tooltip>
 
-      <div style={{ paddingTop: "5%", paddingLeft: "3.5%" }}>
-        <ActivityCalendar
-          data={activityData}
-          labels={{
-            legend: {
-              less: "Less",
-              more: "More",
-            },
-            months: [
-              "Jan",
-              "Feb",
-              "Mar",
-              "Apr",
-              "May",
-              "Jun",
-              "Jul",
-              "Aug",
-              "Sep",
-              "Oct",
-              "Nov",
-              "Dec",
-            ],
-            tooltip: "<strong>{{count}} contributions</strong> on {{date}}",
-            totalCount: "{{count}} contributions in {{year}}",
-            weekdays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-          }}
-          color="#061e84"
-          blockRadius="10"
-        />
-      </div>
+            <Tooltip title="120/540 Medium Problems Solved">
+              <Progress
+                type="line"
+                strokeWidth={12}
+                strokeColor={{
+                  "0%": "#108ee9",
+                  "100%": "#87d068",
+                }}
+                percent={30}
+                format={(percent) => `Medium Solved : ${percent}%`}
+              />
+            </Tooltip>
 
-
-
-      <div
-        style={{
-          width: 500,
-          margin: "auto",
-          paddingTop: "5%",
-          paddingBottom: "5%",
-        }}
-      >
-        <Tooltip title="240/340 Easy Problems Solved">
-          <Progress
-            type="line"
-            strokeWidth={12}
-            strokeColor={{
-              "0%": "#108ee9",
-              "100%": "#87d068",
-            }}
-            percent={90}
-            format={(percent) => `Easy Solved : ${percent}%`}
-          />
-        </Tooltip>
-
-        <Tooltip title="120/540 Medium Problems Solved">
-          <Progress
-            type="line"
-            strokeWidth={12}
-            strokeColor={{
-              "0%": "#108ee9",
-              "100%": "#87d068",
-            }}
-            percent={30}
-            format={(percent) => `Medium Solved : ${percent}%`}
-          />
-        </Tooltip>
-
-        <Tooltip title="30/180 Hard Problems Solved">
-          <Progress
-            type="line"
-            strokeWidth={12}
-            strokeColor={{
-              "0%": "#108ee9",
-              "100%": "#87d068",
-            }}
-            percent={9.8}
-            format={(percent) => `Hard Solved : ${percent}%`}
-          />
-        </Tooltip>
-      </div>
-    </div>
-      </Layout >
-    </Layout >
+            <Tooltip title="30/180 Hard Problems Solved">
+              <Progress
+                type="line"
+                strokeWidth={12}
+                strokeColor={{
+                  "0%": "#108ee9",
+                  "100%": "#87d068",
+                }}
+                percent={9.8}
+                format={(percent) => `Hard Solved : ${percent}%`}
+              />
+            </Tooltip>
+          </div>
+        </div>
+      </Layout>
+    </Layout>
   );
 }
 

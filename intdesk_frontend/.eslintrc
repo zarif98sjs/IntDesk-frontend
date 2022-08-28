@@ -17,6 +17,7 @@
     "jest": true
   },
   "rules": {
+    "no-nested-ternary": 0,
     "object-shorthand": 0,
     "jsx-ally/label-has-associated-control": 0,
     "no-useless-return": 0,
