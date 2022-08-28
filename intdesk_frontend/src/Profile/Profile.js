@@ -57,9 +57,15 @@ function Profile() {
   const [userInfo, setUserInfo] = useState([]);
   const [passedAssess, setPassedAssess] = useState([]);
 
+  const [counts, setCounts] = useState("");
+  
+  
+  
   useEffect(() => {
     const authToken = JSON.parse(localStorage.getItem("authToken"));
-
+    const userId = JSON.parse(localStorage.getItem("user")).id;
+    console.log('userId', userId);
+    
     const fetchUserInfo = async () => {
       console.log("AUTH TOKEN in local storage: ", authToken);
 
@@ -80,6 +86,33 @@ function Profile() {
           console.log(err);
         });
     };
+
+    
+    const fetchSolveCounts = async () => {
+
+      console.log("sending user id", userId);
+      
+      await axios
+        .get("http://localhost:8000/problems/problem/".concat(userId).concat("/get_solve_counts"),  {
+          headers: {
+            Authorization: "Token ".concat(authToken.token),
+          },
+        })
+        .then((res) => {
+          console.log("User Info FETCHED");
+          // console.log(window.$log = res.data.results);
+          const data = res.data;
+          console.log("counts returned", data);
+          setCounts(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
+    
+
+
 
     // Extracting this method made it accessible for context/prop-drilling
     const fetchAssessments = async () => {
@@ -118,6 +151,7 @@ function Profile() {
 
     fetchUserInfo();
     fetchAssessments();
+    fetchSolveCounts();
   }, []);
 
   return (
