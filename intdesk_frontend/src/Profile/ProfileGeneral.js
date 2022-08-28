@@ -53,19 +53,12 @@ const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
   }
 );
 function ProfileGeneral() {
-  
-  
-
   const params = useParams();
   const username = params.username;
-  
-  
-  
   const [userInfo, setUserInfo] = useState([]);
   const [passedAssess, setPassedAssess] = useState([]);
 
   useEffect(() => {
-    
     const authToken = JSON.parse(localStorage.getItem("authToken"));
 
     const fetchUserInfo = async () => {
@@ -120,11 +113,10 @@ function ProfileGeneral() {
         .catch((err) => {
           console.log(err);
         });
-      };
+    };
 
     fetchUserInfo();
     fetchAssessments();
-
   }, [username]);
 
   return (
@@ -212,7 +204,9 @@ function ProfileGeneral() {
               </Tooltip>
               span={3}
             >
-              <Tooltip title="Website">{userInfo.website_link}</Tooltip>
+              <Tooltip title="Website">
+              <a href={userInfo.website_link}>{userInfo.website_link}</a>
+              </Tooltip>
             </Descriptions.Item>
             <Descriptions.Item
               label=<Tooltip title="Website">
@@ -220,7 +214,11 @@ function ProfileGeneral() {
               </Tooltip>
               span={3}
             >
-              <Tooltip title="GitHub">{userInfo.github_link}</Tooltip>
+              <Tooltip title="GitHub">
+                <a href={`https://github.com/${userInfo.github_link}`}>
+                  {userInfo.github_link}
+                </a>
+              </Tooltip>
             </Descriptions.Item>
             <Descriptions.Item
               label=<Tooltip title="Language">

@@ -61,9 +61,7 @@ function Profile() {
   
   
   
-
   useEffect(() => {
-
     const authToken = JSON.parse(localStorage.getItem("authToken"));
     const userId = JSON.parse(localStorage.getItem("user")).id;
     console.log('userId', userId);
@@ -241,7 +239,9 @@ function Profile() {
               </Tooltip>
               span={3}
             >
-              <Tooltip title="Website">{userInfo.website_link}</Tooltip>
+              <Tooltip title="Website">
+                <a href={userInfo.website_link}>{userInfo.website_link}</a>
+              </Tooltip>
             </Descriptions.Item>
             <Descriptions.Item
               label=<Tooltip title="Website">
@@ -249,7 +249,11 @@ function Profile() {
               </Tooltip>
               span={3}
             >
-              <Tooltip title="GitHub">{userInfo.github_link}</Tooltip>
+              <Tooltip title="GitHub">
+                <a href={`https://github.com/${userInfo.github_link}`}>
+                  {userInfo.github_link}
+                </a>
+              </Tooltip>
             </Descriptions.Item>
             <Descriptions.Item
               label=<Tooltip title="Language">
