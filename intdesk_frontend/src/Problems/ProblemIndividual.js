@@ -3,7 +3,7 @@ import "katex/dist/katex.min.css";
 import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { useLocation, useParams, Link } from "react-router-dom";
-import { PlusOutlined } from "@ant-design/icons"
+import { EditOutlined } from "@ant-design/icons"
 import { Col, Row, Menu, Button } from "antd";
 
 import rehypeKatex from "rehype-katex";
@@ -155,7 +155,7 @@ export default function ProblemIndividual() {
                   type="primary"
                   href={`/problems/problem/${id}/edit`}
                   shape="round"
-                  icon={<PlusOutlined />}
+                  icon={<EditOutlined />}
                   size="large"
                   style={{ float: "left", margin: "0px 30px"}}
                 >
