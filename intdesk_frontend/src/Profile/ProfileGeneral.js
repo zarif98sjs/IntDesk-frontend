@@ -27,7 +27,6 @@ import {
   BiLinkAlt
 } from "react-icons/bi";
 import { useParams } from "react-router-dom";
-import assesment from "../images/assesment.png";
 import discussion from "../images/discussion2.png";
 import problem_img from "../images/problem.png";
 import Navbar from "../Navbar/Navbar";
@@ -54,16 +53,20 @@ const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
   }
 );
 function ProfileGeneral() {
+  
+  
+
   const params = useParams();
   const username = params.username;
-
+  
   const [userInfo, setUserInfo] = useState([]);
+  const [passedAssess, setPassedAssess] = useState([]);
 
   useEffect(() => {
-    const fetchUserInfo = async () => {
-      const authToken = JSON.parse(localStorage.getItem("authToken"));
-      console.log("AUTH TOKEN in local storage: ", authToken);
+    
+    const authToken = JSON.parse(localStorage.getItem("authToken"));
 
+    const fetchUserInfo = async () => {
       await axios
         .get("http://localhost:8000/users/user/".concat(username), {
           headers: {
@@ -82,7 +85,44 @@ function ProfileGeneral() {
         });
     };
 
+    // Extracting this method made it accessible for context/prop-drilling
+    const fetchAssessments = async () => {
+      await axios
+        .get("http://localhost:8000/assessments/user_taken_assessments/", {
+          headers: {
+            Authorization: "Token ".concat(authToken.token),
+            "Content-Type": "application/json",
+          },
+        })
+        .then((res) => {
+          // console.log(window.$log = res.data);
+          const ara = res.data;
+          console.log((window.$log = ara));
+          // console.log(ara.assessment);
+          // setAssessments(ara);
+          // setAssessmentsTemp(ara);
+
+          let tempPassed = [];
+
+          // for loop to get the user name
+          for (let i = 0; i < ara.length; i += 1) {
+            // loop through tags if tags not null
+            //   console.log(ara[i].assessment.roles);
+            console.log(ara[i].passed);
+            if (ara[i].passed === true) {
+              tempPassed.push(ara[i].assessment);
+            }
+          }
+          setPassedAssess(tempPassed);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      };
+
     fetchUserInfo();
+    fetchAssessments();
+
   }, [username]);
 
   return (
@@ -114,25 +154,17 @@ function ProfileGeneral() {
           </Card>
           {/* </p> */}
 
-          <div style={{ textAlign: "right" }}>
-            <Badge.Ribbon text="C++ Intermediate">
-              <Card title=" " size="small">
-                <i>Solved 50 problems in C++</i>
-              </Card>
-            </Badge.Ribbon>
-
-            <Badge.Ribbon text="Algorithm Master" color="red">
-              <Card title=" " size="small">
-                <i>Solved 100 Algorithm Problems</i>
-              </Card>
-            </Badge.Ribbon>
-
-            {/* get a random color */}
-            <Badge.Ribbon text="Data Structure Master" color="pink">
-              <Card title=" " size="small">
-                <i>Solved 100 Data Structure Problmes</i>
-              </Card>
-            </Badge.Ribbon>
+          <div>
+            {passedAssess.map((item, key) => (
+              <p align="center">
+                <Badge.Ribbon text={item.skill_name} color="red">
+                  <Avatar
+                    src={item.image_link}
+                    style={{ align: "center", margin: "10px" }}
+                  />
+                </Badge.Ribbon>
+              </p>
+            ))}
           </div>
 
           <Descriptions
@@ -248,7 +280,8 @@ function ProfileGeneral() {
                 <Card
                   style={{ width: 250, border: "groove" }}
                   cover={
-                    <a href="/mydiscussions">
+                    // <a href={"/mydiscussions/"+username}>
+                    <a href={`/discussions/${username}`}>
                       <img
                         alt="example"
                         src={discussion}
@@ -261,30 +294,6 @@ function ProfileGeneral() {
                     title="Discussions"
                     description={`${userInfo.username}'s discussions`}
                     style={{ display: "block" }}
-                  />
-                </Card>
-
-                <Card
-                  style={{ width: 250, border: "groove" }}
-                  cover={
-                    <a href="/">
-                      <img
-                        alt="example"
-                        src={assesment}
-                        style={{
-                          width: "70%",
-                          padding: "12%",
-                        }}
-                      />
-                    </a>
-                  }
-                >
-                  <Meta
-                    title="Assesments"
-                    description={`${userInfo.username}'s assesments`}
-                    style={{
-                      display: "block",
-                    }}
                   />
                 </Card>
               </Space>
