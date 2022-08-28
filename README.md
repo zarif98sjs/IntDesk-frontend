@@ -1,22 +1,24 @@
 # **`IntDesk`**
 
+![](intdesk_frontend\src\images\logo9.png)
+
+<p align='center'>
 Your go-to interview preparation platform
+</p>
 
-# Setup and Start
+# **Project Overview**
 
-- `yarn install`
-- `yarn start`
+`IntDesk` is an all-in-one interview preperation platform. Here the users can not only solve problems that are asked in interviews of different software companies, but also can take assesments and earn different badges to showcase their skills. They can also dicuss about interview problems and many more topics!
 
-# Following the template
+# **Project Architecture**
 
-- include `<Navbar />` in all your apps, to use the same navbar. For example, look at the `App.js` file
+We followed the MVC Architecture for this project
 
-  ```js
-  export default function App() {
-    return (
-      <div className="">
-        <Navbar />
-      </div>
-    );
-  }
-  ```
+![](architecture/architecture.png)
+
+# **Tech Stack & Tools**
+
+- Frontend : `React`, `HTML`, `CSS`
+- Backend : `Django Rest Framework`
+- Database : `PostgreSQL`
+- Miscellaneous : `Docker`, `Postman` 
