@@ -1,5 +1,11 @@
+import {
+  CheckCircleTwoTone,
+  ProjectFilled,
+  PlusOutlined,
+  EditOutlined 
+} from "@ant-design/icons";
 
-import { Card, Space } from "antd";
+import { Card, Space, Avatar } from "antd";
 import RecommendedAssess from "./Assessments/recommendedAssess";
 import RecommendProblems from "./Problems/RecommendProblems";
 import logo from './images/logo5.png';
@@ -61,6 +67,7 @@ export default function Home() {
                     src={discussion}
                     style={{ width: "70%", padding: "12%" }}
                   />
+                 
                 </a>
               }
               actions={

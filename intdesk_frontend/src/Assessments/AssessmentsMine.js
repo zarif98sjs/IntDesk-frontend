@@ -1,3 +1,4 @@
+import { ProjectFilled } from "@ant-design/icons";
 import { Avatar, Badge, Empty, Input, List, Select, Space } from "antd";
 import { Link } from 'react-router-dom';
 import axios from "axios";
@@ -282,7 +283,8 @@ function AssessmentsMine() {
             <List.Item>
 
               <List.Item.Meta
-                avatar={<Avatar src={item.image_link} />}
+                // avatar={<Avatar src={item.image_link} />}
+                avatar={<Avatar src={<ProjectFilled style={{ fontSize: "50px", color: "#08c" }} /> }/> }
                 title={<a href={validLink(item.ID, takenTimes[index])}>{item.skill_name}</a>}
                 description={<p>{countDays(takenTimes[index])}<br />
                   Last taken on {Moment(takenTimes[index]).format("DD MMM,YYYY")}<br /></p>}
@@ -297,7 +299,8 @@ function AssessmentsMine() {
           renderItem={(item, index) => (
             <List.Item>
               <List.Item.Meta
-                avatar={<Avatar src={item.image_link} />}
+                // avatar={<Avatar src={item.image_link} />}
+                avatar={<Avatar src={<ProjectFilled style={{ fontSize: "50px", color: "#08c" }} /> }/> }
                 title={<a href={"/assessments/".concat(item.id)}>{item.skill_name}</a>}
                 description={<p>{countDays(takenTimesTemp[index])}<br />
                   Last taken on {Moment(takenTimesTemp[index]).format("DD MMM,YYYY")}<br /></p>}
@@ -318,7 +321,8 @@ function AssessmentsMine() {
         renderItem={(item) => (
           <List.Item>
             <List.Item.Meta
-              avatar={<Avatar src={item.image_link} />}
+              // avatar={<Avatar src={item.image_link} />}
+              avatar={<Avatar src={<ProjectFilled style={{ fontSize: "50px", color: "#08c" }} /> }/> }
               title={<a href={"/assessments/".concat(item.id)}>{item.skill_name}</a>}
               description={commaSeperate(item.roles, ", ")}
             />
@@ -332,7 +336,8 @@ function AssessmentsMine() {
         renderItem={(item) => (
           <List.Item>
             <List.Item.Meta
-              avatar={<Avatar src={item.image_link} />}
+              // avatar={<Avatar src={item.image_link} />}
+              avatar={<Avatar src={<ProjectFilled style={{ fontSize: "50px", color: "#08c" }} /> }/> }
               title={<a href={"/assessments/".concat(item.id)}>{item.skill_name}</a>}
               description={commaSeperate(item.roles, ", ")}
             />
@@ -389,8 +394,9 @@ function AssessmentsMine() {
       <div style={{ margin: '20px' }} >
         {passedAssess.map((item, key) => (
           <Badge >
-            <Avatar src={item.image_link} /><br />
-            <h4>{item.skill_name}</h4>
+            {/* <Avatar src={item.image_link} /><br /> */}
+            <Avatar src={<ProjectFilled style={{ fontSize: "50px", color: "#08c" }} /> }/> 
+            <h4>{" "}{item.skill_name}</h4>
           </Badge>
         ))}
       </div>

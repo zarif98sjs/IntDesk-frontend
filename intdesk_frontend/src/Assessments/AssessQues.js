@@ -118,7 +118,7 @@ function AssessmentsQues(props) {
 
   const fetchQuestions = async () => {
     // console.log("Complete ", complete)
-    if (QuesId.length === 6) {
+    if (QuesId.length === 15) {
       setIsLoaded(false);
       console.log("QuesId Length : ", QuesId.length);
       setComplete(true);
@@ -144,7 +144,8 @@ function AssessmentsQues(props) {
       .then(res => {
         // console.log(window.$log = res.data);
         const ara = res.data;
-        // console.log(window.$log = ara);
+        console.log("question got");
+        console.log(window.$log = ara);
         getOptions(ara.id);
         setQuestion(ara);
         setSeconds(ara.time);
