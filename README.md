@@ -22,3 +22,15 @@ We followed the MVC Architecture for this project
 - Backend : `Django Rest Framework`
 - Database : `PostgreSQL`
 - Miscellaneous : `Docker`, `Postman` 
+  
+# **Features**
+
+## Problems
+
+## Assesments
+
+## Discussions
+
+## Profile
+
+## Recommendation
