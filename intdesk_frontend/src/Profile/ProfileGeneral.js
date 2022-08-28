@@ -59,6 +59,8 @@ function ProfileGeneral() {
   const params = useParams();
   const username = params.username;
   
+  
+  
   const [userInfo, setUserInfo] = useState([]);
   const [passedAssess, setPassedAssess] = useState([]);
 
