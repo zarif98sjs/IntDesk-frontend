@@ -1,9 +1,9 @@
 import { Input, Select, Space, Table, Tag } from "antd"
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
 
 import Navbar from "../Navbar/Navbar"
-import BookMarksMine from "./BookMarksMine"
 
 import "./problems.css"
 
@@ -11,12 +11,13 @@ const { Option } = Select;
 const { Search } = Input;
 
 
-export default function ProblemMine(){
+export default function ProblemOthers(){
 
   
 
   const [authToken, setAuthToken] = useState(JSON.parse(localStorage.getItem("authToken")));
-  const [username, setUserName] = useState(JSON.parse(localStorage.getItem("user")).username);
+  const [username, setUserName] = useState(useParams().username);
+  console.log(username);
   
   const [solved, setSolved] = useState([]);
   const [attempted, setAttempted] = useState([]);
@@ -41,7 +42,7 @@ export default function ProblemMine(){
       key: 'name',
       render: (_, record) => (
         <Space size="middle">
-          <a href={`/problems/problem/${record.id}/submissions`} >{record.name}</a>
+          <a href={`/problems/problem/${record.id}`} >{record.name}</a>
         </Space>
       ),
     },
@@ -303,7 +304,7 @@ export default function ProblemMine(){
           }
             
         </div>
-          <BookMarksMine />
+          
         </div>
     )
 }

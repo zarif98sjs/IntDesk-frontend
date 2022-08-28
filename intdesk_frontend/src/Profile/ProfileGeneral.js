@@ -84,7 +84,7 @@ function ProfileGeneral() {
     // Extracting this method made it accessible for context/prop-drilling
     const fetchAssessments = async () => {
       await axios
-        .get("http://localhost:8000/assessments/user_taken_assessments/", {
+        .get("http://localhost:8000/assessments/user_taken_assessments/".concat(username).concat("/"), {
           headers: {
             Authorization: "Token ".concat(authToken.token),
             "Content-Type": "application/json",
@@ -262,7 +262,7 @@ function ProfileGeneral() {
                 <Card
                   style={{ width: 250, border: "groove" }}
                   cover={
-                    <a href="/mydiscussions">
+                    <a href={`/problems/${username}`}>
                       <img
                         alt="example"
                         src={problem_img}
