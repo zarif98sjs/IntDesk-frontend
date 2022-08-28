@@ -58,13 +58,23 @@ function Profile() {
   const [passedAssess, setPassedAssess] = useState([]);
 
   const [counts, setCounts] = useState("");
-  
-  
+
+  const [easyCount, setEasyCount] = useState(0);
+  const [mediumCount, setMediumCount] = useState(0);
+  const [hardCount, setHardCount] = useState(0);
+
+  const [easySolved, setEasySolved] = useState(0);
+  const [mediumSolved, setMediumSolved] = useState(0);
+  const [hardSolved, setHardSolved] = useState(0);
+
+  const [easyPercent, setEasyPercent] = useState(0);
+  const [mediumPercent, setMediumPercent] = useState(0);
+  const [hardPercent, setHardPercent] = useState(0);
+
   
   useEffect(() => {
     const authToken = JSON.parse(localStorage.getItem("authToken"));
-    const userId = JSON.parse(localStorage.getItem("user")).id;
-    console.log('userId', userId);
+    const userID = JSON.parse(localStorage.getItem("user")).id;
     
     const fetchUserInfo = async () => {
       console.log("AUTH TOKEN in local storage: ", authToken);
@@ -86,33 +96,6 @@ function Profile() {
           console.log(err);
         });
     };
-
-    
-    const fetchSolveCounts = async () => {
-
-      console.log("sending user id", userId);
-      
-      await axios
-        .get("http://localhost:8000/problems/problem/".concat(userId).concat("/get_solve_counts"),  {
-          headers: {
-            Authorization: "Token ".concat(authToken.token),
-          },
-        })
-        .then((res) => {
-          console.log("User Info FETCHED");
-          // console.log(window.$log = res.data.results);
-          const data = res.data;
-          console.log("counts returned", data);
-          setCounts(data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-
-    
-
-
 
     // Extracting this method made it accessible for context/prop-drilling
     const fetchAssessments = async () => {
@@ -143,6 +126,61 @@ function Profile() {
             }
           }
           setPassedAssess(tempPassed);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
+    const fetchSolveCounts = async () => {
+      
+      await axios
+        .get("http://localhost:8000/problems/problem/".concat(userID).concat("/get_solve_counts"),  {
+          headers: {
+            Authorization: "Token ".concat(authToken.token),
+          },
+        })
+        .then((res) => {
+          console.log("User Info FETCHED");
+          // console.log(window.$log = res.data.results);
+          const data = res.data;
+          console.log("counts returned", data);
+          setCounts(data);
+
+          if(data.all[0] != null){
+            setEasyCount(data.all[0][1]);
+          }
+          if(data.all[1] != null){
+            setMediumCount(data.all[1][1]);
+          }
+          if(data.all[2] != null){
+            setHardCount(data.all[2][1]);
+          }
+
+          if(data.solved[0] != null){
+            setEasySolved(data.solved[0][1]);
+          }
+
+          if(data.solved[1] != null){
+            setMediumSolved(data.solved[1][1]);
+          }
+
+          if(data.solved[2] != null){
+            setHardSolved(data.solved[2][1]);
+          }
+
+          if(data.all[0] != null && data.solved[0] != null && data.solved[0] > 0){
+            setEasyPercent(Math.round((data.solved[0][1] / data.all[0][1]) * 100));
+          }
+
+          if(data.all[1] != null && data.solved[1] != null && data.solved[1] > 0){
+            setMediumPercent(Math.round((data.solved[1][1] / data.all[1][1]) * 100));
+          }
+
+          if(data.all[2] != null && data.solved[2] != null && data.solved[2] > 0){
+            setHardPercent(Math.round((data.solved[2][1] / data.all[2][1]) * 100));
+          }
+
         })
         .catch((err) => {
           console.log(err);
@@ -431,7 +469,7 @@ function Profile() {
               paddingBottom: "5%",
             }}
           >
-            <Tooltip title="240/340 Easy Problems Solved">
+            <Tooltip title={`${easySolved}/${easyCount} Easy Problems Solved`}>
               <Progress
                 type="line"
                 strokeWidth={12}
@@ -439,12 +477,12 @@ function Profile() {
                   "0%": "#108ee9",
                   "100%": "#87d068",
                 }}
-                percent={90}
+                percent={easyPercent}
                 format={(percent) => `Easy Solved : ${percent}%`}
               />
             </Tooltip>
 
-            <Tooltip title="120/540 Medium Problems Solved">
+            <Tooltip title={`${mediumSolved}/${mediumCount} Medium Problems Solved`}>
               <Progress
                 type="line"
                 strokeWidth={12}
@@ -452,12 +490,12 @@ function Profile() {
                   "0%": "#108ee9",
                   "100%": "#87d068",
                 }}
-                percent={30}
+                percent={mediumPercent}
                 format={(percent) => `Medium Solved : ${percent}%`}
               />
             </Tooltip>
 
-            <Tooltip title="30/180 Hard Problems Solved">
+            <Tooltip title={`${hardSolved}/${hardCount} Hard Problems Solved`}>
               <Progress
                 type="line"
                 strokeWidth={12}
@@ -465,7 +503,7 @@ function Profile() {
                   "0%": "#108ee9",
                   "100%": "#87d068",
                 }}
-                percent={9.8}
+                percent={hardPercent}
                 format={(percent) => `Hard Solved : ${percent}%`}
               />
             </Tooltip>
