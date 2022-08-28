@@ -1,6 +1,6 @@
 # **`IntDesk`**
 
-![](intdesk_frontend\src\images\logo8.png)
+![](logo/logo2.png)
 
 <p align='center'>
 Your go-to interview preparation platform
