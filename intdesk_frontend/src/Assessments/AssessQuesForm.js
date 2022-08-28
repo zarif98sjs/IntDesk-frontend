@@ -1,4 +1,4 @@
-import { Button, InputNumber, Select, Space } from "antd";
+import { Button, InputNumber, Select } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -149,7 +149,9 @@ function AssessQuesForm() {
       .catch((err) => {
         console.log(err);
       });
-      window.location.href = "/assessments/".concat(assessmentID).concat("/assess_ques_new");
+    window.location.href = "/assessments/"
+      .concat(assessmentID)
+      .concat("/assess_ques_new");
   };
 
   const End = async () => {
@@ -220,7 +222,6 @@ function AssessQuesForm() {
               console.log((window.$log = res.data));
             });
         }
-
       })
       .catch((err) => {
         console.log(err);
@@ -235,7 +236,7 @@ function AssessQuesForm() {
       <div>
         <Navbar />
         <h1 id="title"> Add a Question </h1>
-        <div id='input_num'>
+        <div id="input_num">
           <h3>Difficulty level : </h3>
           <Select defaultValue="E" onSelect={handleDifficultyChange}>
             <Option value="E">Easy</Option>
@@ -245,51 +246,66 @@ function AssessQuesForm() {
         </div>
         <br />
         <div id="input_num">
-          <h3>Time : </h3><InputNumber defaultValue={0} onChange={timeChange} />
+          <h3>Time : </h3>
+          <InputNumber defaultValue={0} onChange={timeChange} />
         </div>
         <br />
         <h2 id="title"> Question Description </h2>
-        <Markdown
-          id="text_area"
-          callback={handleTextChange}
-          textarea={true}
-          customWidth={[50, 50]}
-          customLengt = {[10, 10]}
-        />
+        <div style={{ height: "200px", overflow: "auto" }}>
+          <Markdown
+            id="text_area"
+            callback={handleTextChange}
+            textarea={true}
+            customWidth={[50, 50]}
+          />
+        </div>
+
         <h2 id="title"> Option1 : </h2>
-        <Markdown
-          id="text_area"
-          callback={handleOption1Change}
-          textarea={true}
-          customWidth={[50, 50]}
-        />
+        <div style={{ height: "120px", overflow: "auto" }}>
+          <Markdown
+            id="text_area"
+            callback={handleOption1Change}
+            textarea={true}
+            customWidth={[50, 50]}
+          />
+        </div>
+
         <br />
         <h2 id="title"> Option2 : </h2>
-        <Markdown
-          id="text_area"
-          callback={handleOption2Change}
-          textarea={true}
-          customWidth={[50, 50]}
-        />
+        <div style={{ height: "120px", overflow: "auto" }}>
+          <Markdown
+            id="text_area"
+            callback={handleOption2Change}
+            textarea={true}
+            customWidth={[50, 50]}
+          />
+        </div>
+
         <br />
         <h2 id="title"> Option3 : </h2>
-        <Markdown
-          id="text_area"
-          callback={handleOption3Change}
-          textarea={true}
-          customWidth={[50, 50]}
-          customHeight = {[25, 25]}
-        />
+        <div style={{ height: "120px", overflow: "auto" }}>
+          <Markdown
+            id="text_area"
+            callback={handleOption3Change}
+            textarea={true}
+            customWidth={[50, 50]}
+            customHeight={[25, 25]}
+          />
+        </div>
+
         <br />
         <h2 id="title"> Option4 : </h2>
-        <Markdown
-          id="text_area"
-          callback={handleOption4Change}
-          textarea={true}
-          customWidth={[50, 50]}
-        />
+        <div style={{ height: "120px", overflow: "auto" }}>
+          <Markdown
+            id="text_area"
+            callback={handleOption4Change}
+            textarea={true}
+            customWidth={[50, 50]}
+          />
+        </div>
+
         <br />
-        <div id='input_num'>
+        <div id="input_num">
           <h3>Select the right Option : </h3>
           <Select defaultValue="1" onSelect={handleRightOptionChange}>
             <Option value="1">Option1</Option>
@@ -299,8 +315,27 @@ function AssessQuesForm() {
           </Select>
         </div>
         <br />
-        <Button style={{ align:'center', textAlign:'center' }} type="primary" id="button_submit" onClick={submitFunc}>Add another Question</Button>
-        <Button style={{ align:'center' , textAlign:'center' }} type="primary" id="button_submit" onClick={End}>End</Button>
+        <p align="center">
+          <Button
+            type="primary"
+            shape="round"
+            size="large"
+            style={{ margin: "10px 10px 10px 10px", width:'15%' }}
+            onClick={submitFunc}
+          >
+            Add another Question
+          </Button>
+          <br/>
+          <Button
+            type="primary"
+            shape="round"
+            size="large"
+            style={{ margin: "10px 10px 10px 10px" , width:'15%' }}
+            onClick={End}
+          >
+            End
+          </Button>
+        </p>
       </div>
     </div>
   );

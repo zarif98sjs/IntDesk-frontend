@@ -7,12 +7,11 @@ import {
 
 import { Card, Space, Avatar } from "antd";
 import RecommendedAssess from "./Assessments/recommendedAssess";
-import RecommendProblems from "./Problems/RecommendProblems";
-import logo from './images/logo5.png';
 import assesment from "./images/assesment.png";
 import discussion from "./images/discussion2.png";
 import problem_img from "./images/problem.png";
 import Navbar from "./Navbar/Navbar";
+import RecommendProblems from "./Problems/RecommendProblems";
 
 const { Meta } = Card;
 
@@ -43,13 +42,6 @@ export default function Home() {
                   />
                 </a>
               }
-              actions={
-                [
-                  // <SettingOutlined key="setting" />,
-                  // <EditOutlined key="edit" />,
-                  // <EllipsisOutlined key="ellipsis" />,
-                ]
-              }
             >
               <Meta
                 title="Problems"
@@ -69,13 +61,6 @@ export default function Home() {
                   />
                  
                 </a>
-              }
-              actions={
-                [
-                  // <SettingOutlined key="setting" />,
-                  // <EditOutlined key="edit" />,
-                  // <EllipsisOutlined key="ellipsis" />,
-                ]
               }
             >
               <Meta
@@ -99,13 +84,6 @@ export default function Home() {
                   />
                 </a>
               }
-              actions={
-                [
-                  // <SettingOutlined key="setting" />,
-                  // <EditOutlined key="edit" />,
-                  // <EllipsisOutlined key="ellipsis" />,
-                ]
-              }
             >
               <Meta
                 title="Assesments"
@@ -119,13 +97,13 @@ export default function Home() {
         </p>
       </div>
 
-      <div style={{padding:'20px'}}>
+      <div style={{paddingLeft:'10%',paddingRight:'10%'}}>
         <h1 align='center'> Recommended Assessments</h1>
                 <RecommendedAssess/>
 
       </div>
       
-      <div style={{padding:'20px'}}>
+      <div style={{paddingLeft:'10%',paddingRight:'10%'}}>
         <h1 align='center'> Recommended Problems</h1>
                 <RecommendProblems/>
 

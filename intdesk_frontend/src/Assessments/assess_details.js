@@ -1,14 +1,10 @@
 import {
   BuildTwoTone,
   CarryOutTwoTone,
-  CopyTwoTone,
-  HourglassTwoTone,
-  IdcardTwoTone,
-  ProjectFilled,
-  PlusOutlined,
-  EditOutlined 
+  CopyTwoTone, EditOutlined, HourglassTwoTone,
+  IdcardTwoTone, PlusOutlined, ProjectFilled
 } from "@ant-design/icons";
-import { Button, Grid } from "antd";
+import { Button } from "antd";
 import axios from "axios";
 import Moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -37,7 +33,6 @@ function AssessDetails() {
   if (JSON.parse(localStorage.getItem("user")) !== null) {
     isAdmin = JSON.parse(localStorage.getItem("user")).is_admin;
   }
-
 
   function commaSeperate(obj, separator) {
     console.log(obj);
@@ -191,40 +186,43 @@ function AssessDetails() {
           )}
         </p>
       </div>
-      <div>
-        {isAdmin &&
-          <div>
-            <div>
-            <Button
-              type="primary"
-              href={"/assessments/".concat(assessmentID).concat("/assess_edit")}
-              shape="round"
-              icon={<EditOutlined />}
-              size="large"
-              style={{ float: 'right', margin: '0px 10% 0px 0px' }}
-            >
-
-              Edit Assessment
-            </Button>
-            </div>
-            <div>
-            <Button
-              type="primary"
-              href={"/assessments/".concat(assessmentID).concat("/assess_ques_new")}
-              shape="round"
-              icon={<PlusOutlined />}
-              size="large"
-              style={{ float: 'right', margin: '0px 2% 0px 0px' }}
-            >
-
-              Add New Questions
-            </Button>
-            </div>
-          </div>
-        }
+      <div style={{
+        paddingTop: "1%",
+        width: "70%",
+      }}>
+        
+          {isAdmin && (
+          
+              <p align="center">
+                <Button
+                  type="primary"
+                  href={"/assessments/"
+                    .concat(assessmentID)
+                    .concat("/assess_edit")}
+                  shape="round"
+                  icon={<EditOutlined />}
+                  size="large"
+                  style={{ float: "right", margin: "0px 10% 0px 0px" }}
+                >
+                  Edit Assessment
+                </Button>
+                <Button
+                  type="primary"
+                  href={"/assessments/"
+                    .concat(assessmentID)
+                    .concat("/assess_ques_new")}
+                  shape="round"
+                  icon={<PlusOutlined />}
+                  size="large"
+                  style={{ float: "right", margin: "0px 2% 0px 0px" }}
+                >
+                  Add New Questions
+                </Button>
+              </p>
+            
+          )}
+        
       </div>
-
-
 
       <br />
     </div>

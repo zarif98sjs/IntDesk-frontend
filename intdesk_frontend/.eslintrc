@@ -22,6 +22,7 @@
     "jsx-ally/label-has-associated-control": 0,
     "no-useless-return": 0,
     "no-use-before-define": 0,
+    "no-nested-ternary": 0,
     "no-loop-func": 0,
     "no-await-in-loop": 0,
     "react/jsx-boolean-value": 0,
