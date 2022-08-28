@@ -261,7 +261,7 @@ function ProfileGeneral() {
                 <Card
                   style={{ width: 250, border: "groove" }}
                   cover={
-                    <a href="/mydiscussions">
+                    <a href={`/problems/${username}`}>
                       <img
                         alt="example"
                         src={problem_img}

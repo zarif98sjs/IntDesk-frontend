@@ -33,6 +33,7 @@ import DiscussionsMine from "./Discussions/DiscussionsMine";
 import DiscussionsNew from "./Discussions/DiscussionsNew";
 
 import DiscussionsGeneral from "./Discussions/DiscussionsGeneral";
+import ProblemOthers from "./Problems/ProblemsOthers";
 import Profile from "./Profile/Profile";
 import ProfileEdit from "./Profile/ProfileEdit";
 import ProfileGeneral from "./Profile/ProfileGeneral";
@@ -96,6 +97,7 @@ ReactDOM.render(
       <Route exact path="/problems/problem/:id/result" element={<ProblemResult />} />
       <Route exact path="/problems/problem/:id/submissions" element={<ProblemSubmissions />} />
       <Route exact path="/myproblems" element={<ProblemMine />} />
+      <Route exact path="/problems/:username" element={<ProblemOthers />} />
 
       <Route path="/error" element={<ErrorPage />} />
 
