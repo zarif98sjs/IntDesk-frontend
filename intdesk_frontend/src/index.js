@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 import Home from "./Home";
-
 import Login from "./LogIn";
 import Logout from "./LogOut";
 import Register from "./Register";
@@ -17,13 +16,14 @@ import ProblemResult from "./Problems/ProblemResult";
 import Problems from "./Problems/Problems";
 import ProblemSubmissions from "./Problems/ProblemSubmissions";
 
+import AssessEdit from "./Assessments/AssessEdit";
 import Assessments from "./Assessments/Assessments";
 import AssessmentsMine from "./Assessments/AssessmentsMine";
 import AssessmentsQues from "./Assessments/AssessQues";
 import AssessQuesForm from "./Assessments/AssessQuesForm";
+import AssessResult from "./Assessments/assessResult";
 import AssessDetails from "./Assessments/assess_details";
 import AssessForm from "./Assessments/assess_form";
-import AssessResult from "./Assessments/assessResult";
 
 import Populate from "./Assessments/data_populate";
 
@@ -32,6 +32,7 @@ import Discussions from "./Discussions/Discussions";
 import DiscussionsMine from "./Discussions/DiscussionsMine";
 import DiscussionsNew from "./Discussions/DiscussionsNew";
 
+import DiscussionsGeneral from "./Discussions/DiscussionsGeneral";
 import Profile from "./Profile/Profile";
 import ProfileEdit from "./Profile/ProfileEdit";
 import ProfileGeneral from "./Profile/ProfileGeneral";
@@ -56,6 +57,7 @@ ReactDOM.render(
       <Route exact path="/discussion/:id" element={<DiscussionIndividual />} />
       <Route exact path="/discussion/new" element={<DiscussionsNew />} />
       <Route exact path="/mydiscussions" element={<DiscussionsMine />} />
+      <Route exact path="/discussions/:username" element={<DiscussionsGeneral />} />
 
       <Route exact path="/login" element={<Login />} />
       <Route exact path="/logout" element={<Logout />} />
@@ -79,6 +81,7 @@ ReactDOM.render(
         element={<AssessQuesForm />}
       />
       <Route exact path="/assessments/assess_new" element={<AssessForm />} />
+      <Route exact path="/assessments/:id/assess_edit" element={<AssessEdit />} />
 
       <Route exact path="/assessments/populate" element={<Populate />} />
 

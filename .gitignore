@@ -1,1 +1,3 @@
 frontend_venv/
+node_modules
+build
