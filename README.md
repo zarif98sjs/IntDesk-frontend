@@ -8,7 +8,7 @@ Your go-to interview preparation platform
 
 # **Project Overview**
 
-`IntDesk` is an all-in-one interview preperation platform. Here the users can not only solve problems that are asked in interviews of different software companies, but also can take assesments and earn different badges to showcase their skills. They can also dicuss about interview problems and many more topics!
+`IntDesk` is an all-in-one tech interview preperation platform. Here the users can not only solve problems that are asked in interviews of different software companies, but also can take assesments and earn different badges to showcase their skills. They can also discuss about interview problems and many more topics!
 
 # **Project Architecture**
 
