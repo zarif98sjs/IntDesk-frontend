@@ -79,7 +79,7 @@ function ProfileGeneral() {
 
     const fetchUserInfo = async () => {
       await axios
-        .get("http://intdesk.herokuapp.com/users/user/".concat(username), {
+        .get("https://intdesk.herokuapp.com/users/user/".concat(username), {
           headers: {
             Authorization: "Token ".concat(authToken.token),
           },
@@ -99,7 +99,7 @@ function ProfileGeneral() {
     // Extracting this method made it accessible for context/prop-drilling
     const fetchAssessments = async () => {
       await axios
-        .get("http://intdesk.herokuapp.com/assessments/user_taken_assessments/".concat(username).concat("/"), {
+        .get("https://intdesk.herokuapp.com/assessments/user_taken_assessments/".concat(username).concat("/"), {
           headers: {
             Authorization: "Token ".concat(authToken.token),
             "Content-Type": "application/json",
@@ -134,7 +134,7 @@ function ProfileGeneral() {
     const fetchSolveCounts = async () => {
       
       await axios
-        .get("http://intdesk.herokuapp.com/problems/problem/".concat(userInfo.id).concat("/get_solve_counts"),  {
+        .get("https://intdesk.herokuapp.com/problems/problem/".concat(userInfo.id).concat("/get_solve_counts"),  {
           headers: {
             Authorization: "Token ".concat(authToken.token),
           },

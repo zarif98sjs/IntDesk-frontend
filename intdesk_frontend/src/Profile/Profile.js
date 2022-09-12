@@ -80,7 +80,7 @@ function Profile() {
       console.log("AUTH TOKEN in local storage: ", authToken);
 
       await axios
-        .get("http://intdesk.herokuapp.com/users/details/", {
+        .get("https://intdesk.herokuapp.com/users/details/", {
           headers: {
             Authorization: "Token ".concat(authToken.token),
           },
@@ -100,7 +100,7 @@ function Profile() {
     // Extracting this method made it accessible for context/prop-drilling
     const fetchAssessments = async () => {
       await axios
-        .get("http://intdesk.herokuapp.com/assessments/user_taken_assessments/", {
+        .get("https://intdesk.herokuapp.com/assessments/user_taken_assessments/", {
           headers: {
             Authorization: "Token ".concat(authToken.token),
             "Content-Type": "application/json",
@@ -135,7 +135,7 @@ function Profile() {
     const fetchSolveCounts = async () => {
       
       await axios
-        .get("http://intdesk.herokuapp.com/problems/problem/".concat(userID).concat("/get_solve_counts"),  {
+        .get("https://intdesk.herokuapp.com/problems/problem/".concat(userID).concat("/get_solve_counts"),  {
           headers: {
             Authorization: "Token ".concat(authToken.token),
           },

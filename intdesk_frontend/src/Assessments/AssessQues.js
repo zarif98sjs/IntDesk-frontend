@@ -53,7 +53,7 @@ function AssessmentsQues(props) {
     // console.log(ques_id);
 
     // console.log(questions[QuesId]);
-    axios.get("http://intdesk.herokuapp.com/assessments/assessment/".concat(ques_id).concat("/get_ques_options/"))
+    axios.get("https://intdesk.herokuapp.com/assessments/assessment/".concat(ques_id).concat("/get_ques_options/"))
       .then(res => {
         // console.log(window.$log = res.data);
         const ara = res.data;
@@ -86,7 +86,7 @@ function AssessmentsQues(props) {
 
     console.log(postData);
 
-    await axios.post('http://intdesk.herokuapp.com/assessments/assessment/'.concat(assessmentID).concat('/assessment_result/'), postData, {
+    await axios.post('https://intdesk.herokuapp.com/assessments/assessment/'.concat(assessmentID).concat('/assessment_result/'), postData, {
       headers: {
         'Authorization': 'Token '.concat(authToken.token),
         'Content-Type': 'application/json'
@@ -133,7 +133,7 @@ function AssessmentsQues(props) {
     };
 
     console.log(postData);
-    await axios.post("http://intdesk.herokuapp.com/assessments/assessment/".concat(assessmentID).concat("/questions/"), postData, {
+    await axios.post("https://intdesk.herokuapp.com/assessments/assessment/".concat(assessmentID).concat("/questions/"), postData, {
       headers: {
         // 'Authorization': 'Token '.concat(authToken.token),
         'Content-Type': 'application/json'
@@ -219,7 +219,7 @@ function AssessmentsQues(props) {
 
       // console.log(postData);
 
-      axios.post('http://intdesk.herokuapp.com/assessments/assessment/'.concat(assessmentID).concat('/get_right_answer/'), postData, {
+      axios.post('https://intdesk.herokuapp.com/assessments/assessment/'.concat(assessmentID).concat('/get_right_answer/'), postData, {
         headers: {
           // 'Authorization': 'Token '.concat(authToken.token),
           'Content-Type': 'application/json'

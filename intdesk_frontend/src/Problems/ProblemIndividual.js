@@ -38,7 +38,7 @@ export default function ProblemIndividual() {
   useEffect(() => {
     const fetchProblem = async () => {
       await axios
-        .get("http://intdesk.herokuapp.com/problems/problem/".concat(id))
+        .get("https://intdesk.herokuapp.com/problems/problem/".concat(id))
         .then((res) => {
           console.log((window.$log = res.data));
           console.log(res.data.roles);
@@ -53,7 +53,7 @@ export default function ProblemIndividual() {
         });
     };
     const checkBookMark = async () => {
-        await axios.get("http://intdesk.herokuapp.com/problems/problem/".concat(id).concat("/check_bookmark"), {
+        await axios.get("https://intdesk.herokuapp.com/problems/problem/".concat(id).concat("/check_bookmark"), {
             headers: {
               Authorization: "Token ".concat(authToken.token),
               "Content-Type": "application/json",
@@ -93,7 +93,7 @@ export default function ProblemIndividual() {
   const addBookMark = async () => {
     
 
-    await axios.post("http://intdesk.herokuapp.com/problems/problem/".concat(id).concat("/bookmark/"), {}, {
+    await axios.post("https://intdesk.herokuapp.com/problems/problem/".concat(id).concat("/bookmark/"), {}, {
         headers: {
           Authorization: "Token ".concat(authToken.token),
           "Content-Type": "application/json",
@@ -113,7 +113,7 @@ export default function ProblemIndividual() {
     const removeBookMark = async () => {
     
 
-        await axios.delete("http://intdesk.herokuapp.com/problems/problem/".concat(id).concat("/delete_bookmark/"), {
+        await axios.delete("https://intdesk.herokuapp.com/problems/problem/".concat(id).concat("/delete_bookmark/"), {
             headers: {
               Authorization: "Token ".concat(authToken.token),
               "Content-Type": "application/json",

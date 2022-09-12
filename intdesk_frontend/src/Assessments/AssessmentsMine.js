@@ -34,7 +34,7 @@ function AssessmentsMine() {
 
   // Extracting this method made it accessible for context/prop-drilling
   const fetchAssessments = async () => {
-    await axios.get("http://intdesk.herokuapp.com/assessments/user_taken_assessments/", {
+    await axios.get("https://intdesk.herokuapp.com/assessments/user_taken_assessments/", {
       headers: {
         'Authorization': 'Token '.concat(authToken.token),
         'Content-Type': 'application/json'
@@ -99,7 +99,7 @@ function AssessmentsMine() {
 
   // Extracting this method made it accessible for context/prop-drilling
   const fetchRecommendations = async () => {
-    await axios.get("http://intdesk.herokuapp.com/assessments/assessment/get_recommended/", {
+    await axios.get("https://intdesk.herokuapp.com/assessments/assessment/get_recommended/", {
       headers: {
         'Authorization': 'Token '.concat(authToken.token),
         'Content-Type': 'application/json'

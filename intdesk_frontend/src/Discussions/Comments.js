@@ -15,7 +15,7 @@ function Comments({ comments, discussionId }) {
     // DUMMY function, otherwise axios gets removed after cntrl+s -_-
     const fetchUser = async () => {
       await axios
-        .get("http://intdesk.herokuapp.com/users/details/", {
+        .get("https://intdesk.herokuapp.com/users/details/", {
           headers: {
             Authorization: "Token",
           },
@@ -75,7 +75,7 @@ function Comments({ comments, discussionId }) {
           console.log("authToken here", authToken);
           axios
             .post(
-              "http://intdesk.herokuapp.com/discussion/"
+              "https://intdesk.herokuapp.com/discussion/"
                 .concat(discussionId)
                 .concat("/comment/"),
               postData,
@@ -125,7 +125,7 @@ function Comments({ comments, discussionId }) {
           console.log("postData here", postData);
           axios
             .post(
-              "http://intdesk.herokuapp.com/discussion/"
+              "https://intdesk.herokuapp.com/discussion/"
                 .concat(discussionId)
                 .concat("/comment/"),
               postData,

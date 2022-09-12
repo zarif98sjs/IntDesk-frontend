@@ -39,7 +39,7 @@ function Assessments() {
 
   // Extracting this method made it accessible for context/prop-drilling
   const fetchAllAssessments = () => {
-    axios.get("http://intdesk.herokuapp.com/assessments/assessment/")
+    axios.get("https://intdesk.herokuapp.com/assessments/assessment/")
       .then(res => {
         console.log(window.$log = res.data);
         const ara = res.data;
@@ -73,7 +73,7 @@ function Assessments() {
 
   // Extracting this method made it accessible for context/prop-drilling
   const fetchAssessments = () => {
-    axios.get("http://intdesk.herokuapp.com/assessments/assessment/get_assessment/", {
+    axios.get("https://intdesk.herokuapp.com/assessments/assessment/get_assessment/", {
       headers: {
         'Authorization': 'Token '.concat(authToken.token),
         'Content-Type': 'application/json'
@@ -115,7 +115,7 @@ function Assessments() {
   };
 
   const fetchRecommendations = async () => {
-    await axios.get("http://intdesk.herokuapp.com/assessments/assessment/get_recommended/", {
+    await axios.get("https://intdesk.herokuapp.com/assessments/assessment/get_recommended/", {
       headers: {
         'Authorization': 'Token '.concat(authToken.token),
         'Content-Type': 'application/json'

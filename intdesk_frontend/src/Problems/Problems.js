@@ -180,7 +180,7 @@ export default function Problems(){
       return newdata
     }
     const fetchProblems = async () => {
-      axios.get("http://intdesk.herokuapp.com/problems/problem/")
+      axios.get("https://intdesk.herokuapp.com/problems/problem/")
       .then(res => {
         
         console.log(window.$log = res.data)

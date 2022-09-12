@@ -54,7 +54,7 @@ function ProblemNew() {
       let postData = {
         'roles': problem.roles
       }
-      let address = 'http://intdesk.herokuapp.com/problems/problem/'.concat(id).concat('/role/')
+      let address = 'https://intdesk.herokuapp.com/problems/problem/'.concat(id).concat('/role/')
 
       await axios.post(address ,postData,{headers: {
         'Authorization': 'Token '.concat(authToken.token),
@@ -81,7 +81,7 @@ function ProblemNew() {
     let postData = {
       'companies': problem.companies
     }
-    let address = 'http://intdesk.herokuapp.com/problems/problem/'.concat(id).concat('/company/')
+    let address = 'https://intdesk.herokuapp.com/problems/problem/'.concat(id).concat('/company/')
 
     await axios.post(address ,postData,{headers: {
       'Authorization': 'Token '.concat(authToken.token),
@@ -110,7 +110,7 @@ function ProblemNew() {
     let postData = {
       'subcategories': problem.subcategories
     }
-    let address = 'http://intdesk.herokuapp.com/problems/problem/'.concat(id).concat('/subcategory/')
+    let address = 'https://intdesk.herokuapp.com/problems/problem/'.concat(id).concat('/subcategory/')
 
     await axios.post(address ,postData,{headers: {
       'Authorization': 'Token '.concat(authToken.token),
@@ -137,7 +137,7 @@ function ProblemNew() {
       let postData = {
         'input_outputs': problem.inputOutputs
       }
-      let address = 'http://intdesk.herokuapp.com/problems/problem/'.concat(id).concat('/input_output/')
+      let address = 'https://intdesk.herokuapp.com/problems/problem/'.concat(id).concat('/input_output/')
 
       await axios.post(address ,postData,{headers: {
         'Authorization': 'Token '.concat(authToken.token),
@@ -190,7 +190,7 @@ function ProblemNew() {
     if (mode === 'POST'){
       console.log(id)
       console.log(mode)
-    await axios.post('http://intdesk.herokuapp.com/problems/problem/', postData ,{headers: {
+    await axios.post('https://intdesk.herokuapp.com/problems/problem/', postData ,{headers: {
         'Authorization': 'Token '.concat(authToken.token),
         'Content-Type' : 'application/json'
       }})
@@ -215,7 +215,7 @@ function ProblemNew() {
     }
     else 
     {
-      await axios.put('http://intdesk.herokuapp.com/problems/problem/'.concat(id).concat('/'), postData ,{headers: {
+      await axios.put('https://intdesk.herokuapp.com/problems/problem/'.concat(id).concat('/'), postData ,{headers: {
         'Authorization': 'Token '.concat(authToken.token),
         'Content-Type' : 'application/json'
       }})
@@ -265,7 +265,7 @@ function ProblemNew() {
       
       if(id) {
           const fetchProblem = async () => {
-            await axios.get("http://intdesk.herokuapp.com/problems/problem/".concat(id))
+            await axios.get("https://intdesk.herokuapp.com/problems/problem/".concat(id))
             .then(res => {
 
               console.log(res.data);

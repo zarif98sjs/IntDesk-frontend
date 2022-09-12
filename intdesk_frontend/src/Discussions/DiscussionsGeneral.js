@@ -88,7 +88,7 @@ function DiscussionsGeneral() {
   // Extracting this method made it accessible for context/prop-drilling
   const fetchDiscussions = async () => {
     await axios
-      .get("http://intdesk.herokuapp.com/myq/".concat(username), {
+      .get("https://intdesk.herokuapp.com/myq/".concat(username), {
         headers: {
           Authorization: "Token ".concat(authToken.token),
           "Content-Type": "application/json",

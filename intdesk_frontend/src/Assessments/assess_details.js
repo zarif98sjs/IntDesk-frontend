@@ -53,7 +53,7 @@ function AssessDetails() {
     const fetchDetails = async () => {
       await axios
         .get(
-          "http://intdesk.herokuapp.com/assessments/assessment/"
+          "https://intdesk.herokuapp.com/assessments/assessment/"
             .concat(assessmentID)
             .concat("/")
         )
@@ -82,7 +82,7 @@ function AssessDetails() {
 
       await axios
         .get(
-          "http://intdesk.herokuapp.com/assessments/assessment/"
+          "https://intdesk.herokuapp.com/assessments/assessment/"
             .concat(assessmentID)
             .concat("/get_user_status/"),
           {

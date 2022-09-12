@@ -98,8 +98,8 @@ export default function ProblemSubmissions() {
   useEffect(() => {
     const fetchSolutions = async () => {
         console.log("fetching solution for ", id);
-        await axios.get("http://intdesk.herokuapp.com/problems/problem/".concat(id).concat('/solutions'), {
-            // await axios.get("http://intdesk.herokuapp.com/mysolved/test_solutions"), {
+        await axios.get("https://intdesk.herokuapp.com/problems/problem/".concat(id).concat('/solutions'), {
+            // await axios.get("https://intdesk.herokuapp.com/mysolved/test_solutions"), {
             headers: {
               Authorization: "Token ".concat(authToken.token),
               "Content-Type": "application/json",

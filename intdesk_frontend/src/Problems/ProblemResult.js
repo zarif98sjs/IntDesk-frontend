@@ -111,7 +111,7 @@ function ProblemResult() {
         'status': finalResult.status
       }
       console.log("posting..", postData);
-      await axios.post('http://intdesk.herokuapp.com/problems/problem/'.concat(problem.id).concat('/solution/') ,
+      await axios.post('https://intdesk.herokuapp.com/problems/problem/'.concat(problem.id).concat('/solution/') ,
       postData,{headers: {
         'Authorization': 'Token '.concat(authToken.token),
         'Content-Type' : 'application/json'

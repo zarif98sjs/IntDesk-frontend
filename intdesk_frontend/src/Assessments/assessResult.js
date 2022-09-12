@@ -37,7 +37,7 @@ function AssessResult({ wrongQues, wrongOptions, wrongVal,  points, totalPoints 
         
             console.log(postData);
         
-            await axios.post('http://intdesk.herokuapp.com/assessments/assessment/'.concat(assessmentID).concat('/assessment_result/'), postData, {
+            await axios.post('https://intdesk.herokuapp.com/assessments/assessment/'.concat(assessmentID).concat('/assessment_result/'), postData, {
               headers: {
                 'Authorization': 'Token '.concat(authToken.token),
                 'Content-Type': 'application/json'

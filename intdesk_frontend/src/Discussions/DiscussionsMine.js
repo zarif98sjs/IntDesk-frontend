@@ -83,7 +83,7 @@ function DiscussionsMine() {
   // Extracting this method made it accessible for context/prop-drilling
   const fetchDiscussions = async () => {
     await axios
-      .get("http://intdesk.herokuapp.com/myq/", {
+      .get("https://intdesk.herokuapp.com/myq/", {
         headers: {
           Authorization: "Token ".concat(authToken.token),
           "Content-Type": "application/json",

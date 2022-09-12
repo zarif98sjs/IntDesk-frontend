@@ -16,7 +16,7 @@ export default function RecommendProblems () {
     useEffect(() => {
 
         const fetchPopular = async () => {
-            axios.get("http://intdesk.herokuapp.com/problems/popular/")
+            axios.get("https://intdesk.herokuapp.com/problems/popular/")
             .then(res => {
         
                 console.log(window.$log = res.data)
@@ -29,7 +29,7 @@ export default function RecommendProblems () {
         }
 
         const fetchRecommended = async () => {
-            axios.get("http://intdesk.herokuapp.com/problems/recommended/", {
+            axios.get("https://intdesk.herokuapp.com/problems/recommended/", {
                 headers: {
                   Authorization: "Token ".concat(authToken.token),
                   "Content-Type": "application/json",

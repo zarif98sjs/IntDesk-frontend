@@ -25,7 +25,7 @@ function Login() {
 
     // use await so that next request doesn't happen until this request is done
     await axios
-      .post("http://intdesk.herokuapp.com/users/login/", postData, {
+      .post("https://intdesk.herokuapp.com/users/login/", postData, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -50,7 +50,7 @@ function Login() {
     console.log("AUTH TOKEN in local storage: ", authToken);
 
     await axios
-      .get("http://intdesk.herokuapp.com/users/details/", {
+      .get("https://intdesk.herokuapp.com/users/details/", {
         headers: {
           Authorization: "Token ".concat(authToken.token),
         },

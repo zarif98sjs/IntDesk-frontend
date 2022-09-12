@@ -90,7 +90,7 @@ function AssessQuesForm() {
 
     await axios
       .post(
-        "http://intdesk.herokuapp.com/assessments/assessment/"
+        "https://intdesk.herokuapp.com/assessments/assessment/"
           .concat(assessmentID)
           .concat("/question/"),
         postData,
@@ -130,7 +130,7 @@ function AssessQuesForm() {
 
           axios
             .post(
-              "http://intdesk.herokuapp.com/assessments/assessment/"
+              "https://intdesk.herokuapp.com/assessments/assessment/"
                 .concat(assessmentID)
                 .concat("/options/"),
               postOptionData,
@@ -168,7 +168,7 @@ function AssessQuesForm() {
 
     await axios
       .post(
-        "http://intdesk.herokuapp.com/assessments/assessment/"
+        "https://intdesk.herokuapp.com/assessments/assessment/"
           .concat(assessmentID)
           .concat("/question/"),
         postData,
@@ -207,7 +207,7 @@ function AssessQuesForm() {
 
           axios
             .post(
-              "http://intdesk.herokuapp.com/assessments/assessment/"
+              "https://intdesk.herokuapp.com/assessments/assessment/"
                 .concat(assessmentID)
                 .concat("/options/"),
               postOptionData,

@@ -40,7 +40,7 @@ function ProfileEdit() {
       console.log("AUTH TOKEN in local storage: ", authToken);
 
       await axios
-        .get("http://intdesk.herokuapp.com/users/details/", {
+        .get("https://intdesk.herokuapp.com/users/details/", {
           headers: {
             Authorization: "Token ".concat(authToken.token),
           },
@@ -99,7 +99,7 @@ function ProfileEdit() {
     console.log("Post Data: ", postData);
 
     axios
-      .put("http://intdesk.herokuapp.com/users/details/", postData, {
+      .put("https://intdesk.herokuapp.com/users/details/", postData, {
         headers: {
           Authorization: "Token ".concat(authToken.token),
           "Content-Type": "application/json",

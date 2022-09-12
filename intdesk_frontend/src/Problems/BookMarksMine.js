@@ -20,7 +20,7 @@ export default function BookMarksMine(){
   useEffect(() => {
     
     const fetchProblems = async () => {
-      axios.get("http://intdesk.herokuapp.com/problems/mybookmarks", {
+      axios.get("https://intdesk.herokuapp.com/problems/mybookmarks", {
         headers: {
           Authorization: "Token ".concat(authToken.token),
           "Content-Type": "application/json",

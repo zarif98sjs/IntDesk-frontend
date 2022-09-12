@@ -408,7 +408,7 @@ function Populate() {
 
           axios
             .post(
-              "http://intdesk.herokuapp.com/assessments/assessment/"
+              "https://intdesk.herokuapp.com/assessments/assessment/"
                 .concat(assessmentID)
                 .concat("/question/"),
               postData,
@@ -453,7 +453,7 @@ function Populate() {
 
                 axios
                   .post(
-                    "http://intdesk.herokuapp.com/assessments/assessment/"
+                    "https://intdesk.herokuapp.com/assessments/assessment/"
                       .concat(assessmentID)
                       .concat("/options/"),
                     postOptionData,

@@ -33,7 +33,7 @@ export default function IDE({problem, id}){
     useEffect(() => {
         const fetchSolution = async () => {
             console.log("fetching solution for ", id);
-            await axios.get("http://intdesk.herokuapp.com/problems/problem/".concat(id).concat('/latest_solution'), {
+            await axios.get("https://intdesk.herokuapp.com/problems/problem/".concat(id).concat('/latest_solution'), {
                 headers: {
                   Authorization: "Token ".concat(authToken.token),
                   "Content-Type": "application/json",

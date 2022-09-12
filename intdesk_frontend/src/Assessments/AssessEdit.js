@@ -51,7 +51,7 @@ function AssessEdit() {
       console.log("AUTH TOKEN in local storage: ", authToken);
 
       await axios
-        .get("http://intdesk.herokuapp.com/assessments/assessment/".concat(assessmentID).concat("/"), {
+        .get("https://intdesk.herokuapp.com/assessments/assessment/".concat(assessmentID).concat("/"), {
           headers: {
             Authorization: "Token ".concat(authToken.token),
           },
@@ -95,7 +95,7 @@ function AssessEdit() {
     console.log("Post Data: ", postData);
 
     axios
-      .put("http://intdesk.herokuapp.com/assessments/assessment/".concat(assessmentID).concat("/"), postData, {
+      .put("https://intdesk.herokuapp.com/assessments/assessment/".concat(assessmentID).concat("/"), postData, {
         headers: {
           Authorization: "Token ".concat(authToken.token),
           "Content-Type": "application/json",
