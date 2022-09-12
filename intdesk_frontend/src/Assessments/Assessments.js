@@ -1,14 +1,10 @@
 import {
-  CheckCircleTwoTone,
-  ProjectFilled,
-  PlusOutlined,
-  EditOutlined 
+    CheckCircleTwoTone, PlusOutlined, ProjectFilled
 } from "@ant-design/icons";
-import { Card, Button, Input, Select, Space, Avatar, List } from 'antd';
-import { Navigate, Link } from 'react-router-dom';
+import { Avatar, Button, Input, List, Select, Space } from 'antd';
 import axios from "axios";
-import React, { useEffect, useState } from "react";
 import Moment from "moment";
+import React, { useEffect, useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import "./assess.css";
 
@@ -43,7 +39,7 @@ function Assessments() {
 
   // Extracting this method made it accessible for context/prop-drilling
   const fetchAllAssessments = () => {
-    axios.get("http://localhost:8000/assessments/assessment/")
+    axios.get("http://intdesk.herokuapp.com/assessments/assessment/")
       .then(res => {
         console.log(window.$log = res.data);
         const ara = res.data;
@@ -77,7 +73,7 @@ function Assessments() {
 
   // Extracting this method made it accessible for context/prop-drilling
   const fetchAssessments = () => {
-    axios.get("http://localhost:8000/assessments/assessment/get_assessment/", {
+    axios.get("http://intdesk.herokuapp.com/assessments/assessment/get_assessment/", {
       headers: {
         'Authorization': 'Token '.concat(authToken.token),
         'Content-Type': 'application/json'
@@ -119,7 +115,7 @@ function Assessments() {
   };
 
   const fetchRecommendations = async () => {
-    await axios.get("http://localhost:8000/assessments/assessment/get_recommended/", {
+    await axios.get("http://intdesk.herokuapp.com/assessments/assessment/get_recommended/", {
       headers: {
         'Authorization': 'Token '.concat(authToken.token),
         'Content-Type': 'application/json'

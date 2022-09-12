@@ -97,7 +97,7 @@ function Discussions() {
   // Extracting this method made it accessible for context/prop-drilling
   const fetchDiscussions = async () => {
     await axios
-      .get("http://localhost:8000/discussion/")
+      .get("http://intdesk.herokuapp.com/discussion/")
       .then((res) => {
         console.log((window.$log = res.data));
         const ara = res.data;

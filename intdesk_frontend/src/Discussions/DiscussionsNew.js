@@ -61,7 +61,7 @@ function DiscussionsNew() {
     };
 
     await axios
-      .post("http://localhost:8000/discussion/", postData, {
+      .post("http://intdesk.herokuapp.com/discussion/", postData, {
         headers: {
           Authorization: "Token ".concat(authToken.token),
           "Content-Type": "application/json",

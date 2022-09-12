@@ -1,8 +1,8 @@
 import {
-  BuildTwoTone,
-  CarryOutTwoTone,
-  CopyTwoTone, EditOutlined, HourglassTwoTone,
-  IdcardTwoTone, PlusOutlined, ProjectFilled
+    BuildTwoTone,
+    CarryOutTwoTone,
+    CopyTwoTone, EditOutlined, HourglassTwoTone,
+    IdcardTwoTone, PlusOutlined, ProjectFilled
 } from "@ant-design/icons";
 import { Button } from "antd";
 import axios from "axios";
@@ -53,7 +53,7 @@ function AssessDetails() {
     const fetchDetails = async () => {
       await axios
         .get(
-          "http://localhost:8000/assessments/assessment/"
+          "http://intdesk.herokuapp.com/assessments/assessment/"
             .concat(assessmentID)
             .concat("/")
         )
@@ -82,7 +82,7 @@ function AssessDetails() {
 
       await axios
         .get(
-          "http://localhost:8000/assessments/assessment/"
+          "http://intdesk.herokuapp.com/assessments/assessment/"
             .concat(assessmentID)
             .concat("/get_user_status/"),
           {

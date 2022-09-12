@@ -1,9 +1,9 @@
 import { ProjectFilled } from "@ant-design/icons";
 import { Avatar, Badge, Empty, Input, List, Select, Space } from "antd";
-import { Link } from 'react-router-dom';
 import axios from "axios";
 import Moment from "moment";
 import React, { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
 import Navbar from "../Navbar/Navbar";
 import "./assess.css";
 
@@ -34,7 +34,7 @@ function AssessmentsMine() {
 
   // Extracting this method made it accessible for context/prop-drilling
   const fetchAssessments = async () => {
-    await axios.get("http://localhost:8000/assessments/user_taken_assessments/", {
+    await axios.get("http://intdesk.herokuapp.com/assessments/user_taken_assessments/", {
       headers: {
         'Authorization': 'Token '.concat(authToken.token),
         'Content-Type': 'application/json'
@@ -99,7 +99,7 @@ function AssessmentsMine() {
 
   // Extracting this method made it accessible for context/prop-drilling
   const fetchRecommendations = async () => {
-    await axios.get("http://localhost:8000/assessments/assessment/get_recommended/", {
+    await axios.get("http://intdesk.herokuapp.com/assessments/assessment/get_recommended/", {
       headers: {
         'Authorization': 'Token '.concat(authToken.token),
         'Content-Type': 'application/json'

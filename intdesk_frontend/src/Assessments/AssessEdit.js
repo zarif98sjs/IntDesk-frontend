@@ -1,20 +1,11 @@
-import { CodeOutlined, RocketOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Select, Typography } from "antd";
+import { RocketOutlined } from "@ant-design/icons";
+import { Button, Form, Input, Select } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useParams, Navigate } from "react-router-dom";
 import {
-  BiBriefcase,
-  BiBuildings,
-  BiCurrentLocation,
-  BiFirstPage,
-  BiLastPage,
-  BiLinkAlt,
-  BiLocationPlus,
-  BiMailSend,
-  BiUserMinus
+    BiLinkAlt
 } from "react-icons/bi";
-import { GoMarkGithub } from "react-icons/go";
+import { Navigate, useParams } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 
 const { Option } = Select;
@@ -60,7 +51,7 @@ function AssessEdit() {
       console.log("AUTH TOKEN in local storage: ", authToken);
 
       await axios
-        .get("http://localhost:8000/assessments/assessment/".concat(assessmentID).concat("/"), {
+        .get("http://intdesk.herokuapp.com/assessments/assessment/".concat(assessmentID).concat("/"), {
           headers: {
             Authorization: "Token ".concat(authToken.token),
           },
@@ -104,7 +95,7 @@ function AssessEdit() {
     console.log("Post Data: ", postData);
 
     axios
-      .put("http://localhost:8000/assessments/assessment/".concat(assessmentID).concat("/"), postData, {
+      .put("http://intdesk.herokuapp.com/assessments/assessment/".concat(assessmentID).concat("/"), postData, {
         headers: {
           Authorization: "Token ".concat(authToken.token),
           "Content-Type": "application/json",

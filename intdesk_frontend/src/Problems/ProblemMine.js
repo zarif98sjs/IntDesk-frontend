@@ -137,7 +137,7 @@ export default function ProblemMine(){
       return newdata
     }
     const fetchAttempted = async () => {
-      axios.get("http://localhost:8000/problems/myattempted/".concat(username), {
+      axios.get("http://intdesk.herokuapp.com/problems/myattempted/".concat(username), {
         headers: {
           Authorization: "Token ".concat(authToken.token),
           "Content-Type": "application/json",
@@ -156,7 +156,7 @@ export default function ProblemMine(){
     }
 
     const fetchSolved = async () => {
-      axios.get("http://localhost:8000/problems/mysolved/".concat(username), {
+      axios.get("http://intdesk.herokuapp.com/problems/mysolved/".concat(username), {
         headers: {
           Authorization: "Token ".concat(authToken.token),
           "Content-Type": "application/json",

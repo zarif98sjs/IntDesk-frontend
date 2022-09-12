@@ -1,11 +1,9 @@
-import { Card, Button, Radio, Typography, List, Result } from 'antd';
-import ReactMarkdown from 'react-markdown';
-import { SnippetsFilled } from '@ant-design/icons';
-import { useParams, Navigate, Link } from 'react-router-dom';
+import { Radio, Result } from 'antd';
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import ReactMarkdown from 'react-markdown';
+import { Link, useParams } from 'react-router-dom';
 import remarkGfm from "remark-gfm";
-import Navbar from "../Navbar/Navbar";
 import "./assess.css";
 
 function AssessResult({ wrongQues, wrongOptions, wrongVal,  points, totalPoints }) {
@@ -39,7 +37,7 @@ function AssessResult({ wrongQues, wrongOptions, wrongVal,  points, totalPoints 
         
             console.log(postData);
         
-            await axios.post('http://localhost:8000/assessments/assessment/'.concat(assessmentID).concat('/assessment_result/'), postData, {
+            await axios.post('http://intdesk.herokuapp.com/assessments/assessment/'.concat(assessmentID).concat('/assessment_result/'), postData, {
               headers: {
                 'Authorization': 'Token '.concat(authToken.token),
                 'Content-Type': 'application/json'

@@ -1,8 +1,8 @@
+import { Card } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Card, Space, Tag } from "antd";
 import ProblemCardTable from "./ProblemCardTable";
-import "./problems.css"
+import "./problems.css";
 
 const { Meta } = Card;
 
@@ -16,7 +16,7 @@ export default function RecommendProblems () {
     useEffect(() => {
 
         const fetchPopular = async () => {
-            axios.get("http://localhost:8000/problems/popular/")
+            axios.get("http://intdesk.herokuapp.com/problems/popular/")
             .then(res => {
         
                 console.log(window.$log = res.data)
@@ -29,7 +29,7 @@ export default function RecommendProblems () {
         }
 
         const fetchRecommended = async () => {
-            axios.get("http://localhost:8000/problems/recommended/", {
+            axios.get("http://intdesk.herokuapp.com/problems/recommended/", {
                 headers: {
                   Authorization: "Token ".concat(authToken.token),
                   "Content-Type": "application/json",

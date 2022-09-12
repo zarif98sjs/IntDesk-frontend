@@ -1,30 +1,30 @@
 import {
-  CodeOutlined,
-  GithubOutlined,
-  LaptopOutlined,
-  NotificationOutlined,
-  RocketOutlined,
-  UserOutlined
+    CodeOutlined,
+    GithubOutlined,
+    LaptopOutlined,
+    NotificationOutlined,
+    RocketOutlined,
+    UserOutlined
 } from "@ant-design/icons";
 import {
-  Avatar,
-  Badge,
-  Card,
-  Descriptions,
-  Layout,
-  Progress,
-  Space,
-  Tag,
-  Tooltip
+    Avatar,
+    Badge,
+    Card,
+    Descriptions,
+    Layout,
+    Progress,
+    Space,
+    Tag,
+    Tooltip
 } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ActivityCalendar from "react-activity-calendar";
 import {
-  BiBriefcase,
-  BiBuildings,
-  BiCurrentLocation,
-  BiLinkAlt
+    BiBriefcase,
+    BiBuildings,
+    BiCurrentLocation,
+    BiLinkAlt
 } from "react-icons/bi";
 import { useParams } from "react-router-dom";
 import discussion from "../images/discussion2.png";
@@ -79,7 +79,7 @@ function ProfileGeneral() {
 
     const fetchUserInfo = async () => {
       await axios
-        .get("http://localhost:8000/users/user/".concat(username), {
+        .get("http://intdesk.herokuapp.com/users/user/".concat(username), {
           headers: {
             Authorization: "Token ".concat(authToken.token),
           },
@@ -99,7 +99,7 @@ function ProfileGeneral() {
     // Extracting this method made it accessible for context/prop-drilling
     const fetchAssessments = async () => {
       await axios
-        .get("http://localhost:8000/assessments/user_taken_assessments/".concat(username).concat("/"), {
+        .get("http://intdesk.herokuapp.com/assessments/user_taken_assessments/".concat(username).concat("/"), {
           headers: {
             Authorization: "Token ".concat(authToken.token),
             "Content-Type": "application/json",
@@ -134,7 +134,7 @@ function ProfileGeneral() {
     const fetchSolveCounts = async () => {
       
       await axios
-        .get("http://localhost:8000/problems/problem/".concat(userInfo.id).concat("/get_solve_counts"),  {
+        .get("http://intdesk.herokuapp.com/problems/problem/".concat(userInfo.id).concat("/get_solve_counts"),  {
           headers: {
             Authorization: "Token ".concat(authToken.token),
           },

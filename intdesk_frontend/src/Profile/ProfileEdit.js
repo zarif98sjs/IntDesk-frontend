@@ -3,15 +3,15 @@ import { Button, Form, Input, Select, Typography } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import {
-  BiBriefcase,
-  BiBuildings,
-  BiCurrentLocation,
-  BiFirstPage,
-  BiLastPage,
-  BiLinkAlt,
-  BiLocationPlus,
-  BiMailSend,
-  BiUserMinus
+    BiBriefcase,
+    BiBuildings,
+    BiCurrentLocation,
+    BiFirstPage,
+    BiLastPage,
+    BiLinkAlt,
+    BiLocationPlus,
+    BiMailSend,
+    BiUserMinus
 } from "react-icons/bi";
 import { GoMarkGithub } from "react-icons/go";
 import { Navigate } from "react-router-dom";
@@ -40,7 +40,7 @@ function ProfileEdit() {
       console.log("AUTH TOKEN in local storage: ", authToken);
 
       await axios
-        .get("http://localhost:8000/users/details/", {
+        .get("http://intdesk.herokuapp.com/users/details/", {
           headers: {
             Authorization: "Token ".concat(authToken.token),
           },
@@ -99,7 +99,7 @@ function ProfileEdit() {
     console.log("Post Data: ", postData);
 
     axios
-      .put("http://localhost:8000/users/details/", postData, {
+      .put("http://intdesk.herokuapp.com/users/details/", postData, {
         headers: {
           Authorization: "Token ".concat(authToken.token),
           "Content-Type": "application/json",

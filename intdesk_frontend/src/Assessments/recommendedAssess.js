@@ -1,15 +1,10 @@
 import {
-    CheckCircleTwoTone,
-    ProjectFilled,
-    PlusOutlined,
-    EditOutlined 
-  } from "@ant-design/icons";
+    ProjectFilled
+} from "@ant-design/icons";
 
-import React, { useEffect, useState } from 'react';
-import { Card, Button, Input, Select, Space, Avatar, List } from 'antd';
-import { Navigate, Link } from 'react-router-dom';
+import { Avatar, Input, List, Select } from 'antd';
 import axios from "axios";
-import Navbar from "../Navbar/Navbar";
+import React, { useEffect, useState } from 'react';
 import './assess.css';
 
 
@@ -27,7 +22,7 @@ function RecommendedAssess() {
 
 
   const fetchRecommendations = async () => {
-    await axios.get("http://localhost:8000/assessments/assessment/get_recommended/", {
+    await axios.get("http://intdesk.herokuapp.com/assessments/assessment/get_recommended/", {
       headers: {
         'Authorization': 'Token '.concat(authToken.token),
         'Content-Type': 'application/json'

@@ -1,10 +1,7 @@
-import { Card, Input, Select, Space, Table, Tag, Menu, Avatar } from "antd"
+import { Card, Input, Select, Space, Tag } from "antd"
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
 
-import Navbar from "../Navbar/Navbar"
-import bookmarkWhite from "../images/bookmark-white.png"
 import bookmarkBlack from "../images/bookmark-black.png"
 
 import "./problems.css"
@@ -23,7 +20,7 @@ export default function BookMarksMine(){
   useEffect(() => {
     
     const fetchProblems = async () => {
-      axios.get("http://localhost:8000/problems/mybookmarks", {
+      axios.get("http://intdesk.herokuapp.com/problems/mybookmarks", {
         headers: {
           Authorization: "Token ".concat(authToken.token),
           "Content-Type": "application/json",

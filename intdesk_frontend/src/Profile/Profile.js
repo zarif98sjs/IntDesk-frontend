@@ -1,31 +1,31 @@
 import {
-  CodeOutlined,
-  GithubOutlined,
-  LaptopOutlined,
-  NotificationOutlined,
-  RocketOutlined,
-  UserOutlined
+    CodeOutlined,
+    GithubOutlined,
+    LaptopOutlined,
+    NotificationOutlined,
+    RocketOutlined,
+    UserOutlined
 } from "@ant-design/icons";
 import {
-  Avatar,
-  Badge,
-  Button,
-  Card,
-  Descriptions,
-  Layout,
-  Progress,
-  Space,
-  Tag,
-  Tooltip
+    Avatar,
+    Badge,
+    Button,
+    Card,
+    Descriptions,
+    Layout,
+    Progress,
+    Space,
+    Tag,
+    Tooltip
 } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ActivityCalendar from "react-activity-calendar";
 import {
-  BiBriefcase,
-  BiBuildings,
-  BiCurrentLocation,
-  BiLinkAlt
+    BiBriefcase,
+    BiBuildings,
+    BiCurrentLocation,
+    BiLinkAlt
 } from "react-icons/bi";
 import assesment from "../images/assesment.png";
 import discussion from "../images/discussion2.png";
@@ -80,7 +80,7 @@ function Profile() {
       console.log("AUTH TOKEN in local storage: ", authToken);
 
       await axios
-        .get("http://localhost:8000/users/details/", {
+        .get("http://intdesk.herokuapp.com/users/details/", {
           headers: {
             Authorization: "Token ".concat(authToken.token),
           },
@@ -100,7 +100,7 @@ function Profile() {
     // Extracting this method made it accessible for context/prop-drilling
     const fetchAssessments = async () => {
       await axios
-        .get("http://localhost:8000/assessments/user_taken_assessments/", {
+        .get("http://intdesk.herokuapp.com/assessments/user_taken_assessments/", {
           headers: {
             Authorization: "Token ".concat(authToken.token),
             "Content-Type": "application/json",
@@ -135,7 +135,7 @@ function Profile() {
     const fetchSolveCounts = async () => {
       
       await axios
-        .get("http://localhost:8000/problems/problem/".concat(userID).concat("/get_solve_counts"),  {
+        .get("http://intdesk.herokuapp.com/problems/problem/".concat(userID).concat("/get_solve_counts"),  {
           headers: {
             Authorization: "Token ".concat(authToken.token),
           },

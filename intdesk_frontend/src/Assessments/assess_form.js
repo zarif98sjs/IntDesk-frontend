@@ -94,7 +94,7 @@ function AssessForm() {
     console.log(postData);
 
     await axios
-      .post("http://localhost:8000/assessments/assessment/", postData, {
+      .post("http://intdesk.herokuapp.com/assessments/assessment/", postData, {
         headers: {
           // 'Authorization': 'Token '.concat(authToken.token),
           "Content-Type": "application/json",

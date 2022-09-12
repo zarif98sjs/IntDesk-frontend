@@ -1,16 +1,16 @@
+import { EditOutlined } from "@ant-design/icons";
+import { Button, Col, Menu, Row } from "antd";
 import axios from "axios";
 import "katex/dist/katex.min.css";
 import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { useLocation, useParams, Link } from "react-router-dom";
-import { EditOutlined } from "@ant-design/icons"
-import { Col, Row, Menu, Button } from "antd";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 import rehypeKatex from "rehype-katex";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
-import bookmarkWhite from "../images/bookmark-white.png"
-import bookmarkBlack from "../images/bookmark-black.png"
+import bookmarkBlack from "../images/bookmark-black.png";
+import bookmarkWhite from "../images/bookmark-white.png";
 import Navbar from "../Navbar/Navbar";
 import IDE from "./IDE";
 import "./problems.css";
@@ -38,7 +38,7 @@ export default function ProblemIndividual() {
   useEffect(() => {
     const fetchProblem = async () => {
       await axios
-        .get("http://localhost:8000/problems/problem/".concat(id))
+        .get("http://intdesk.herokuapp.com/problems/problem/".concat(id))
         .then((res) => {
           console.log((window.$log = res.data));
           console.log(res.data.roles);
@@ -53,7 +53,7 @@ export default function ProblemIndividual() {
         });
     };
     const checkBookMark = async () => {
-        await axios.get("http://localhost:8000/problems/problem/".concat(id).concat("/check_bookmark"), {
+        await axios.get("http://intdesk.herokuapp.com/problems/problem/".concat(id).concat("/check_bookmark"), {
             headers: {
               Authorization: "Token ".concat(authToken.token),
               "Content-Type": "application/json",
@@ -93,7 +93,7 @@ export default function ProblemIndividual() {
   const addBookMark = async () => {
     
 
-    await axios.post("http://localhost:8000/problems/problem/".concat(id).concat("/bookmark/"), {}, {
+    await axios.post("http://intdesk.herokuapp.com/problems/problem/".concat(id).concat("/bookmark/"), {}, {
         headers: {
           Authorization: "Token ".concat(authToken.token),
           "Content-Type": "application/json",
@@ -113,7 +113,7 @@ export default function ProblemIndividual() {
     const removeBookMark = async () => {
     
 
-        await axios.delete("http://localhost:8000/problems/problem/".concat(id).concat("/delete_bookmark/"), {
+        await axios.delete("http://intdesk.herokuapp.com/problems/problem/".concat(id).concat("/delete_bookmark/"), {
             headers: {
               Authorization: "Token ".concat(authToken.token),
               "Content-Type": "application/json",

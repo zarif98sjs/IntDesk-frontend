@@ -23,7 +23,7 @@ function Register() {
     };
 
     axios
-      .post("http://localhost:8000/users/register/", postData, {
+      .post("http://intdesk.herokuapp.com/users/register/", postData, {
         headers: {
           "Content-Type": "application/json",
         },
