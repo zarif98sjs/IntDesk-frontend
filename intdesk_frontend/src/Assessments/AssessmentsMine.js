@@ -274,7 +274,7 @@ function AssessmentsMine() {
   }
 
   const element = (
-    <div>
+    <div style={{ paddingLeft: '5%',paddingRight:'5%' }}>
       {searchValue === "" && searchRoleValue.length === 0 ? (
         <List
           itemLayout="horizontal"
@@ -313,7 +313,7 @@ function AssessmentsMine() {
   )
 
   const recommendedElement = (
-    <div>
+    <div style={{ paddingLeft: '5%',paddingRight:'5%' }}>
       {searchValue === "" && searchRoleValue.length === 0 ? (
         <List
         itemLayout="horizontal"
@@ -391,7 +391,7 @@ function AssessmentsMine() {
       <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
       :<br/>
       }
-      <div style={{ margin: '20px' }} >
+      <div style={{ paddingLeft: '5%',paddingRight:'5%' }} >
         {passedAssess.map((item, key) => (
           <Badge >
             {/* <Avatar src={item.image_link} /><br /> */}

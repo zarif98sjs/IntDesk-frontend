@@ -97,7 +97,7 @@ function DiscussionsNew() {
           />
 
           <Markdown
-            id="text_area"
+            style={{ height: "400px" }}
             callback={handleTextChange}
             textarea={true}
             customWidth={[50, 50]}
