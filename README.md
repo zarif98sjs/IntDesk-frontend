@@ -38,7 +38,22 @@ Home page of the website features all the functionalities of the website. The ma
 
 ## Problems
 
-TBD
+Users can browse a list of **interview problems** marked with **categories** and **tags** to help them **search** and **filter** problems.
+
+![](Miscellaneous/images/problem_all.png)
+![](Miscellaneous/images/problem_search.png)
+![](Miscellaneous/images/problem_filter.png)
+
+They can view the problem descriptions and use the **online IDE** to solve the problem and **submit** it. They can also view the result of this submission and **all previous submissions** by them for a problem.
+
+![](Miscellaneous/images/problem_one.png)
+![](Miscellaneous/images/problem_submit.png)
+![](Miscellaneous/images/problem_submissions.png)
+
+An **admin** can **create new problems** or **edit a problem** using the features available only to admin accounts.
+
+![](Miscellaneous/images/problem_create.png)
+![](Miscellaneous/images/problem_edit.png)
 
 ## Assesments
 
@@ -67,6 +82,8 @@ Users can view their profile and edit their profile details. They can also view 
 ![](Miscellaneous/images/profile_4.png)
 ![](Miscellaneous/images/profile_5.png)
 ![](Miscellaneous/images/profile_6.png)
+![](Miscellaneous/images/profile_7.png)
+
 
 ## Recommendation
 
