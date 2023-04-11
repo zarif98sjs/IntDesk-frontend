@@ -44,13 +44,13 @@ Users can browse a list of **interview problems** marked with **categories** and
 ![](Miscellaneous/images/problem_search.png)
 ![](Miscellaneous/images/problem_filter.png)
 
-They can view the problem descriptions and use the **online IDE** to solve the problem and **submit** it. They can also view the result of this submission and **all previous submissions** by them for a problem.
+They can view the description and sample input and output sets for any problem and use the **online IDE** to solve, test, and **submit** it. They can also view the result of this submission and **all previous submissions** by them in the submissions page.
 
 ![](Miscellaneous/images/problem_one.png)
 ![](Miscellaneous/images/problem_submit.png)
 ![](Miscellaneous/images/problem_submissions.png)
 
-An **admin** can **create new problems** or **edit a problem** using the features available only to admin accounts.
+An **admin/superuser** can **create** and **edit** problems using the features available only to admin accounts.
 
 ![](Miscellaneous/images/problem_create.png)
 ![](Miscellaneous/images/problem_edit.png)
